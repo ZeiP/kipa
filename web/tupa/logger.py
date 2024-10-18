@@ -2,7 +2,7 @@
 # KiPa(KisaPalvelu), tuloslaskentajärjestelmä partiotaitokilpailuihin
 #    Copyright (C) 2010  Espoon Partiotuki ry. ept@partio.fi
 
-
+from __future__ import print_function
 from django.conf import settings
 from xml.dom.minidom import parse, parseString
 import os.path
@@ -56,7 +56,7 @@ class PostDataRecorder:
                     if not kisa_haku.group(1) == "uusiKisa":
                         kisa = Kisa.objects.get(nimi=kisa_haku.group(1))
                         vanha = kisa_xml(kisa)
-                        print vanha
+                        print(vanha)
                         uusi.write(kisa_xml(kisa))  # talletetaan kisan kanta pohjaksi
                     else:
                         uusi.write(
