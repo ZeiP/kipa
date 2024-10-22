@@ -3,9 +3,6 @@
 #    Copyright (C) 2010  Espoon Partiotuki ry. ept@partio.fi
 
 
-#!/usr/bin/python
-
-
 from django.db import models
 from random import uniform
 from TulosLaskin import *

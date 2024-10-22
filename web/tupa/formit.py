@@ -3,7 +3,6 @@
 #    Copyright (C) 2010  Espoon Partiotuki ry. ept@partio.fi
 
 
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 from django.forms.models import modelformset_factory
