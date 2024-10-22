@@ -2,7 +2,7 @@
 
 {% load kipatags %}
 
-{% block sarake %} 
+{% block sarake %}
     <table width="600" border="1">
         <tr>
         <td></td>
@@ -23,7 +23,7 @@
    </table>
 {% endblock%}
 {% block content %}
-        <form action="." method="post">     
+        <form action="." method="post">
         {{ block.super }}
         {% include "tupa/tallenna.html" %}
 {% endblock%}

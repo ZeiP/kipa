@@ -30,7 +30,7 @@ TD {
 
 .capitalize {text-transform:capitalize;}
 .uppercase  {text-transform:uppercase;}
--->  
+-->
 </style>
 
 
@@ -58,7 +58,7 @@ TD {
 {% if tulos_taulukko %}
     <table id="tulostaulukko_screen" border=0 >
         {% for rivi in tulos_taulukko%}
-                {%if forloop.counter|add:"3"|divisibleby:"5" %}      
+                {%if forloop.counter|add:"3"|divisibleby:"5" %}
                         <tr height="10"><td></td></tr>
                 {% endif %}
                 {% if forloop.first %}
@@ -69,7 +69,7 @@ TD {
                                         {% comment %} ylarivin eka {% endcomment %}
                                         <td width="30" align="right"></td>
                                         <td width="30" align="right" style="padding-right:10px;"><b></b></td>
-                                        <td style="min-width:100px;"></td> 
+                                        <td style="min-width:100px;"></td>
                                         <td align="right" width=30 style="padding-right:10px;"></td>
                                 {% else %}
                                         {% comment %} ylarivi {% endcomment %}
@@ -84,7 +84,7 @@ TD {
 
                       </tr>
                       <tr valign="top">
-                
+
                         <td></td>
                         {% for sarake in rivi %}
                      {% comment %} ylarivi {% endcomment %}
@@ -107,7 +107,7 @@ TD {
                         {%endfor %}
 
                       </tr>
-                      <tr> 
+                      <tr>
                       <td></td><td></td><td align="right"><em>Maxpisteet</em></td>
                         {% for sarake in rivi %}
                                 {% if forloop.first  %}
@@ -128,12 +128,12 @@ TD {
                       <tr>
                             <td width="30" align="right"><b>SIJ.</b></td>
                             <td width="30" align="right" style="padding-right:10px;"><b></b></td>
-                            <td style="min-width:100px;"><b>VARTIO</b></td> 
+                            <td style="min-width:100px;"><b>VARTIO</b></td>
                             <td align="right" width=30 style="padding-right:10px;"><b>YHT</b></td>
                       </tr>
 
                       <tr valign='top'>
-                      
+
                 {% else %}
                 {% for sarake in rivi %}
                      {% comment %} ylarivi {% endcomment %}
@@ -150,13 +150,13 @@ TD {
                      {% comment %} muut sarakkeet {% endcomment %}
                      {% else %}
                         <td align="right" style="padding-right:10px;">
-                                {% if forloop.first %} <b> {%endif%}     
+                                {% if forloop.first %} <b> {%endif%}
                                         {{ sarake }}
-                                {% if forloop.first %} </b> {%endif%}     
+                                {% if forloop.first %} </b> {%endif%}
                         </td>
                      {% endifequal %}
                      {% endifequal %}
-                     
+
                 {% endfor %}
                      {% endif %}
             </tr>
@@ -167,33 +167,33 @@ TD {
                         {% for rivi in ulkona_taulukko%}
                         <tr valign='top'>
                         {% for sarake in rivi %}
-                                
+
 
                                 {% ifequal forloop.counter 2 %}
                                         {% comment %} ekasarake {% endcomment %}
-                                        <td align="right" style="padding-right:10px;">{{ sarake.nro }}</td> <td>{{ sarake.nimi }} 
+                                        <td align="right" style="padding-right:10px;">{{ sarake.nro }}</td> <td>{{ sarake.nimi }}
                                                 {%if sarake.lippukunta %}<br>{%endif%}
                                                 {{sarake.lippukunta}}
-                                                {%if sarake.piiri %}<br> {%endif%} 
+                                                {%if sarake.piiri %}<br> {%endif%}
                                                 {{sarake.piiri}} </td>
-                                        
+
                                 {% else %}
                                         {% comment %} muut sarakkeet {% endcomment %}
                                 <td align="right" style="padding-right:10px;">
-                                        {% if forloop.first %} <b> {%endif%}     
+                                        {% if forloop.first %} <b> {%endif%}
                                         {{ sarake }}
-                                        {% if forloop.first %} </b> {%endif%}     
+                                        {% if forloop.first %} </b> {%endif%}
                                 </td>
                                 {% endifequal %}
                         {% endfor %}
                         </tr>
-                        {%if forloop.counter|divisibleby:"5" %}      
+                        {%if forloop.counter|divisibleby:"5" %}
                                         <tr height=10><td></td></tr>
                         {% endif %}
                         {% endfor %}
                 {% endif %}
         {% endfor %}
-        
+
         <tr>
         <br>
         <br>
@@ -201,7 +201,7 @@ TD {
 
 
     </table>
-       
+
 {% else %}
     <p>Ei tuloksia.</p>
 {% endif %}
