@@ -1,4 +1,4 @@
-django==1.5
+django==1.6
 south
 #mysql-python
 git+https://github.com/PyMySQL/mysqlclient-python.git@v1.4.6#egg=MySQLdb
