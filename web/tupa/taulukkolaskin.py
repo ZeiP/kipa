@@ -2,14 +2,14 @@
 # KiPa(KisaPalvelu), tuloslaskentajärjestelmä partiotaitokilpailuihin
 #    Copyright (C) 2010  Espoon Partiotuki ry. ept@partio.fi
 
+from __future__ import absolute_import
 import re
-from laskentatyypit import *
-from funktiot import perusfunktiot
-from funktiot import listafunktiot
-import settings
+from decimal import Decimal, DivisionByZero, ROUND_HALF_UP
+from .laskentatyypit import suorita, suorita_lista, MathDict, DictDecimal
+from .funktiot import listafunktiot, perusfunktiot
 
-# from tupa.log import *
-import log
+import settings
+from . import log
 
 pfunktiot = {}
 lfunktiot = {}

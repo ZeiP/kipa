@@ -2,17 +2,18 @@
 # KiPa(KisaPalvelu), tuloslaskentajärjestelmä partiotaitokilpailuihin
 #    Copyright (C) 2010  Espoon Partiotuki ry. ept@partio.fi
 
-from django.utils.safestring import SafeUnicode
+from __future__ import absolute_import
 from django.template.loader import render_to_string
 import re
 import string
 import operator
-from decimal import *
-from taulukkolaskin import laskeTaulukko
-from TulosLaskin import luoOsatehtavanKaava
+from decimal import Decimal
+
+from .taulukkolaskin import laskeTaulukko
+from .TulosLaskin import luoOsatehtavanKaava
 
 # Lataamista varten:
-from models import *
+from .models import OsaTehtava, Parametri, SyoteMaarite, Tehtava
 from django.core import serializers
 
 # Tehtävätyyppien kaavapohja:

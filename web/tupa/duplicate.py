@@ -2,7 +2,7 @@
 # KiPa(KisaPalvelu), tuloslaskentajärjestelmä partiotaitokilpailuihin
 #    Copyright (C) 2010  Espoon Partiotuki ry. ept@partio.fi
 
-import models
+from django.core import serializers
 
 
 def kisa_xml(kisa):
@@ -10,7 +10,6 @@ def kisa_xml(kisa):
     Apufunktio -> Luo xml merkkijonon kaikista kisan objekteista.
     Jättää henkilöt ja allergiat luomatta.
     """
-    from django.core import serializers
 
     objects = [
         kisa,

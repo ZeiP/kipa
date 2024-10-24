@@ -4,13 +4,11 @@
 """
 Tässä tiedostossa on määritelty kaikki funktiot joita voi käyttää laskennan kaavoissa.
 """
-from laskentatyypit import *
+from __future__ import absolute_import
 
-from math import *
+from decimal import ROUND_FLOOR, ROUND_CEILING, getcontext
 
-# from decimal import *
-
-import log
+from .laskentatyypit import DictDecimal, suorita_lista
 
 
 def pienin(*lista):

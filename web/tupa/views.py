@@ -4,33 +4,56 @@
 #    Copyright (C) 2011  Espoon Partiotuki ry. ept@partio.fi
 # -*- coding: UTF-8 -*-
 
-from django.shortcuts import render_to_response, redirect, get_object_or_404
-from django.http import Http404, HttpResponse, HttpResponseRedirect
-import operator
-from decimal import *
+from __future__ import absolute_import
+import re
+
 from django import forms
+from django.core import serializers
+from django.shortcuts import render_to_response, redirect, get_object_or_404
+from django.http import HttpResponse
+from django.utils.safestring import SafeUnicode
+from decimal import ROUND_UP, Decimal
 import django.template
 from django.template import RequestContext
-from django.utils.safestring import SafeUnicode
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import permission_required
-from duplicate import kopioiTehtava
-from duplicate import kisa_xml
+from .duplicate import kopioiTehtava
+from .duplicate import kisa_xml
 import random
 
-from models import *
-import re
-from formit import *
-from TehtavanMaaritys import *
+from .formit import (
+    KisaForm,
+    SarjaFormSet,
+    SyoteForm,
+    TarkistusSyoteForm,
+    TehtavaLinkkilistaFormset,
+    TestiTulosForm,
+    TuomarineuvosForm,
+    UploadFileForm,
+    UploadFileNameForm,
+    VartioFormSet,
+)
+from .models import (
+    Kisa,
+    OsaTehtava,
+    Parametri,
+    Sarja,
+    Syote,
+    SyoteMaarite,
+    Tehtava,
+    TestausTulos,
+    TuomarineuvosTulos,
+    Vartio,
+)
+from .TehtavanMaaritys import luoTehtavaData, tallennaTehtavaData, tehtavanMaaritysForm
 
 import time
-from UnicodeTools import *
+from .UnicodeTools import UnicodeWriter
 import django.db
 
-from TulosLaskin import *
-from log import *
+from .TulosLaskin import laskeSarja
+from .log import clearLoki, enableLogging, palautaLoki
 
 
 def kipaResponseRedirect(url):

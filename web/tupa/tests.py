@@ -2,18 +2,39 @@
 # KiPa(KisaPalvelu), tuloslaskentaj�rjestelm� partiotaitokilpailuihin
 #    Copyright (C) 2010  Espoon Partiotuki ry. ept@partio.fi
 
+from __future__ import absolute_import
 from __future__ import print_function
+from decimal import Decimal
+import sys
 import unittest
 
-from models import *
-from taulukkolaskin import *
-import decimal
+from .taulukkolaskin import laske
 from django.test import TestCase
 from django.test.runner import DiscoverRunner
-from views import *
+from .models import Kisa, OsaTehtava, Parametri, Sarja, Syote, Tehtava, TestausTulos
+from .views import (
+    kisa,
+    kopioiTehtavia,
+    korvaaKisa,
+    laskennanTilanne,
+    maaritaKisa,
+    maaritaTehtava,
+    maaritaValitseTehtava,
+    maaritaVartiot,
+    poistaKisa,
+    sarjanTuloksetCSV,
+    syotaKisa,
+    syotaTehtava,
+    tallennaKisa,
+    tehtavanVaiheet,
+    testiTulos,
+    tulosta,
+    tulostaSarja,
+    tulostaSarjaHTML,
+)
 import os
 from django.test.client import Client
-from django.http import HttpRequest, QueryDict
+from django.http import HttpRequest
 import re
 import settings
 

@@ -1,5 +1,3 @@
-import settings
-
 laskentaloki = ""
 try:
     stack

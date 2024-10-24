@@ -5,12 +5,23 @@
 
 # -*- coding: utf-8 -*-
 
+from __future__ import absolute_import
 from django.forms.models import modelformset_factory
 from django import forms
-from models import *
+from .models import (
+    Kisa,
+    OsaTehtava,
+    Sarja,
+    Syote,
+    SyoteMaarite,
+    Tehtava,
+    TestausTulos,
+    TuomarineuvosTulos,
+    Vartio,
+)
 from django.forms import ModelForm
 from django.forms.models import inlineformset_factory
-from decimal import *
+from decimal import Decimal
 import re
 from django.utils.safestring import SafeUnicode
 from django.template.loader import render_to_string

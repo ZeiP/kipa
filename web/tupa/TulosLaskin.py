@@ -2,20 +2,15 @@
 # KiPa(KisaPalvelu), tuloslaskentajärjestelmä partiotaitokilpailuihin
 #    Copyright (C) 2010  Espoon Partiotuki ry. ept@partio.fi
 
-if not __name__ == "__main__":
-    from funktiot import *
-
-from decimal import *
-from laskentatyypit import *
+from __future__ import absolute_import
 import re
-from taulukkolaskin import *
-import math
+
+from decimal import Decimal, InvalidOperation
+from .taulukkolaskin import laskeTaulukko
+from .laskentatyypit import MathDict, DictDecimal
 import operator
 
-# from django.core.exceptions import ObjectDoesNotExist
-from django.core.cache import cache
-from models import *
-import log
+from . import log
 
 
 def korvaa(lause, pino, loppu=None):

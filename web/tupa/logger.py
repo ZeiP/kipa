@@ -2,17 +2,17 @@
 # KiPa(KisaPalvelu), tuloslaskentajärjestelmä partiotaitokilpailuihin
 #    Copyright (C) 2010  Espoon Partiotuki ry. ept@partio.fi
 
+from __future__ import absolute_import
 from __future__ import print_function
-from django.conf import settings
-from xml.dom.minidom import parse, parseString
+from xml.dom.minidom import getDOMImplementation
 import os.path
 import re
 
-##from tupa.models import Kisa
-from django.shortcuts import get_object_or_404
-from duplicate import kisa_xml
+from django.conf import settings
 
-from xml.dom.minidom import getDOMImplementation
+from .duplicate import kisa_xml
+from .models import Kisa
+
 
 impl = getDOMImplementation()
 

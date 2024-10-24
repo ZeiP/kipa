@@ -2,9 +2,10 @@
 # KiPa(KisaPalvelu), tuloslaskentajärjestelmä partiotaitokilpailuihin
 #    Copyright (C) 2010  Espoon Partiotuki ry. ept@partio.fi
 
-from decimal import *
+from __future__ import absolute_import
+from decimal import Decimal, ROUND_HALF_UP
 
-import log
+from . import log
 
 
 def decimal_uni(self):

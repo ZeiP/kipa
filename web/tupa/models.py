@@ -3,17 +3,16 @@
 #    Copyright (C) 2010  Espoon Partiotuki ry. ept@partio.fi
 
 
+from __future__ import absolute_import
+from django.core.cache import cache
 from django.db import models
-from random import uniform
-from TulosLaskin import *
+from .TulosLaskin import laskeSarja
 import settings
 
 import thread
 import time
 
-import log
-from binascii import *
-import sys
+from . import log
 
 
 class Kipa(models.Model):

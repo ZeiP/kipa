@@ -2,8 +2,8 @@
 # KiPa(KisaPalvelu), tuloslaskentajärjestelmä partiotaitokilpailuihin
 #    Copyright (C) 2010  Espoon Partiotuki ry. ept@partio.fi
 
+from __future__ import absolute_import
 from django.conf.urls import patterns
-from models import *
 from django.conf import settings
 
 tal = r"(?P<talletettu>(talletettu)?)/?$"
