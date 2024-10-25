@@ -780,8 +780,8 @@ def vapaaKaavaForm(posti, data, prefix):
         validi = True
         if "valid" in data.keys() and data["valid"] == False:
             validi = False
-        formia = syotteen_kuvaus_field(posti, data, prefix, i, "vk").items()[0]
-        formib = syotteen_tyyppi_field(posti, data, prefix, i, "vk").items()[0]
+        formia = list(syotteen_kuvaus_field(posti, data, prefix, i, "vk").items())[0]
+        formib = list(syotteen_tyyppi_field(posti, data, prefix, i, "vk").items())[0]
         if validi and "valid" in data.keys() and data["valid"] == False:
             del data["valid"]
         formit.append(
@@ -790,7 +790,7 @@ def vapaaKaavaForm(posti, data, prefix):
 
     if posti and prefix in posti.keys() and posti[prefix] == "vk":
         if "maaritteet" in data.keys():
-            maaritteet = data["maaritteet"].copy().items()
+            maaritteet = list(data["maaritteet"].copy().items())
             for i in range(maara):
                 if maaritteet[i][1]["kali_vihje"] == "":
                     if type(maaritteet[i][0]) == str and maaritteet[i][0][:1] == "#":
@@ -864,8 +864,8 @@ def puhdasKaavaForm(posti, data, prefix):
         validi = True
         if "valid" in data.keys() and data["valid"] == False:
             validi = False
-        formia = syotteen_kuvaus_field(posti, data, prefix, i, "pk").items()[0]
-        formib = syotteen_tyyppi_field(posti, data, prefix, i, "pk").items()[0]
+        formia = list(syotteen_kuvaus_field(posti, data, prefix, i, "pk").items())[0]
+        formib = list(syotteen_tyyppi_field(posti, data, prefix, i, "pk").items())[0]
         if validi and "valid" in data.keys() and data["valid"] == False:
             del data["valid"]
         formit.append(
@@ -874,7 +874,7 @@ def puhdasKaavaForm(posti, data, prefix):
 
     if posti and prefix in posti.keys() and posti[prefix] == "pk":
         if "maaritteet" in data.keys():
-            maaritteet = data["maaritteet"].copy().items()
+            maaritteet = list(data["maaritteet"].copy().items())
             for i in range(maara):
                 if maaritteet[i][1]["kali_vihje"] == "":
                     if type(maaritteet[i][0]) == str and maaritteet[i][0][:1] == "#":
@@ -1022,7 +1022,7 @@ def tehtavanMaaritysForm(
             ot_formit = []
 
             # Osatehtavien maara kentta:
-            osatehtavia = len(v["osa_tehtavat"].keys())
+            osatehtavia = len(list(v["osa_tehtavat"].keys()))
             errors = ""
             if posti and prefix + str(k) + "_osatehtavia" in posti.keys():
                 # Ja validiointi:
