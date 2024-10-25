@@ -8,7 +8,7 @@ from models import *
 from taulukkolaskin import *
 import decimal
 from django.test import TestCase
-from django.test.simple import DjangoTestSuiteRunner
+from django.test.runner import DiscoverRunner
 from views import *
 import os
 from django.test.client import Client
@@ -378,7 +378,7 @@ class TasapisteTesti(TestCase):
         assert tulokset[0][6][0].nro == 6
 
 
-class CustomTestRunner(DjangoTestSuiteRunner):
+class CustomTestRunner(DiscoverRunner):
     def run_tests(
         self,
         test_labels=None,
