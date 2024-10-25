@@ -388,7 +388,7 @@ class CustomTestRunner(DjangoTestSuiteRunner):
         failfast=True,
         **kwargs
     ):
-        run_one_fixture(test_labels, verbosity, interactive, extra_tests)
+        return run_one_fixture(test_labels, verbosity, interactive, extra_tests)
 
 
 def run_one_fixture(test_labels, verbosity=1, interactive=True, extra_tests=[]):
