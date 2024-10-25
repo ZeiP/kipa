@@ -31,10 +31,10 @@ def mediaani(*lista):
     """
     values = sorted(lista)
     if len(values) % 2 == 1:
-        return DictDecimal(values[(len(values) + 1) / 2 - 1])
+        return DictDecimal(values[(len(values) + 1) // 2 - 1])
     else:
-        lower = DictDecimal(values[len(values) / 2 - 1])
-        upper = DictDecimal(values[len(values) / 2])
+        lower = DictDecimal(values[len(values) // 2 - 1])
+        upper = DictDecimal(values[len(values) // 2])
         return (DictDecimal(lower + upper)) / 2
 
 

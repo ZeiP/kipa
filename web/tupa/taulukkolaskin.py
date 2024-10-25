@@ -3,6 +3,7 @@
 #    Copyright (C) 2010  Espoon Partiotuki ry. ept@partio.fi
 
 from __future__ import absolute_import
+from __future__ import division
 import re
 from decimal import Decimal, DivisionByZero, ROUND_HALF_UP
 from .laskentatyypit import suorita, suorita_lista, MathDict, DictDecimal

@@ -39,10 +39,10 @@ class SequenceOperations:
     def __rmul__(self, other):
         return self.operate_to_all(lambda a, b: a * b, other)
 
-    def __div__(self, other):
+    def __truediv__(self, other):
         return self.operate_to_all(lambda a, b: a / b, other)
 
-    def __rdiv__(self, other):
+    def __rtruediv__(self, other):
         return self.operate_to_all(lambda a, b: b / a, other)
 
     def __lt__(self, other):
