@@ -343,12 +343,7 @@ def laskeSarja(sarja, syotteet, vartiot=None, tehtavat=None):
             # Tarkistetaan, että pisteet on laskettu (numeerinen arvo).
             # Vartion pisteet voivat olla myös esim. H, E tai K (katso
             # silmukka vähän ylempää), tällöin tarkistus on turha.
-            if (
-                pisteet
-                and type(pisteet) != str
-                and type(pisteet) != unicode
-                and tehtavat[t].maksimipisteet != ""
-            ):
+            if pisteet and type(pisteet) != str and tehtavat[t].maksimipisteet != "":
                 # Onko pisteet > max pisteet
                 if pisteet > float(tehtavat[t].maksimipisteet):
                     # Lisää huomautus tulosluetteloon
@@ -357,7 +352,7 @@ def laskeSarja(sarja, syotteet, vartiot=None, tehtavat=None):
         # Kokonaispisteet:
         summa = 0
         for s in tulokset[i]:
-            if s and type(s) != str and type(s) != unicode:
+            if s and type(s) != str:
                 summa += s
         tulokset[i].insert(0, summa)
         # Vartio objekti jokaisen rivin alkuun:

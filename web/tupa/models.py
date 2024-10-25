@@ -9,7 +9,7 @@ from django.db import models
 from .TulosLaskin import laskeSarja
 import settings
 
-import thread
+import threading
 import time
 
 from . import log
@@ -28,7 +28,7 @@ class Kisa(models.Model):
     paikka = models.CharField(max_length=255, blank=True)
     tunnistus = models.BooleanField(default=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.nimi
 
     class Meta:
@@ -45,7 +45,7 @@ class Sarja(models.Model):
     tasapiste_teht2 = models.IntegerField(blank=True, null=True)
     tasapiste_teht3 = models.IntegerField(blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.kisa.nimi + "." + self.nimi
 
     def save(self, *args, **kwargs):  # Tulokset uusiksi tallennuksen yhteydessä
@@ -89,7 +89,7 @@ class Sarja(models.Model):
                 laskeeName
             )  # Tarkistetaan ollaanko tuloksia jo laskemassa.
             if not laskee:
-                thread.start_new_thread(self.laskeTulokset, ())
+                threading.start_new_thread(self.laskeTulokset, ())
 
     def tuloksetUusiksi(self):
         # Poistetaan tulosten cache
@@ -121,7 +121,7 @@ class Vartio(models.Model):
         self.sarja.tuloksetUusiksi()
         super(Vartio, self).delete(*args, **kwargs)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.sarja.kisa.nimi + "." + self.sarja.nimi + "." + str(self.nro)
 
     class Meta:
@@ -138,7 +138,7 @@ class Henkilo(models.Model):
     puhelin_nro = models.CharField(max_length=15, blank=True, null=True)
     homma = models.CharField(max_length=255, blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.nimi
 
     class Meta:
@@ -198,7 +198,7 @@ class Tehtava(models.Model):
         self.sarja.tuloksetUusiksi()
         super(Tehtava, self).delete(*args, **kwargs)
 
-    def __unicode__(self):
+    def __str__(self):
         sarja = self.sarja
         kisa = sarja.kisa
         return kisa.nimi + "." + sarja.nimi + "." + self.nimi
@@ -230,7 +230,7 @@ class OsaTehtava(models.Model):
         self.tehtava.sarja.tuloksetUusiksi()
         super(OsaTehtava, self).delete(*args, **kwargs)
 
-    def __unicode__(self):
+    def __str__(self):
         tehtava = self.tehtava
         sarja = tehtava.sarja
         kisa = sarja.kisa
@@ -261,7 +261,7 @@ class SyoteMaarite(models.Model):
         self.osa_tehtava.tehtava.sarja.tuloksetUusiksi()
         super(SyoteMaarite, self).delete(*args, **kwargs)
 
-    def __unicode__(self):
+    def __str__(self):
         ot = self.osa_tehtava
         tehtava = ot.tehtava
         sarja = tehtava.sarja
@@ -298,7 +298,7 @@ class Syote(models.Model):
         self.vartio.sarja.tuloksetUusiksi()
         super(Syote, self).delete(*args, **kwargs)
 
-    def __unicode__(self):
+    def __str__(self):
         vartio = self.vartio
         maarite = self.maarite
         ot = maarite.osa_tehtava
@@ -337,7 +337,7 @@ class TulosTaulu(models.Model):
         self.vartio.sarja.tuloksetUusiksi()
         super(TulosTaulu, self).delete(*args, **kwargs)
 
-    def __unicode__(self):
+    def __str__(self):
         tehtava = self.tehtava
         sarja = tehtava.sarja
         kisa = sarja.kisa
@@ -377,7 +377,7 @@ class Parametri(models.Model):
         verbose_name_plural = "OsaTehtavan paramentrit"
         db_table = u"kipa_parametri"
 
-    def __unicode__(self):
+    def __str__(self):
         ot = self.osa_tehtava
         tehtava = ot.tehtava
         sarja = tehtava.sarja

@@ -11,7 +11,7 @@ from django import forms
 from django.core import serializers
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.http import HttpResponse
-from django.utils.safestring import SafeUnicode
+from django.utils.safestring import mark_safe
 from decimal import ROUND_UP, Decimal
 import django.template
 from django.template import RequestContext
@@ -415,7 +415,7 @@ def maaritaTehtava(request, kisa_nimi, tehtava_id=None, sarja_id=None, talletett
     otsikko = u"Uusi tehtävä" + " (" + sarja.nimi + ")"
 
     if tehtava and not tehtava.nimi == "":
-        otsikko = unicode(tehtava.nimi) + " (" + sarja.nimi + ")"
+        otsikko = str(tehtava.nimi) + " (" + sarja.nimi + ")"
 
     # Talletetaanko ja siirrytäänkö talletettu sivuun?
     if posti and not "lisaa_maaritteita" in posti.keys() and daatta["valid"]:
@@ -830,7 +830,7 @@ def sarjanTuloksetCSV(request, kisa_nimi, sarja_id):
 
     otsikkorivi = ["", "Sij.", "Nro:", "Vartio:", "Yht:"]
     for teht in mukana[0][2:]:
-        otsikkorivi.append(unicode(teht.jarjestysnro))
+        otsikkorivi.append(str(teht.jarjestysnro))
     writer.writerow(otsikkorivi)
 
     nimirivi = ["", "", "", "", ""]
@@ -858,12 +858,12 @@ def sarjanTuloksetCSV(request, kisa_nimi, sarja_id):
         vartiorivi = [
             mukana[i + 1][0].tasa,
             str(numero),
-            unicode(mukana[i + 1][0].nro),
-            unicode(mukana[i + 1][0].nimi),
+            str(mukana[i + 1][0].nro),
+            str(mukana[i + 1][0].nimi),
         ]
-        vartiorivi.append(unicode(mukana[i + 1][1]).replace(".", ","))
+        vartiorivi.append(str(mukana[i + 1][1]).replace(".", ","))
         for num in mukana[i + 1][2:]:
-            vartiorivi.append(unicode(num).replace(".", ","))
+            vartiorivi.append(str(num).replace(".", ","))
         writer.writerow(vartiorivi)
         numero = numero + 1
 
@@ -873,12 +873,12 @@ def sarjanTuloksetCSV(request, kisa_nimi, sarja_id):
         vartiorivi = [
             ulkona[i][0].tasa,
             str(numero),
-            unicode(ulkona[i][0].nro),
-            unicode(ulkona[i][0].nimi),
+            str(ulkona[i][0].nro),
+            str(ulkona[i][0].nimi),
         ]
-        vartiorivi.append(unicode(ulkona[i][1]).replace(".", ","))
+        vartiorivi.append(str(ulkona[i][1]).replace(".", ","))
         for num in ulkona[i][2:]:
-            vartiorivi.append(unicode(num).replace(".", ","))
+            vartiorivi.append(str(num).replace(".", ","))
         writer.writerow(vartiorivi)
 
         ulkona[i].insert(0, numero)
@@ -1019,9 +1019,7 @@ def korvaaKisa(request, kisa_nimi=None):
                 except:
                     kisa = None
 
-            xml = r""
-            for chunk in request.FILES["file"].chunks():
-                xml += chunk
+            xml = request.FILES["file"].read().decode("utf-8")
 
             kisat = []
             sarjat = []
@@ -1167,11 +1165,11 @@ def raportti_500(request):
     -Sisältää linkin joka palauttaa tietokannan,
     sekä viimeisimmän post datan xml formaatissa testausta varten.
     """
-    linkki = SafeUnicode("<a href=/kipa")
+    linkki = mark_safe("<a href=/kipa")
     linkki += "/> #00000000" + str(random.uniform(1, 10)) + "</a>"
     return render_to_response(
         "500.html",
-        {"error": SafeUnicode(linkki)},
+        {"error": mark_safe(linkki)},
         context_instance=RequestContext(request),
     )
 

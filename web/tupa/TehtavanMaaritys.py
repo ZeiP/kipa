@@ -136,7 +136,7 @@ def numero_ajaksi(n):
 # Pohjapalikoita: #
 ###################
 def syotteen_tyyppi_field(posti, data, prefix, syote_id, tyyppi):
-    nimi = string.letters[syote_id]
+    nimi = string.ascii_letters[syote_id]
     id = prefix + "_" + tyyppi + "_" + nimi + "_tyyppi"
     field_name = "tyyppi_" + nimi
     value = "piste"
@@ -230,7 +230,7 @@ def loadField(
 def syotteen_kuvaus_field(posti, data, prefix, syote_id, tyyppi):
     formi = None
     errors = ""
-    nimi = string.letters[syote_id]
+    nimi = string.ascii_letters[syote_id]
     id = prefix + "_" + tyyppi + "_" + nimi
     value = ""
     field_name = "kali_vihje_" + nimi
@@ -785,7 +785,11 @@ def vapaaKaavaForm(posti, data, prefix):
         if validi and "valid" in data.keys() and data["valid"] == False:
             del data["valid"]
         formit.append(
-            {"kali_vihje": formia[1], "nimi": string.letters[i], "tyyppi": formib[1]}
+            {
+                "kali_vihje": formia[1],
+                "nimi": string.ascii_letters[i],
+                "tyyppi": formib[1],
+            }
         )
 
     if posti and prefix in posti.keys() and posti[prefix] == "vk":
@@ -869,7 +873,11 @@ def puhdasKaavaForm(posti, data, prefix):
         if validi and "valid" in data.keys() and data["valid"] == False:
             del data["valid"]
         formit.append(
-            {"kali_vihje": formia[1], "nimi": string.letters[i], "tyyppi": formib[1]}
+            {
+                "kali_vihje": formia[1],
+                "nimi": string.ascii_letters[i],
+                "tyyppi": formib[1],
+            }
         )
 
     if posti and prefix in posti.keys() and posti[prefix] == "pk":
@@ -1080,7 +1088,7 @@ def tehtavanMaaritysForm(
                     tId = None
 
                 v["osa_tehtavat"][uusi_id] = {
-                    "nimi": string.letters[osatehtava_id],
+                    "nimi": string.ascii_letters[osatehtava_id],
                     "tyyppi": "",
                     "kaava": "",
                     "tehtava": tId,

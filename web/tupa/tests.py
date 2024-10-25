@@ -230,7 +230,7 @@ def TulosTestFactory(fixture_name):
             settings.CACHE_TULOKSET = False
             settings.CACHE_BACKEND = "dummy:///"  # No cache in use
             for s in self.sarjat:
-                virheilmoitus = unicode("")
+                virheilmoitus = ""
                 for f in self.fixtures:
                     virheilmoitus = virheilmoitus + f + " "
 
@@ -291,9 +291,7 @@ def TulosTestFactory(fixture_name):
             virhe = str(len(virheet)) + " errors"
             for v in virheet:
                 virhe = virhe + "\n--------------------------------\n" + v
-            self.failUnless(
-                len(virheet) == 0, unicode(virhe).encode("ascii", "replace")
-            )
+            self.assertTrue( len(virheet) == 0, str(virhe) )
             sys.stdout.flush()
 
         def testTehtavanUudelleenTallennus(self):

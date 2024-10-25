@@ -13,11 +13,11 @@ def decimal_uni(self):
 
 
 def decimal_repr(self):
-    return unicode(self.quantize(Decimal("0.1"), rounding=ROUND_HALF_UP))
+    return str(self.quantize(Decimal("0.1"), rounding=ROUND_HALF_UP))
 
 
-Decimal.__repr__ = decimal_repr
-Decimal.__unicode__ = decimal_uni
+# Decimal.__repr__ = decimal_repr
+# Decimal.__str__ = decimal_uni
 
 
 class SequenceOperations:
@@ -110,11 +110,11 @@ class MathDict(SequenceOperations, dict):
             lista.append(v)
         return lista
 
-    def __unicode__(self):
+    def __str__(self):
         stringi = u"{"
         for k, v in self.items():
             if v:
-                stringi += unicode(k) + ": " + unicode(v) + ", "
+                stringi += str(k) + ": " + str(v) + ", "
         stringi = stringi[:-2]
         stringi += "}"
         return stringi
@@ -155,11 +155,11 @@ class MathList(SequenceOperations, list):
     def listaksi(self):
         return list(self)
 
-    def __unicode__(self):
+    def __str__(self):
         stringi = u"["
         for l in self:
             if l:
-                stringi += unicode(l) + ", "
+                stringi += str(l) + ", "
         stringi = stringi[:-2]
         stringi += "]"
         return stringi
@@ -288,7 +288,7 @@ def karsi(lista, lfunktio):
                 pakotus = 1  # Tähän täytyisi tehdä rekursiivinen sanakirjojen operointi
 
             elif hasattr(l, "__contains__"):  # on lista
-                if len(l) > index and not type(l) == str and not type(l) == unicode:
+                if len(l) > index and not type(l) == str:
                     tavaraa = 1
                     varvi.append(l[index])
             else:
@@ -323,7 +323,7 @@ def listaksi(a, *opt):
         joukkio = [joukkio]
     if type(joukkio) == Decimal:
         joukkio = [DictDecimal(joukkio)]
-    elif type(joukkio) == unicode or type(joukkio) == str:
+    elif type(joukkio) == str:
         return joukkio
     # elif type( joukkio )== MathDict:
     # return joukkio
@@ -404,7 +404,7 @@ def suorita_lista(funktio, a, *param):
             and len(a) == 0
         ):
             raise KeyError
-        elif type(a) == unicode:
+        elif type(a) == str:
             tulos = None
         elif type(a) == Decimal or type(a) == bool:
             tulos = karsi(listaksi(a), funktio)
