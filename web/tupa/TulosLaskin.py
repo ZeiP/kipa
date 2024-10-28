@@ -156,7 +156,7 @@ def luoOsatehtavanKaava(ot_lause, parametrit):
     log.logString("  kaava = " + ot_lause)
     korvautuu = True
 
-    log.logString(u"    Parametrit: ")
+    log.logString("    Parametrit: ")
     for p_nimi, p_arvo in parametrit.items():
         log.logString("         " + p_nimi + "= " + p_arvo)
 
@@ -196,14 +196,14 @@ def luoTehtavanKaava(t, v):
     osatehtavat = t.osatehtava_set.all()
     ot_lauseet = []
 
-    log.logString(u"<h3>Tehtävä: " + t.nimi.upper() + "</h3>")
+    log.logString("<h3>Tehtävä: " + t.nimi.upper() + "</h3>")
     if t.kaava.upper() == "SS":
-        log.logString(u"kaava = ⚡⚡")
+        log.logString("kaava = ⚡⚡")
     else:
-        log.logString(u"kaava =  " + t.kaava.upper())
+        log.logString("kaava =  " + t.kaava.upper())
 
     for ot in osatehtavat:
-        log.logString(u"\n<b>Osatehtävä: " + ot.nimi.upper() + "</b>")
+        log.logString("\n<b>Osatehtävä: " + ot.nimi.upper() + "</b>")
         pino.append(ot.nimi)
 
         ot_lause = ot.kaava
@@ -330,7 +330,7 @@ def laskeSarja(sarja, syotteet, vartiot=None, tehtavat=None):
                 tuom = vartion_tuomarit.filter(tehtava=tehtavat[t])
                 if len(tuom):
                     log.logString(
-                        u"Tuomarineuvoston ylimääritys: " + str(tuom[0].pisteet)
+                        "Tuomarineuvoston ylimääritys: " + str(tuom[0].pisteet)
                     )
                     try:
                         tulokset[i][t] = Decimal(tuom[0].pisteet)

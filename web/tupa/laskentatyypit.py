@@ -111,7 +111,7 @@ class MathDict(SequenceOperations, dict):
         return lista
 
     def __str__(self):
-        stringi = u"{"
+        stringi = "{"
         for k, v in self.items():
             if v:
                 stringi += str(k) + ": " + str(v) + ", "
@@ -156,7 +156,7 @@ class MathList(SequenceOperations, list):
         return list(self)
 
     def __str__(self):
-        stringi = u"["
+        stringi = "["
         for l in self:
             if l:
                 stringi += str(l) + ", "

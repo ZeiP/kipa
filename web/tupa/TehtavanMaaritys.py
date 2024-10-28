@@ -462,7 +462,7 @@ def maksimisuoritus(
     prefix,
     ot_tyyppi,
     formi,
-    validiointi=[[is_number], u"Syötä numeroita!"],
+    validiointi=[[is_number], "Syötä numeroita!"],
     muunnos=None,
 ):
     # Valinnat:

@@ -54,7 +54,7 @@ def laske(lauseke, m={}, funktiot={}):
     f = dictToMathDict(f)
 
     log.logString("<h4> Laskenta: </h4>")
-    log.logString(u"Tehtävän lause = " + lauseke)
+    log.logString("Tehtävän lause = " + lauseke)
 
     # Poistetaan välilyonnit ja enterit:
     lause = lauseke.replace("\n", "")

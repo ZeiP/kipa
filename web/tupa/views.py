@@ -301,7 +301,7 @@ def maaritaValitseTehtava(request, kisa_nimi):
             "tupa/maaritaValitseTehtava.html",
             {
                 "taulukko": taulukko,
-                "heading": u"Muokkaa tehtävää",
+                "heading": "Muokkaa tehtävää",
                 "kisa_nimi": kisa_nimi,
             },
             context_instance=RequestContext(request),
@@ -412,7 +412,7 @@ def maaritaTehtava(request, kisa_nimi, tehtava_id=None, sarja_id=None, talletett
 
     sarja.taustaTulokset()  # Taustalaskenta
 
-    otsikko = u"Uusi tehtävä" + " (" + sarja.nimi + ")"
+    otsikko = "Uusi tehtävä" + " (" + sarja.nimi + ")"
 
     if tehtava and not tehtava.nimi == "":
         otsikko = str(tehtava.nimi) + " (" + sarja.nimi + ")"
@@ -450,7 +450,7 @@ def maaritaTehtava(request, kisa_nimi, tehtava_id=None, sarja_id=None, talletett
                 "tehtava_ida": 5,
                 "taakse": {
                     "url": "/kipa/" + kisa_nimi + "/maarita/tehtava/",
-                    "title": u"Muokkaa tehtävää",
+                    "title": "Muokkaa tehtävää",
                 },
                 "talletettu": tal,
                 "ohjaus_nappi": "lisää uusi tehtävä",
@@ -619,7 +619,7 @@ def syotaTehtava(request, kisa_nimi, tehtava_id, talletettu=None, tarkistus=None
                 + "/",
                 "taakse": {
                     "url": "/kipa/" + kisa_nimi + "/syota/",
-                    "title": u"Syötä tuloksia",
+                    "title": "Syötä tuloksia",
                 },
             },
             context_instance=RequestContext(request),
@@ -885,14 +885,12 @@ def sarjanTuloksetCSV(request, kisa_nimi, sarja_id):
         numero = numero + 1
 
     writer.writerow([""])
-    writer.writerow([u"S = syöttämättä"])
-    writer.writerow([u"H = vartion suoritus hylätty"])
-    writer.writerow([u"K = vartio keskeyttänyt"])
-    writer.writerow([u"E = vartio ei ole tehnyt tehtävää"])
+    writer.writerow(["S = syöttämättä"])
+    writer.writerow(["H = vartion suoritus hylätty"])
+    writer.writerow(["K = vartio keskeyttänyt"])
+    writer.writerow(["E = vartio ei ole tehnyt tehtävää"])
     writer.writerow(
-        [
-            u"! = vartion sijaluku laskettu tasapisteissä määräävien tehtävien perusteella"
-        ]
+        ["! = vartion sijaluku laskettu tasapisteissä määräävien tehtävien perusteella"]
     )
     return response
 
@@ -949,7 +947,7 @@ def kopioiTehtavia(request, kisa_nimi, sarja_id):
         return render_to_response(
             "tupa/valitse_form.html",
             {
-                "heading": u"Kopioi Tehtäviä sarjaan: " + sarjaan.nimi,
+                "heading": "Kopioi Tehtäviä sarjaan: " + sarjaan.nimi,
                 "taulukko": formit,
                 "kisa_nimi": kisa_nimi,
                 "taakse": "/kipa/" + kisa_nimi + "/maarita/tehtava/",
@@ -1000,9 +998,9 @@ def korvaaKisa(request, kisa_nimi=None):
     except:
         kisa = None
 
-    otsikko = u"Korvaa kisa tiedostosta"
+    otsikko = "Korvaa kisa tiedostosta"
     if not kisa_nimi:
-        otsikko = u"Lisää kisa tiedostosta "
+        otsikko = "Lisää kisa tiedostosta "
 
     form = None
     if request.method == "POST":
@@ -1290,7 +1288,7 @@ def tehtavanVaiheet(request, kisa_nimi, tehtava_id, vartio_id=None):
             '<a href="/kipa/lista/maarita/tehtava/'
             + str(tehtava_id)
             + '/">'
-            + u"Takaisin määrittelyyn </a> <br><br>"
+            + "Takaisin määrittelyyn </a> <br><br>"
         )
         responssi += "</body></html>"
         return HttpResponse(responssi)
@@ -1302,7 +1300,7 @@ def tehtavanVaiheet(request, kisa_nimi, tehtava_id, vartio_id=None):
     tehtava = get_object_or_404(Tehtava, id=tehtava_id)
 
     responssi = (
-        u"<html><body>Vartion laskennan vaiheet tehtävässä " + tehtava.nimi + " <br> "
+        "<html><body>Vartion laskennan vaiheet tehtävässä " + tehtava.nimi + " <br> "
     )
     enableLogging()
     clearLoki()
@@ -1317,7 +1315,7 @@ def tehtavanVaiheet(request, kisa_nimi, tehtava_id, vartio_id=None):
         '<a href="/kipa/lista/maarita/tehtava/'
         + str(tehtava_id)
         + '/">'
-        + u"Takaisin määrittelyyn </a> <br><br>"
+        + "Takaisin määrittelyyn </a> <br><br>"
     )
     for v in vartiot:
         responssi += (
