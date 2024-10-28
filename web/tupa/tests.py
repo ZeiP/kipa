@@ -291,7 +291,7 @@ def TulosTestFactory(fixture_name):
             virhe = str(len(virheet)) + " errors"
             for v in virheet:
                 virhe = virhe + "\n--------------------------------\n" + v
-            self.assertTrue( len(virheet) == 0, str(virhe) )
+            self.assertTrue(len(virheet) == 0, str(virhe))
             sys.stdout.flush()
 
         def testTehtavanUudelleenTallennus(self):

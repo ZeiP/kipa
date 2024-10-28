@@ -46,4 +46,4 @@ Kipaan suunniteltua kirjautumista.
 
 ### Python-koodin formatointi
 
-Koodi noudattaa Black-autoformatterin vesion 21.12.b0 mukaista tyyliä. Formatointi tarkastetaan osana CI-putkea.
+Koodi noudattaa Black-autoformatterin vesion 24.10.0 mukaista tyyliä. Blackille annetaan lippu `--target-version py33`. Formatointi tarkastetaan osana CI-putkea.

@@ -34,6 +34,7 @@ peruskaava = (
 """ This file is made with no explainable logic. It has only been made to work. Most propably the best way to improveis simply rewriting. Anyway the task is not simple. Strongly recommend of using the already defined database syntax. See developement documentation for the actual syntax definition.
 """
 
+
 #########################
 # Validiointi funktiot: #
 #########################

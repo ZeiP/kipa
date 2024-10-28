@@ -18,6 +18,7 @@ impl = getDOMImplementation()
 
 record_base = '<?xml version="1.0" encoding="utf-8"?>\n<django-objects version="1.0">\n</django-objects>'
 
+
 # recorder middleware:
 class PostDataRecorder:
     """

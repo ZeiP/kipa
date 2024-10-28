@@ -1,4 +1,5 @@
 """Kisan alasivujen URLit ja sivujen otsikot"""
+
 # -*- coding: utf-8 -*-
 
 # Testikisan nimimääritys, oletusarvona: testikisa
