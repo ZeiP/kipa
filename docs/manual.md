@@ -966,10 +966,10 @@ Näin tietokantaa voi olla vaikea enään muokata päivityksen jälkeen.
 On suositeltavaa varmuuskopioida ja nollata tietokanta aina ennen päivittämistä.
 
 ```
-python manage.py reset tupa
+python manage.py flush
 ```
 
-Nollaa tietokannan. Poistaa kaikki tietokantataulut.
+Tyhjentää kaikki tietokantataulut.
 
 ### Järjestelmän Asetukset - settings.py
 
