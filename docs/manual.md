@@ -136,30 +136,12 @@ Vieraile tupa2.sf.net Imagen linkkiä varten.
 
 ### Muut käyttöjärjestelmät / itse muokattava asennus
 
-Mikäli koneella on esimerkiksi Apache pyörittämässä jotain muuta
-sovellusta, haluaa käyttää jotain toista http palvelinta tai
-käyttöjärjestelmää on tässä kuvattu mitä tarvitaan Kipan asentamiseen ja
-pyörittämiseen.
-
-Kipaa ei missään tapauksessa kannata asentaa automaattipaketeilla
-tietokoneelle missä on jo Apache asennettuna!
-
 Kipan laskenta perustuu Pythonin-ohjelmointikielellä kirjoitettuun koodiin.
-Python 2.5-2.6 on testattu ja tuettu.
+Python 2.7 on testattu.
 
-Kipan web-julkaisu ja kantayhteydet djangoon. Djangon versiot 1.0 sekä
-1.1 on testattu (nämä ovat melko nirsoja tod. näk. uusiin versioihin)
+Djangon versio 1.6 on testattu kehityspalvelimen kanssa toimivaksi.
 
-Koneelle pitää asentaa http-palvelin joka osaa suorittaa python koodia
-esimerkiksi modpython moduulin avulla ja lisäksi tarjota djangolle oma
-"hakemisto", jossa se toimii. Tässä kannattaa tutustua Kipaa varten
-muokattuun httpd.conf tiedostoon
-([www.tupa2.sf.net](http://www.tupa2.sf.net)).
-
-Web-tiedostot kopioidaan samaan hakemistoon, johon on määritelty Djangon
-oma hakemisto
-
-Asennus niille jotka luulee tietävänsä mitä tekee tai haluaa ymmärtää.
+Apache-asennus ei toimi kehitysversiossa.
 
 ### Asennuksen poistaminen
 
@@ -677,11 +659,7 @@ ei kuitenkaan ole nähty olevan vaikutusta suorituskykyyn.
 
 ### Testattuja käyttöjärjestelmiä ja komponentteja
 
-* Windows 7 32bit/64bit, Windows Vista 32bit
-* Ubuntu 8.10, 9.04, 9.10, Debian 5, Arch Linux
-* Python 2.5, Python 2.6
-* Django 1.0 & 1.1
-* Apache 2.2
+Kehitysversiota ei ole testattu kattavasti millään käyttöjärjestelmällä.
 
 ## Lisenssi
 
@@ -745,20 +723,9 @@ jatkokehityksestä löytyy.
 
 ## Apachen konfigurointi
 
-Apachen httpd.conf-tiedostoon pitää lisätä seuraava tekstinpätkä, jotta
-voidaan ajaa Python-koodia sekä djangoa. Alla oleva konfiguraatio
-edellyttää että tiedostot ovat kopioitu hakemistoon /data (Linux/Unix)
-tietokoneilla.
-
-```
-<Location "/kipa/">
-    SetHandler python-program
-    PythonHandler django.core.handlers.modpython
-    SetEnv DJANGO_SETTINGS_MODULE web.settings
-    PythonDebug On
-    PythonPath "['/data'] + sys.path"
-</Location>
-```
+Kipaa on käytetty Apachen kanssa moduulilla mod-python. Djangon tuki
+mod-pythonille on kuitenkin loppunut jo versiossa 1.5. Kehitysversion
+käyttö Apachen kanssa ei ole siis tällä hetkellä ole tuettu.
 
 ## Kaavat
 
