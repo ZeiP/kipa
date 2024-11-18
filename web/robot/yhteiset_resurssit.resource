@@ -61,15 +61,14 @@ luo kisapistetehtävä
     [Arguments]    ${sarja}
     Open Sub Page Verify Location And Title    määrittele tehtävät    ${TEHTAVAN_MAARITYS_URL}    ${TEHTAVAN_MAARITYS_OTSIKKO}
     Run Keyword And Ignore Error    Click Link    ${sarja}
-    Click Link    Lisää uusi tehtävä
-    Title Should Be    Kipa - Uusi tehtävä
+    Click Link    xpath://a[contains(., 'Lisää uusi tehtävä') and not(ancestor::div[contains(@style,'display: none')])]
     Input Text    tehtava_#1_nimi    kisapiste_testi_${sarja}
     Element Should Not Be Visible    tehtava_#1_#0_tyyppi_kp_a
     Select Radio Button    tehtava_#1_#0_tyyppi    kp
     Element Should Be Visible    tehtava_#1_#0_tyyppi_kp_a
     Input Text    tehtava_#1_#0_tyyppi_kp_a    testikuvaus
     click button    tallenna
-    Wait Until Keyword Succeeds    10 sec    1 sec    Title Should Be    Kipa - kisapiste_testi_${sarja}
+    Wait Until Keyword Succeeds    10 sec    1 sec    Title Should Be    Kipa - kisapiste_testi_${sarja} (${sarja})
     Location Should Contain    talletettu
     Open Competition
     Open Sub Page Verify Location And Title    määrittele tehtävät    ${TEHTAVAN_MAARITYS_URL}    ${TEHTAVAN_MAARITYS_OTSIKKO}
