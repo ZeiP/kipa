@@ -107,6 +107,23 @@ Lisätään tehtäviä tyhjään sarjaan
 Lisätään tehtäviä vartioita sisältävään sarjaan
     Comment    luo kisapistetehtävä    harmaa
 
+Poistetaan tehtävä sarjasta
+    Click Link    määrittele kisan perustiedot
+    Location Should Be    ${KIPA_URL}/${TESTIKISA}/${KISAN_MAARITYS_URL}/
+    Title Should Be    Kipa - Määritä kisa
+    Input Text    id_sarja_set-0-nimi    sininen
+    Input Text    id_sarja_set-1-nimi    harmaa
+    Input Text    id_sarja_set-2-nimi    valkoinen
+    Click Button    tallenna
+    Open Competition
+    luo kisapistetehtävä    harmaa
+    Open Competition
+    Open Sub Page Verify Location And Title    määrittele tehtävät    ${TEHTAVAN_MAARITYS_URL}    ${TEHTAVAN_MAARITYS_OTSIKKO}
+    Click Link    harmaa
+    Select Checkbox    xpath://ul[label[text() = 'Delete:' or text() = 'Poista:']]/input[@type='checkbox' and not(ancestor::div[contains(@style,'display: none')])]
+    Click Button    xpath://button[@type='submit' and contains(., 'Poista valitut') and not(ancestor::div[contains(@style,'display: none')])]
+    Wait Until Keyword Succeeds    10 sec    2 sec    Title Should Be    ${TEHTAVAN_MAARITYS_OTSIKKO}
+
 Poistetaan tyhjä sarja kisasta
     [Documentation]    sininen
     Click Link    määrittele kisan perustiedot
