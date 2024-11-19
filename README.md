@@ -17,20 +17,20 @@ Tämän ohjelman mukana pitäisi tulla kopio GPL-lisenssistä; jos näin ei ole,
 
 ### Paikallisen kehitysympäristön pystytys
 
-* Asenna Python2
-* Varmista, että sopiva pip on asennettuna: `python2 -m ensurepip [--user] --upgrade`
-* `virtualenv -p /path/to/python2 kipa-venv`
-* `source ./kipa-venv/bin/activate`
-* `pip install -r requirements.txt`
-* `cp ./web/settings/local.py.example ./web/settings/local.py`, muokkaa sopiva polku tietokantatiedostolle
-* `cd web`
-* `python manage.py runserver` käynnistää kehityspalvelimen
+* Luo jonnekkin väliaikainen hakemisto tietokannalle: `mkdir /tmp/tietokanta`
+* Kopioi kehitystietokanta: `cp docs/initial.db /tmp/tietokanta/kipa.db`
+* `cp ./web/settings/local.py.example ./web/settings/local.py`
+* Muokkaa edellisessä luotuun asetustiedostoon tietokantatiedostolle polku `/db/kipa.db`
+* Rakenna kontti: `docker build -t kipa_dev -f dev.Dockerfile .`
+* Käynnistä kontti: `docker run -it --rm --volume ".:/app" --volume "/tmp/tietokanta:/db" -p 8000:8000 kipa_dev  bash`
+* Kontissa: `cd web`
+* Kontissa: `python manage.py runserver  0.0.0.0:8000`
 
 ### Yksikkötestien ajaminen
 
-* tarvittaessa `source ./kipa-venv/bin/activate`
-* `cd web`
-* `python manage.py test`
+* tarvittaessa edellä kuvattu kontin rakennus ja käynnistäminen
+* Kontissa: `cd web`
+* Kontissa: `python manage.py test`
 
 ### E2E-testien ajaminen
 
