@@ -37,24 +37,26 @@ class VartioForm(ModelForm):
 
     class Meta:
         model = Vartio
+        fields = [
+            "nro",
+            "nimi",
+            "lippukunta",
+            "piiri",
+            "ulkopuolella",
+            "keskeyttanyt",
+        ]
 
 
 VartioFormSet = inlineformset_factory(
     Sarja,
     Vartio,
     extra=30,
-    fields=(
-        "nro",
-        "nimi",
-        "lippukunta",
-        "piiri",
-        "ulkopuolella",
-        "keskeyttanyt",
-    ),
     form=VartioForm,
 )
 
-MaariteFormSet = inlineformset_factory(OsaTehtava, SyoteMaarite, extra=3)
+MaariteFormSet = inlineformset_factory(
+    OsaTehtava, SyoteMaarite, extra=3, fields="__all__"
+)
 
 
 class SarjaForm(ModelForm):
@@ -74,12 +76,21 @@ class SarjaForm(ModelForm):
     vartion_minimikoko = forms.IntegerField(widget=forms.HiddenInput, required=False)
 
 
-SarjaFormSet = inlineformset_factory(Kisa, Sarja, extra=8, form=SarjaForm)
+SarjaFormSet = inlineformset_factory(
+    Kisa,
+    Sarja,
+    extra=8,
+    form=SarjaForm,
+    fields=[
+        "nimi",
+        "tasapiste_teht1",
+        "tasapiste_teht2",
+        "tasapiste_teht3",
+    ],
+)
 SarjaFormSet.helppiteksti = mark_safe(
     '<span onmouseover="tooltip.show(\'Sarjan <strong>nimet</strong> voivat sis&auml;lt&auml;&auml; &auml;&auml;kk&ouml;si&auml; ja v&auml;lily&ouml;ntej&auml;.<br><strong>Tasapisteiss&auml; m&auml;&auml;r&auml;&auml;v&auml;t teht&auml;v&auml;t</strong> -kohdat kertovat tasapisteiss&auml; m&auml;&auml;r&auml;&auml;vien teht&auml;vien numerot. Palaa t&auml;ytt&auml;m&auml;&auml;n ne m&auml;&auml;ritelty&auml;si kyseiset teht&auml;v&auml;t.\');" onmouseout="tooltip.hide();"><img src="/kipamedia/help_small.png" /></span>'
 )
-
-TehtavaValintaFormSet = inlineformset_factory(Sarja, Tehtava, fields=("jarjestysnro",))
 
 
 class TuhoaTehtavaForm(ModelForm):
@@ -99,6 +110,7 @@ class TuhoaTehtavaForm(ModelForm):
 
     class Meta:
         model = Tehtava
+        fields = []
 
 
 tuhoaTehtaviaFormset = modelformset_factory(
@@ -398,11 +410,7 @@ class KisaForm(ModelForm):
 
     class Meta:
         model = Kisa
-
-
-class PoistaTehtavaForm(ModelForm):
-    class Meta:
-        model = Tehtava
+        fields = "__all__"
 
 
 class UploadFileForm(forms.Form):
