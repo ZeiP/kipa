@@ -120,7 +120,7 @@ Poistetaan tehtävä sarjasta
     Open Competition
     Open Sub Page Verify Location And Title    määrittele tehtävät    ${TEHTAVAN_MAARITYS_URL}    ${TEHTAVAN_MAARITYS_OTSIKKO}
     Click Link    harmaa
-    Select Checkbox    xpath://ul[label[text() = 'Delete:']]/input[@type='checkbox' and not(ancestor::div[contains(@style,'display: none')])]
+    Select Checkbox    xpath://ul[label[text() = 'Delete:' or text() = 'Poista:']]/input[@type='checkbox' and not(ancestor::div[contains(@style,'display: none')])]
     Click Button    xpath://button[@type='submit' and contains(., 'Poista valitut') and not(ancestor::div[contains(@style,'display: none')])]
     Wait Until Keyword Succeeds    10 sec    2 sec    Title Should Be    ${TEHTAVAN_MAARITYS_OTSIKKO}
 
