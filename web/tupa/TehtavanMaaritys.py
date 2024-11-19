@@ -1239,7 +1239,7 @@ def tallennaTehtavaData(data):
                     osa_tehtava.id = ot_k
                 osa_tehtava.tehtava = tehtava
 
-                if osa_tehtava.id > 0 or osa_tehtava.id == None:
+                if osa_tehtava.id is None or osa_tehtava.id > 0:
                     osa_tehtava.save()
                     if "parametrit" in ot_v.keys():
                         for p_k, p_v in ot_v["parametrit"].items():
@@ -1250,7 +1250,7 @@ def tallennaTehtavaData(data):
                             if not type(p_k) == str:
                                 parametri.id = p_k
                             parametri.osa_tehtava = osa_tehtava
-                            if parametri.id > 0 or parametri.id == None:
+                            if parametri.id is None or parametri.id > 0:
 
                                 parametri.save()
                             else:
@@ -1266,7 +1266,7 @@ def tallennaTehtavaData(data):
                             if not type(m_k) == str:
                                 maarite.id = m_k
                             maarite.osa_tehtava = osa_tehtava
-                            if maarite.id > 0 or maarite.id == None:
+                            if maarite.id is None or maarite.id > 0:
                                 maarite.save()
                             else:
                                 maarite.id = -maarite.id
