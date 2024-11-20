@@ -250,7 +250,7 @@ def initPisteSyote(self, fieldName):
     if not kesk == None and not nro == None:
         if kesk <= nro:  # Keskeyttänyt
             self.fields[fieldName].widget.attrs["class"] = "kesk"
-            self.fields[fieldName].widget.attrs["readonly"] = True
+            self.fields[fieldName].widget.attrs["readonly"] = "readonly"
             self.initial[fieldName] = "kesk"
 
 
