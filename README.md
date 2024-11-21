@@ -24,7 +24,7 @@ Tämän ohjelman mukana pitäisi tulla kopio GPL-lisenssistä; jos näin ei ole,
 * Rakenna kontti: `docker build -t kipa_dev -f dev.Dockerfile .`
 * Käynnistä kontti: `docker run -it --rm --volume ".:/app" --volume "/tmp/tietokanta:/db" -p 8000:8000 kipa_dev  bash`
 * Kontissa: `cd web`
-* Kontissa: `python manage.py migrate`
+* Kontissa: `python manage.py migrate --fake-initial --noinput`
 * Kontissa: `python manage.py runserver  0.0.0.0:8000`
 
 ### Yksikkötestien ajaminen
