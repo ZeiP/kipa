@@ -6,7 +6,7 @@ import re
 
 from django import forms
 from django.core import serializers
-from django.shortcuts import render_to_response, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.utils.safestring import mark_safe
 from decimal import ROUND_UP, Decimal
@@ -146,10 +146,10 @@ def etusivu(request):
     vanha_tietokanta = testaa_tietokanta()
     if vanha_tietokanta:
         kisat = None
-    return render_to_response(
+    return render(
+        request,
         "tupa/index.html",
-        {"vanha_tietokanta": vanha_tietokanta, "object_list": kisat},
-        context_instance=RequestContext(request),
+        context={"vanha_tietokanta": vanha_tietokanta, "object_list": kisat},
     )
 
 
@@ -164,15 +164,15 @@ def kisa(request, kisa_nimi):
     for s in kisa.sarja_set.all():
         s.taustaTulokset()  # tulosten taustalaskenta
 
-    return render_to_response(
+    return render(
+        request,
         "tupa/kisa.html",
-        {
+        context={
             "kisa": kisa,
             "kisa_nimi": kisa_nimi,
             "heading": "Etusivu",
             "vanha_tietokanta": vanha_tietokanta,
         },
-        context_instance=RequestContext(request),
     )
 
 
@@ -183,15 +183,15 @@ def tulosta(request, kisa_nimi, tulostyyppi=""):
     if len(tulostyyppi):
         tulostyyppi += "/"
     sarjat = Sarja.objects.select_related().filter(kisa__nimi=kisa_nimi)
-    return render_to_response(
+    return render(
+        request,
         "tupa/tulosta.html",
-        {
+        context={
             "sarja_list": sarjat,
             "kisa_nimi": kisa_nimi,
             "tulostyyppi": tulostyyppi,
             "heading": "Tulokset sarjoittain",
         },
-        context_instance=RequestContext(request),
     )
 
 
@@ -240,21 +240,22 @@ def maaritaKisa(request, kisa_nimi=None, talletettu=None):
         taakse = "/kipa/"
         if kisa_nimi:
             taakse = "/kipa/" + kisa_nimi + "/"
-            return render_to_response(
+            return render(
+                request,
                 "tupa/maarita.html",
-                {
+                context={
                     "heading": "Määritä kisa",
                     "forms": (kisaForm,),
                     "formsets": (sarjaFormit,),
                     "kisa_nimi": kisa_nimi,
                     "talletettu": tal,
                 },
-                context_instance=RequestContext(request),
             )
         else:
-            return render_to_response(
+            return render(
+                request,
                 "tupa/maarita_riisuttu.html",
-                {
+                context={
                     "heading": "Määritä kisa",
                     "forms": (kisaForm,),
                     "formsets": (sarjaFormit,),
@@ -262,7 +263,6 @@ def maaritaKisa(request, kisa_nimi=None, talletettu=None):
                     "talletettu": tal,
                     "ohjaus_nappi": "siirry vartioiden määrittelyyn",
                 },
-                context_instance=RequestContext(request),
             )
 
 
@@ -294,14 +294,14 @@ def maaritaValitseTehtava(request, kisa_nimi):
     if posti:
         return kipaResponseRedirect("/kipa/" + kisa_nimi + "/maarita/tehtava/")
     else:
-        return render_to_response(
+        return render(
+            request,
             "tupa/maaritaValitseTehtava.html",
-            {
+            context={
                 "taulukko": taulukko,
                 "heading": "Muokkaa tehtävää",
                 "kisa_nimi": kisa_nimi,
             },
-            context_instance=RequestContext(request),
         )
 
 
@@ -349,16 +349,16 @@ def maaritaVartiot(request, kisa_nimi, talletettu=None):
             and request.META["HTTP_REFERER"][-23:] == "/kipa/uusiKisa/maarita/"
         ):
             ohjaus_nappi = "siirry tehtävien määritykseen"  # Ensimmäisellä talletuksella näkyy siirry nappi.
-        return render_to_response(
+        return render(
+            request,
             "tupa/valitse_formset.html",
-            {
+            context={
                 "taulukko": taulukko,
                 "heading": "Määritä vartiot",
                 "kisa_nimi": kisa_nimi,
                 "talletettu": tal,
                 "ohjaus_nappi": ohjaus_nappi,
             },
-            context_instance=RequestContext(request),
         )
 
 
@@ -438,9 +438,10 @@ def maaritaTehtava(request, kisa_nimi, tehtava_id=None, sarja_id=None, talletett
         tal = ""
         if talletettu == "talletettu" and not posti:
             tal = "Talletettu!"  # Edellisellä sivulla talletettu
-        return render_to_response(
+        return render(
+            request,
             "tupa/maarita.html",
-            {
+            context={
                 "forms": [tehtavaForm],
                 "heading": otsikko,
                 "kisa_nimi": kisa_nimi,
@@ -452,7 +453,6 @@ def maaritaTehtava(request, kisa_nimi, tehtava_id=None, sarja_id=None, talletett
                 "talletettu": tal,
                 "ohjaus_nappi": "lisää uusi tehtävä",
             },
-            context_instance=RequestContext(request),
         )
 
 
@@ -474,10 +474,10 @@ def syotaKisa(request, kisa_nimi, tarkistus=None):
         tehtavat.id = s.id
         tehtavat.otsikko = s.nimi
         taulukko.append(tehtavat)
-    return render_to_response(
+    return render(
+        request,
         "tupa/valitse_linkki.html",
-        {"taulukko": taulukko, "heading": otsikko, "kisa_nimi": kisa_nimi},
-        context_instance=RequestContext(request),
+        context={"taulukko": taulukko, "heading": otsikko, "kisa_nimi": kisa_nimi},
     )
 
 
@@ -585,9 +585,10 @@ def syotaTehtava(request, kisa_nimi, tehtava_id, talletettu=None, tarkistus=None
         tilanne = tehtavanTilanne(tehtava)
         if syottovirhe:
             tilanne = "v"
-        return render_to_response(
+        return render(
+            request,
             "tupa/syota_tehtava.html",
-            {
+            context={
                 "tehtava": tehtava,
                 "sarja": tehtava.sarja.id,
                 "maaritteet": maaritteet,
@@ -619,7 +620,6 @@ def syotaTehtava(request, kisa_nimi, tehtava_id, talletettu=None, tarkistus=None
                     "title": "Syötä tuloksia",
                 },
             },
-            context_instance=RequestContext(request),
         )
 
 
@@ -665,16 +665,16 @@ def testiTulos(request, kisa_nimi, talletettu=None):
     if talletettu == "talletettu" and not posti:
         tal = "Talletettu!"
 
-    return render_to_response(
+    return render(
+        request,
         "tupa/testitulos.html",
-        {
+        context={
             "taulukko": taulukko,
             "heading": "Testituloksien määritys",
             "kisa_nimi": kisa_nimi,
             "taakse": "/kipa/" + kisa_nimi + "/",
             "talletettu": tal,
         },
-        context_instance=RequestContext(request),
     )
 
 
@@ -720,9 +720,10 @@ def tuomarineuvos(request, kisa_nimi, talletettu=None):
     if talletettu == "talletettu" and not posti:
         tal = "Talletettu!"
 
-    return render_to_response(
+    return render(
+        request,
         "tupa/tuomarineuvos.html",
-        {
+        context={
             "taulukko": taulukko,
             "heading": "Tuomarineuvoston antamien tulosten määritys",
             "kisa_nimi": kisa_nimi,
@@ -756,9 +757,10 @@ def tulostaSarja(
         templaatti = "tupa/tuloksetHTML.html"
     if vaihtoaika:
         templaatti = "tupa/heijasta.html"
-    return render_to_response(
+    return render(
+        request,
         templaatti,
-        {
+        context={
             "tulos_taulukko": mukana,
             "ulkona_taulukko": ulkona,
             "kisa_nimi": kisa_nimi,
@@ -769,7 +771,6 @@ def tulostaSarja(
             "vaihto_id": vaihto_id,
             "taakse": {"url": "../../", "title": "Tulokset sarjoittain"},
         },
-        context_instance=RequestContext(request),
     )
 
 
@@ -941,16 +942,16 @@ def kopioiTehtavia(request, kisa_nimi, sarja_id):
     if redirect:
         return kipaResponseRedirect("/kipa/" + kisa.nimi + "/maarita/tehtava/")
     else:
-        return render_to_response(
+        return render(
+            request,
             "tupa/valitse_form.html",
-            {
+            context={
                 "heading": "Kopioi Tehtäviä sarjaan: " + sarjaan.nimi,
                 "taulukko": formit,
                 "kisa_nimi": kisa_nimi,
                 "taakse": "/kipa/" + kisa_nimi + "/maarita/tehtava/",
                 "napin_tyyppi": "kopioi",
             },
-            context_instance=RequestContext(request),
         )
 
 
@@ -974,10 +975,10 @@ def poistaKisa(request, kisa_nimi):
         kisa.delete()
         return kipaResponseRedirect("/kipa/")
     otsikko = "Poista kisa"
-    return render_to_response(
+    return render(
+        request,
         "tupa/poista_kisa.html",
-        {"heading": otsikko, "kisa_nimi": kisa_nimi},
-        context_instance=RequestContext(request),
+        context={"heading": otsikko, "kisa_nimi": kisa_nimi},
     )
 
 
@@ -1107,16 +1108,16 @@ def korvaaKisa(request, kisa_nimi=None):
             form = UploadFileForm()
 
     if kisa_nimi:
-        return render_to_response(
+        return render(
+            request,
             "tupa/upload.html",
-            {"heading": otsikko, "form": form, "kisa_nimi": kisa_nimi},
-            context_instance=RequestContext(request),
+            context={"heading": otsikko, "form": form, "kisa_nimi": kisa_nimi},
         )
     else:
-        return render_to_response(
+        return render(
+            request,
             "tupa/upload_riisuttu.html",
-            {"heading": otsikko, "form": form, "kisa_nimi": kisa_nimi},
-            context_instance=RequestContext(request),
+            context={"heading": otsikko, "form": form, "kisa_nimi": kisa_nimi},
         )
 
 
@@ -1162,11 +1163,7 @@ def raportti_500(request):
     """
     linkki = mark_safe("<a href=/kipa")
     linkki += "/> #00000000" + str(random.uniform(1, 10)) + "</a>"
-    return render_to_response(
-        "500.html",
-        {"error": mark_safe(linkki)},
-        context_instance=RequestContext(request),
-    )
+    return render(request, "500.html", context={"error": mark_safe(linkki)})
 
 
 def haeTulos(tuloksetSarjalle, vartio, tehtava):
@@ -1261,10 +1258,14 @@ def laskennanTilanne(request, kisa_nimi):
             taulukko[suurin + 1][sarake] = (None, "0 %")
         sarake += 1
 
-    return render_to_response(
+    return render(
+        request,
         "tupa/laskennan_tilanne.html",
-        {"taulukko": taulukko, "kisa_nimi": kisa_nimi, "heading": "Laskennan tilanne"},
-        context_instance=RequestContext(request),
+        context={
+            "taulukko": taulukko,
+            "kisa_nimi": kisa_nimi,
+            "heading": "Laskennan tilanne",
+        },
     )
 
 
