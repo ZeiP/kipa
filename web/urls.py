@@ -10,7 +10,7 @@ admin.autodiscover()
 
 urlpatterns = [
     url(r"^kipa/", include("tupa.urls")),
-    url(r"^admin/", include(admin.site.urls)),
+    url(r"^admin/", admin.site.urls),
 ]
 
 if settings.SERVE_MEDIA:
