@@ -75,12 +75,6 @@ ADMIN_MEDIA_PREFIX = "/media/"
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = "shbtq($_^om(xep=5f97k2+ntb3!cqn+)%8r#s6udzqnhj$5p6"
 
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    "django.template.loaders.filesystem.Loader",
-    "django.template.loaders.app_directories.Loader",
-)
-
 MIDDLEWARE_CLASSES = (
     "django.middleware.common.CommonMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -98,6 +92,13 @@ TEMPLATES = [
             hakemisto + "/templates",
         ],
         "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ],
+        },
     },
 ]
 
