@@ -5,6 +5,7 @@
 from __future__ import absolute_import
 from django.core.cache import cache
 from django.db import models
+from django.db.models import CASCADE
 from .TulosLaskin import laskeSarja
 import settings
 
@@ -39,7 +40,7 @@ class Sarja(models.Model):
     nimi = models.CharField(max_length=255)
     vartion_maksimikoko = models.IntegerField(blank=True, null=True, default=0)
     vartion_minimikoko = models.IntegerField(blank=True, null=True, default=0)
-    kisa = models.ForeignKey(Kisa)
+    kisa = models.ForeignKey(Kisa, on_delete=CASCADE)
     tasapiste_teht1 = models.IntegerField(blank=True, null=True)
     tasapiste_teht2 = models.IntegerField(blank=True, null=True)
     tasapiste_teht3 = models.IntegerField(blank=True, null=True)
@@ -103,7 +104,7 @@ class Sarja(models.Model):
 class Vartio(models.Model):
     nro = models.IntegerField()
     nimi = models.CharField(max_length=255)
-    sarja = models.ForeignKey(Sarja)
+    sarja = models.ForeignKey(Sarja, on_delete=CASCADE)
     piiri = models.CharField(max_length=255, blank=True)
     lippukunta = models.CharField(max_length=255, blank=True)
     puhelinnro = models.CharField(max_length=255, blank=True)
@@ -153,7 +154,7 @@ class Tehtava(models.Model):
     rastikasky = models.TextField(blank=True)
     jarjestysnro = models.IntegerField()
     kaava = models.CharField(max_length=255)
-    sarja = models.ForeignKey(Sarja)
+    sarja = models.ForeignKey(Sarja, on_delete=CASCADE)
     tarkistettu = models.BooleanField(default=False)
     maksimipisteet = models.CharField(max_length=255)
     svirhe = models.BooleanField(default=False)
@@ -219,7 +220,7 @@ class OsaTehtava(models.Model):
     nimi = models.CharField(max_length=255)
     tyyppi = models.CharField(max_length=255, choices=OSA_TYYPIT)
     kaava = models.CharField(max_length=255)
-    tehtava = models.ForeignKey(Tehtava)
+    tehtava = models.ForeignKey(Tehtava, on_delete=CASCADE)
 
     def save(self, *args, **kwargs):  # Tulokset uusiksi tallennuksen yhteydessä
         self.tehtava.sarja.tuloksetUusiksi()
@@ -250,7 +251,7 @@ class SyoteMaarite(models.Model):
     nimi = models.CharField(max_length=255)
     tyyppi = models.CharField(max_length=255, choices=TYYPPI_VAIHTOEHDOT)
     kali_vihje = models.CharField(max_length=255, blank=True, null=True)
-    osa_tehtava = models.ForeignKey(OsaTehtava)
+    osa_tehtava = models.ForeignKey(OsaTehtava, on_delete=CASCADE)
 
     def save(self, *args, **kwargs):  # Tulokset uusiksi tallennuksen yhteydessä
         self.osa_tehtava.tehtava.sarja.tuloksetUusiksi()
@@ -285,8 +286,8 @@ class SyoteMaarite(models.Model):
 
 class Syote(models.Model):
     arvo = models.CharField(max_length=255, blank=True, null=True)
-    vartio = models.ForeignKey(Vartio, blank=True, null=True)
-    maarite = models.ForeignKey(SyoteMaarite)
+    vartio = models.ForeignKey(Vartio, blank=True, null=True, on_delete=CASCADE)
+    maarite = models.ForeignKey(SyoteMaarite, on_delete=CASCADE)
     tarkistus = models.CharField(max_length=255, blank=True, null=True)
 
     def save(self, *args, **kwargs):  # Tulokset uusiksi tallennuksen yhteydessä
@@ -324,8 +325,8 @@ class Syote(models.Model):
 
 
 class TulosTaulu(models.Model):
-    vartio = models.ForeignKey(Vartio)
-    tehtava = models.ForeignKey(Tehtava)
+    vartio = models.ForeignKey(Vartio, on_delete=CASCADE)
+    tehtava = models.ForeignKey(Tehtava, on_delete=CASCADE)
     pisteet = models.CharField(max_length=255)
 
     def save(self, *args, **kwargs):  # Tulokset uusiksi tallennuksen yhteydessä
@@ -370,7 +371,7 @@ class TestausTulos(TulosTaulu):
 class Parametri(models.Model):
     nimi = models.CharField(max_length=255)
     arvo = models.CharField(max_length=255)
-    osa_tehtava = models.ForeignKey(OsaTehtava)
+    osa_tehtava = models.ForeignKey(OsaTehtava, on_delete=CASCADE)
 
     class Meta:
         verbose_name_plural = "OsaTehtavan paramentrit"
