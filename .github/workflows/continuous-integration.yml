@@ -18,8 +18,8 @@ jobs:
           pip install 'black==24.10.0'
       - name: Check formatting
         run: |
-          black -t py33 --check .
-          black -t py33 --check web/**/*.py.example
+          black -t py34 --check .
+          black -t py34 --check web/**/*.py.example
   unit-tests-sqlite:
     runs-on: ubuntu-latest
     timeout-minutes: 15
