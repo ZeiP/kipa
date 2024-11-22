@@ -75,13 +75,13 @@ ADMIN_MEDIA_PREFIX = "/media/"
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = "shbtq($_^om(xep=5f97k2+ntb3!cqn+)%8r#s6udzqnhj$5p6"
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.auth.middleware.SessionAuthenticationMiddleware",
-)
+]
 
 ROOT_URLCONF = "urls"
 
