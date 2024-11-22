@@ -922,15 +922,11 @@ Käyttää testidatana kaikkia fixtures/tests/ löytyviä XML-päätteisiä
 tietokantapohjia.
 
 ```
-python manage.py syncdb
+python manage.py makemigrations
+python manage.py migrate
 ```
-
-päivittää tietokantatiedoston "tupa.db" "models.py" päivitetyn määrittelyn perustella.
-
-VAROITUS: Mikäli tietokannan rakenne olennaisesti muuttuu, on
-mahdollista ettei se enään ole yhteensopiva jo olemassa olevan tietokannan kanssa.
-Näin tietokantaa voi olla vaikea enään muokata päivityksen jälkeen.
-On suositeltavaa varmuuskopioida ja nollata tietokanta aina ennen päivittämistä.
+Ovat komentoja, joilla saadaan päivitettyä tietokannan rakennetta, jos models.py on muuttunut.
+Djangon dokumentaatio opastaa niiden käytössä.
 
 ```
 python manage.py flush
