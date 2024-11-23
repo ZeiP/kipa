@@ -150,9 +150,9 @@ class HelpWidget(forms.TextInput):
         super(HelpWidget, self).__init__(*argcv)
         self.helptext = helptext
 
-    def render(self, name, value=None, attrs=None):
+    def render(self, name, value=None, attrs=None, renderer=None):
         return (
-            mark_safe(super(HelpWidget, self).render(name, value, attrs))
+            mark_safe(super(HelpWidget, self).render(name, value, attrs, renderer))
             + "<span onmouseover=\"tooltip.show('"
             + self.helptext
             + '\');" onmouseout="tooltip.hide();"><img src="/kipamedia/help_small.png" /></span>'
@@ -164,7 +164,7 @@ class AikaWidget(forms.TextInput):
     Text input widget, exept for value formatting field values are converted from total seconds to "hh:mm:ss"
     """
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         newValue = value
         if newValue:
             try:
@@ -182,7 +182,7 @@ class AikaWidget(forms.TextInput):
                 newValue = str(h) + ":" + str(min) + ":" + str(sec)
             except ValueError:
                 pass
-        return super(AikaWidget, self).render(name, newValue, attrs)
+        return super(AikaWidget, self).render(name, newValue, attrs, renderer)
 
 
 class PisteField(forms.CharField):
