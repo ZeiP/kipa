@@ -13,7 +13,6 @@ tal = r"(?P<talletettu>(talletettu)?)/?$"
 urlpatterns = [
     url(r"^apua/", apua),
     url(r"^$", etusivu),
-    url(r"^post_txt/(?P<parametrit>[^/]+)/$", post_txt),
     url(r"^(?P<kisa_nimi>[^/]+)/tallenna/$", tallennaKisa),
     url(r"^login/$", loginSivu),
     url(r"^logout/$", logoutSivu),

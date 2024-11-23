@@ -2,7 +2,6 @@
 #    Copyright (C) 2011  Espoon Partiotuki ry. ept@partio.fi
 
 from __future__ import absolute_import
-import re
 
 from django import forms
 from django.core import serializers
@@ -1119,39 +1118,6 @@ def korvaaKisa(request, kisa_nimi=None):
             "tupa/upload_riisuttu.html",
             context={"heading": otsikko, "form": form, "kisa_nimi": kisa_nimi},
         )
-
-
-def post_txt(request, parametrit):
-    """
-    Apunäkymä virhetilanteisiin. (error 500,server internal error)
-    -Luo kisan tietokannan xml formaattiin ja lisää perään post_data:n testausta varten.
-    -Palauttaa xml tiedoston.
-    """
-    from xml.dom.minidom import parseString
-
-    kisa_nimi = re.search(r"^osoite=/kipa/(\w+)/", parametrit).group(1)
-    kisa = get_object_or_404(Kisa, nimi=kisa_nimi)
-    test_data = kisa_xml(kisa)
-    post_data = parametrit.split("&")
-    doc = parseString(test_data)
-    post_test = doc.createElement("post_request")
-    post_test.setAttribute("address", post_data[0].split("=")[1])
-
-    for p in post_data[1:]:
-        data = p.split("=")
-        elem = doc.createElement("input")
-        elem.setAttribute("name", data[0])
-        elem.setAttribute("value", data[1])
-        post_test.appendChild(elem)
-    doc.childNodes[0].appendChild(post_test)
-
-    response = HttpResponse(
-        doc.toprettyxml(indent="  "),
-        content_type="application/xml",
-        context_instance=RequestContext(request),
-    )
-    response["Content-Disposition"] = "attachment; filename=tietokanta.xml"
-    return response
 
 
 def raportti_500(request):
