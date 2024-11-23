@@ -405,7 +405,7 @@ class CustomTestRunner(DiscoverRunner):
         verbosity=1,
         interactive=True,
         failfast=True,
-        **kwargs
+        **kwargs,
     ):
         return run_one_fixture(test_labels, verbosity, interactive, extra_tests)
 
