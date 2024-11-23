@@ -139,7 +139,7 @@ Vieraile tupa2.sf.net Imagen linkkiä varten.
 Kipan laskenta perustuu Pythonin-ohjelmointikielellä kirjoitettuun koodiin.
 Tällä hetkellä kehitysversiossa on käytössä Python 3.4.
 
-Djangon versio 1.11 on testattu kehityspalvelimen kanssa toimivaksi.
+Djangon versio 2.0 on testattu kehityspalvelimen kanssa toimivaksi.
 
 Apache-asennus ei toimi kehitysversiossa.
 
