@@ -42,6 +42,7 @@ if not CACHE_TULOKSET:
 
 # Local time zone for this installation.
 TIME_ZONE = "Europe/Helsinki"
+USE_TZ = False
 
 # Language code for this installation.
 LANGUAGE_CODE = "fi"
