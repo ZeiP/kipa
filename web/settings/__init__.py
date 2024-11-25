@@ -118,6 +118,8 @@ LOGIN_REDIRECT_URL = "/kipa/"
 
 TEST_RUNNER = "tupa.tests.CustomTestRunner"
 
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+
 # Should we serve the media files through Python?
 SERVE_MEDIA = DEBUG
 
