@@ -7,7 +7,7 @@
 <tr>
 <td width=300>
 <p>Käytössa: <input type="checkbox" name="{{arvio.name}}" id="{{arvio.id}}" value="abs"
-{% ifequal arvio.value "abs" %}checked="checked" {% endifequal %}/></p>
+{% if arvio.value == "abs" %}checked="checked" {% endif %}/></p>
 <p><font color=red><b>
                         {{oikea.errors}}
 </b></font>

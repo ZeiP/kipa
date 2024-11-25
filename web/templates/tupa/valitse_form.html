@@ -10,10 +10,10 @@
 {% block content %}
 <form method="POST" action="">
 {{ block.super }}
-{%ifequal napin_tyyppi "kopioi" %}
+{%if napin_tyyppi == "kopioi" %}
 {% include "tupa/kopioi.html" %}
 {% else %}
 {% include "tupa/tallenna.html" %}
-{% endifequal %}
+{% endif %}
 </form>
 {% endblock %}

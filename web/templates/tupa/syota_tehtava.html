@@ -70,21 +70,21 @@ $(document).ready(function(){
   </tr>-->
   <tr valign="middle">
     <td valign="middle" class="tauluOtsikko">Tehtävän tila:</td>
-    {%ifequal tilanne.0 "a"%}
+    {%if tilanne.0 == "a"%}
     <td width="150" valign="middle" class='aloittamatta'><label>aloittamatta</label></td>
-    {% endifequal %}
-    {%ifequal tilanne.0 "o"%}
+    {% endif %}
+    {%if tilanne.0 == "o"%}
     <td width="150" valign="middle" class='osittain'><label>syötetty osittain</label></td>
-    {% endifequal %}
-    {%ifequal tilanne.0 "s"%}
+    {% endif %}
+    {%if tilanne.0 == "s"%}
     <td width="150" valign="middle" class='syotetty'><label>syötetty</label></td>
-    {% endifequal %}
-    {%ifequal tilanne.0 "t"%}
+    {% endif %}
+    {%if tilanne.0 == "t"%}
     <td width="150" valign="middle" class='tarkistettu'><label>tarkistettu</label></td>
-    {% endifequal %}
-    {%ifequal tilanne.0 "v"%}
+    {% endif %}
+    {%if tilanne.0 == "v"%}
     <td width="150" valign="middle" class='virhe'><label>syöttövirhe</label></td>
-    {% endifequal %}
+    {% endif %}
 
 
     <td bgcolor="#E8EDFF"><label><input type="checkbox" {%if tarkistettu %}checked="checked" {% endif %} name="tarkistettu" id="tarkistettu" />tarkistettu</label></td>
@@ -128,7 +128,7 @@ $(document).ready(function(){
                 {% for maarite in osatehtava.syotemaarite_set.all %}
                    <th>
                        {{ maarite.tyyppi }}
-                       {% ifequal maarite.tyyppi "aika" %}(hh:mm:ss){% endifequal %}
+                       {% if maarite.tyyppi == "aika" %}(hh:mm:ss){% endif %}
                    </th>
                 {% endfor %}
                 <th class="th_erotin"></th>
