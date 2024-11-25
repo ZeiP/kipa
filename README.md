@@ -47,4 +47,4 @@ Kipaan suunniteltua kirjautumista.
 
 ### Python-koodin formatointi
 
-Koodi noudattaa Black-autoformatterin vesion 24.10.0 mukaista tyyliä. Blackille annetaan lippu `--target-version py37`. Formatointi tarkastetaan osana CI-putkea.
+Koodi noudattaa Black-autoformatterin vesion 24.10.0 mukaista tyyliä. Blackille annetaan lippu `--target-version py310`. Formatointi tarkastetaan osana CI-putkea.
