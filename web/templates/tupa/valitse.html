@@ -15,11 +15,11 @@
 {% if taulukko %}
     <ul id="sarjatabs" class="shadetabs">
         {% for sarake in taulukko %}
-            {% ifequal sarake taulukko.0  %}
+            {% if sarake == taulukko.0  %}
                 <li><a href="#" rel="sarake{{ sarake.id }}" class="selected">{{ sarake.otsikko }}</a></li>
                 {% else %}
                 <li><a href="#" rel="sarake{{ sarake.id }}">{{ sarake.otsikko }}</a></li>
-            {% endifequal %}
+            {% endif %}
         {% endfor %}
     </ul>
 

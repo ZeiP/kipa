@@ -9,13 +9,13 @@
 </b></font>
 Parhaat pisteet saa:<br>
 <input type="radio" id="{{parhaan_haku.id}}_1" value="min" name="{{parhaan_haku.name}}"
-{% ifequal parhaan_haku.value "min" %}checked="checked" {% endifequal %}
+{% if parhaan_haku.value == "min" %}checked="checked" {% endif %}
 /> <label for="{{parhaan_haku.id}}_1">pienin</label><br>
 <input type="radio" id="{{parhaan_haku.id}}_2" value="max" name="{{parhaan_haku.name}}"
-{% ifequal parhaan_haku.value "max" %}checked="checked" {% endifequal %}
+{% if parhaan_haku.value == "max" %}checked="checked" {% endif %}
 /> <label for="{{parhaan_haku.id}}_2">suurin</label><br>
 <input type="radio" id="{{parhaan_haku.id}}_3" value="" name="{{parhaan_haku.name}}"
-{% ifequal parhaan_haku.value "" %}checked="checked" {% endifequal %}
+{% if parhaan_haku.value == "" %}checked="checked" {% endif %}
 />
 <label for="{{parhaan_haku.id}}_3">
 {%if vapaa %} kaava:

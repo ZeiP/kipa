@@ -18,9 +18,9 @@
                 <legend>{%if vapaa %} Vapaa: {%else%} Kiinteä {% endif %}</legend>
                 <p>
         <input type="radio" id="{{nollan_kerroin.id}}" value="1" name="{{nollan_kerroin.name}}"
-        {% ifequal nollan_kerroin.value "1" %}
+        {% if nollan_kerroin.value == "1" %}
         checked="checked"
-        {% endifequal %}
+        {% endif %}
         {% if not nollan_kerroin.value %}
         checked="checked"
         {% endif %} />
@@ -47,22 +47,22 @@ onmouseout="tooltip.hide();">
                         </b></font>
 
 <input type="radio" id="{{nollan_kerroin.id}}" value="1.5" name="{{nollan_kerroin.name}}"
-{% ifequal nollan_kerroin.value "1.5" %}checked="checked" {% endifequal %}/>
+{% if nollan_kerroin.value == "1.5" %}checked="checked" {% endif %}/>
 1.5 (pienin tulos saa parhaat pisteet)<br>
 <input type="radio" id="{{nollan_kerroin.id}}" value="0.5" name="{{nollan_kerroin.name}}"
-{% ifequal nollan_kerroin.value "0.5" %}checked="checked" {% endifequal %}/>
+{% if nollan_kerroin.value == "0.5" %}checked="checked" {% endif%}/>
 0.5 (suurin tulos saa parhaat pisteet)<br>
 <input type="radio" id="{{nollan_kerroin.id}}" value="m" name="{{nollan_kerroin.name}}"
-{% ifnotequal nollan_kerroin.value "1.5" %}
-{% ifnotequal nollan_kerroin.value "0.5" %}
-{% ifnotequal nollan_kerroin.value "1" %}
+{% if nollan_kerroin.value != "1.5" %}
+{% if nollan_kerroin.value != "0.5" %}
+{% if nollan_kerroin.value != "1" %}
 {% if nollan_kerroin.value %}
 
 checked="checked"
 {% endif %}
-{% endifnotequal %}
-{% endifnotequal %}
-{% endifnotequal %}/>
+{% endif %}
+{% endif %}
+{% endif %}/>
 
 muu:
 

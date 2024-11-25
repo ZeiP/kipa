@@ -17,10 +17,10 @@
 
             <select name="{{maarite.tyyppi.name}}">
                 <option value="piste"
-                {% ifequal maarite.tyyppi.value "piste" %}selected="selected"{% endifequal %}
+                {% if maarite.tyyppi.value == "piste" %}selected="selected"{% endif %}
                  >piste</option>
                 <option value="aika"
-                {% ifequal maarite.tyyppi.value "aika" %}selected="selected"{% endifequal %}
+                {% if maarite.tyyppi.value == "aika" %}selected="selected"{% endif %}
                 >aika</option>
             </select>
         </td>
