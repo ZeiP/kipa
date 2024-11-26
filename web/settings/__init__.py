@@ -121,6 +121,8 @@ TEST_RUNNER = "tupa.tests.CustomTestRunner"
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
+FORM_RENDERER = "django.forms.renderers.DjangoDivFormRenderer"
+
 # Should we serve the media files through Python?
 SERVE_MEDIA = DEBUG
 

@@ -15,7 +15,9 @@ Syötä 'Keskeyttänyt' ja 'Ulkopuolella' kenttiin sen tehtävän numero, josta 
 Keskeyttäneille vartioille ei enää syötetä tuloksia kyseisestä tehtävästä lähtien. <br />
 Sarjan ulkopuolelle siirtyneet vartiot saavat tulokset normaalisti, mutta niiden syötteitä ei käytetä esim. määriteltäessä interpoloinnissa nopeinta suoritusta.</strong></p>
     {% for form in sarake.forms %}
-        {{ form }} <br>
+        <div class="oneRowInlineForm">
+            {{ form }}
+        </div>
     {% endfor %}
 {% endblock%}
 {% block content %}
