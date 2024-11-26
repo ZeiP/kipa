@@ -24,7 +24,9 @@
         <legend>{{formset.label}} {{formset.helppiteksti}} </legend>
         {{ formset.management_form }}
         {% for form in formset.forms %}
-                {{ form }} <br>
+            <div class="oneRowInlineForm">
+                {{ form }}
+            </div>
         {% endfor %}
     </fieldset>
     {% endfor%}
