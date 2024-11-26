@@ -151,8 +151,8 @@ class HelpWidget(forms.TextInput):
         self.helptext = helptext
 
     def render(self, name, value=None, attrs=None, renderer=None):
-        return (
-            mark_safe(super(HelpWidget, self).render(name, value, attrs, renderer))
+        return mark_safe(
+            super(HelpWidget, self).render(name, value, attrs, renderer)
             + "<span onmouseover=\"tooltip.show('"
             + self.helptext
             + '\');" onmouseout="tooltip.hide();"><img src="/kipamedia/help_small.png" /></span>'
