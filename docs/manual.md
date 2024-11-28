@@ -699,18 +699,6 @@ joita emme ehditty toteuttaa
 * Tuki Emit tietojen sisäänottoon
 * Mac OS X installer
 
-### Tekijät
-
-* Joonas "Jones" Hirn
-* Visa "Viski" Jokelainen
-* Frans "Ransu" Korhonen
-* Samu Wikstedt
-* Markus "Mara" Vuorinen
-
-Muuta projektiryhmää joka on ollut enemmän tai vähemmän projektin
-vaiheissa mukana, Janne "Peltsi" Peltola, Teemu Penttilä, Martti
-"Mara" Suontausta
-
 ### Yhteydenotot
 
 Mikäli sinulla on kiinnostusta tietää enemmän hankkeesta, jatkaa
