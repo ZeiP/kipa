@@ -498,3 +498,6 @@ td.th_erotin {
 
 .capitalize {text-transform:capitalize;}
 
+.oneRowInlineForm {
+	display: flex;
+}

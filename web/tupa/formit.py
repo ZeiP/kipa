@@ -37,24 +37,26 @@ class VartioForm(ModelForm):
 
     class Meta:
         model = Vartio
+        fields = [
+            "nro",
+            "nimi",
+            "lippukunta",
+            "piiri",
+            "ulkopuolella",
+            "keskeyttanyt",
+        ]
 
 
 VartioFormSet = inlineformset_factory(
     Sarja,
     Vartio,
     extra=30,
-    fields=(
-        "nro",
-        "nimi",
-        "lippukunta",
-        "piiri",
-        "ulkopuolella",
-        "keskeyttanyt",
-    ),
     form=VartioForm,
 )
 
-MaariteFormSet = inlineformset_factory(OsaTehtava, SyoteMaarite, extra=3)
+MaariteFormSet = inlineformset_factory(
+    OsaTehtava, SyoteMaarite, extra=3, fields="__all__"
+)
 
 
 class SarjaForm(ModelForm):
@@ -74,12 +76,21 @@ class SarjaForm(ModelForm):
     vartion_minimikoko = forms.IntegerField(widget=forms.HiddenInput, required=False)
 
 
-SarjaFormSet = inlineformset_factory(Kisa, Sarja, extra=8, form=SarjaForm)
+SarjaFormSet = inlineformset_factory(
+    Kisa,
+    Sarja,
+    extra=8,
+    form=SarjaForm,
+    fields=[
+        "nimi",
+        "tasapiste_teht1",
+        "tasapiste_teht2",
+        "tasapiste_teht3",
+    ],
+)
 SarjaFormSet.helppiteksti = mark_safe(
     '<span onmouseover="tooltip.show(\'Sarjan <strong>nimet</strong> voivat sis&auml;lt&auml;&auml; &auml;&auml;kk&ouml;si&auml; ja v&auml;lily&ouml;ntej&auml;.<br><strong>Tasapisteiss&auml; m&auml;&auml;r&auml;&auml;v&auml;t teht&auml;v&auml;t</strong> -kohdat kertovat tasapisteiss&auml; m&auml;&auml;r&auml;&auml;vien teht&auml;vien numerot. Palaa t&auml;ytt&auml;m&auml;&auml;n ne m&auml;&auml;ritelty&auml;si kyseiset teht&auml;v&auml;t.\');" onmouseout="tooltip.hide();"><img src="/kipamedia/help_small.png" /></span>'
 )
-
-TehtavaValintaFormSet = inlineformset_factory(Sarja, Tehtava, fields=("jarjestysnro",))
 
 
 class TuhoaTehtavaForm(ModelForm):
@@ -99,6 +110,7 @@ class TuhoaTehtavaForm(ModelForm):
 
     class Meta:
         model = Tehtava
+        fields = []
 
 
 tuhoaTehtaviaFormset = modelformset_factory(
@@ -138,9 +150,9 @@ class HelpWidget(forms.TextInput):
         super(HelpWidget, self).__init__(*argcv)
         self.helptext = helptext
 
-    def render(self, name, value=None, attrs=None):
-        return (
-            mark_safe(super(HelpWidget, self).render(name, value, attrs))
+    def render(self, name, value=None, attrs=None, renderer=None):
+        return mark_safe(
+            super(HelpWidget, self).render(name, value, attrs, renderer)
             + "<span onmouseover=\"tooltip.show('"
             + self.helptext
             + '\');" onmouseout="tooltip.hide();"><img src="/kipamedia/help_small.png" /></span>'
@@ -152,7 +164,7 @@ class AikaWidget(forms.TextInput):
     Text input widget, exept for value formatting field values are converted from total seconds to "hh:mm:ss"
     """
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         newValue = value
         if newValue:
             try:
@@ -170,7 +182,7 @@ class AikaWidget(forms.TextInput):
                 newValue = str(h) + ":" + str(min) + ":" + str(sec)
             except ValueError:
                 pass
-        return super(AikaWidget, self).render(name, newValue, attrs)
+        return super(AikaWidget, self).render(name, newValue, attrs, renderer)
 
 
 class PisteField(forms.CharField):
@@ -238,7 +250,7 @@ def initPisteSyote(self, fieldName):
     if not kesk == None and not nro == None:
         if kesk <= nro:  # Keskeyttänyt
             self.fields[fieldName].widget.attrs["class"] = "kesk"
-            self.fields[fieldName].widget.attrs["readonly"] = True
+            self.fields[fieldName].widget.attrs["readonly"] = "readonly"
             self.initial[fieldName] = "kesk"
 
 
@@ -398,11 +410,7 @@ class KisaForm(ModelForm):
 
     class Meta:
         model = Kisa
-
-
-class PoistaTehtavaForm(ModelForm):
-    class Meta:
-        model = Tehtava
+        fields = "__all__"
 
 
 class UploadFileForm(forms.Form):

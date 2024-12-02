@@ -42,9 +42,10 @@ if not CACHE_TULOKSET:
 
 # Local time zone for this installation.
 TIME_ZONE = "Europe/Helsinki"
+USE_TZ = False
 
 # Language code for this installation.
-LANGUAGE_CODE = "fi-FI"
+LANGUAGE_CODE = "fi"
 
 SITE_ID = 1
 
@@ -75,27 +76,31 @@ ADMIN_MEDIA_PREFIX = "/media/"
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = "shbtq($_^om(xep=5f97k2+ntb3!cqn+)%8r#s6udzqnhj$5p6"
 
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    "django.template.loaders.filesystem.Loader",
-    "django.template.loaders.app_directories.Loader",
-)
-
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-)
+]
 
 ROOT_URLCONF = "urls"
 
-TEMPLATE_DIRS = (
-    hakemisto + "/templates",
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [
+            hakemisto + "/templates",
+        ],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ],
+        },
+    },
+]
 
 INSTALLED_APPS = [
     "django.contrib.auth",
@@ -113,6 +118,8 @@ LOGIN_URL = "/kipa/"
 LOGIN_REDIRECT_URL = "/kipa/"
 
 TEST_RUNNER = "tupa.tests.CustomTestRunner"
+
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 # Should we serve the media files through Python?
 SERVE_MEDIA = DEBUG

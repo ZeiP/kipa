@@ -314,7 +314,7 @@ def TulosTestFactory(fixture_name):
                     )
                     page = str(c.get(osoite).content)
                     page = page.replace("\n", "")
-                    page = re.sub("\s+", " ", page)
+                    page = re.sub(r"\s+", " ", page)
                     all = re.findall(
                         '<input.*?type="(text|checkbox|radio)"+?(.*?)(>)', page
                     )
@@ -335,7 +335,7 @@ def TulosTestFactory(fixture_name):
                     if all:
                         for i in all:
                             j = re.search(
-                                "<(\s*?option.*?selected=[\"']selected[\"'].*?)>", i[1]
+                                r"<(\s*?option.*?selected=[\"']selected[\"'].*?)>", i[1]
                             )
                             if j:
                                 value = re.search("value=[\"'](.*?)[\"']", j.group(1))
@@ -405,7 +405,7 @@ class CustomTestRunner(DiscoverRunner):
         verbosity=1,
         interactive=True,
         failfast=True,
-        **kwargs
+        **kwargs,
     ):
         return run_one_fixture(test_labels, verbosity, interactive, extra_tests)
 

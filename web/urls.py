@@ -1,24 +1,26 @@
 from __future__ import absolute_import
-from django.conf.urls import include, patterns
+from django.conf.urls import include
 from django.contrib import admin
 from django.conf import settings
+from django.urls import path
+from django.views.static import serve
+
+from tupa.views import raportti_500
 
 admin.autodiscover()
 
-urlpatterns = patterns(
-    "",
-    (r"^kipa/", include("tupa.urls")),
-    (r"^admin/", include(admin.site.urls)),
-)
+urlpatterns = [
+    path("kipa/", include("tupa.urls")),
+    path("admin/", admin.site.urls),
+]
 
 if settings.SERVE_MEDIA:
-    urlpatterns += patterns(
-        "",
-        (
-            r"^kipamedia/(?P<path>.*)$",
-            "django.views.static.serve",
+    urlpatterns += [
+        path(
+            "kipamedia/<path>",
+            serve,
             {"document_root": settings.STATIC_DOC_ROOT},
-        ),
-    )
+        )
+    ]
 
-handler500 = "tupa.views.raportti_500"
+handler500 = raportti_500

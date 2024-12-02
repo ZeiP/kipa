@@ -22,23 +22,23 @@
                         <td width="50" fgcolor="#FFFFFF" bgcolor="#000000" ><font color="#FFFFFF">{{ sarake.1 }}</font></td>
                 {%else%}
 
-                {% ifequal sarake.0 "a" %}
+                {% if sarake.0 == "a" %}
                         <td width="100" class='aloittamatta'>{{sarake.1|alaviiva_pois}}</td>
-                {%else%}{% ifequal sarake.0 "o" %}
+                {%else%}{% if sarake.0 == "o" %}
                         <td width="100" class='osittain'>{{sarake.1}}</td>
-                {%else%}{% ifequal sarake.0 "s" %}
+                {%else%}{% if sarake.0 == "s" %}
                         <td width="62" class='syotetty'>{{sarake.1}}</td>
-                {%else%}{% ifequal sarake.0 "t" %}
+                {%else%}{% if sarake.0 == "t" %}
                         <td width="100" class='tarkistettu'> {{sarake.1|alaviiva_pois}}</td>
-                {%else%}{% ifequal sarake.0 "v" %}
+                {%else%}{% if sarake.0 == "v" %}
                         <td width="62" class='virhe'> {{sarake.1|alaviiva_pois}}</td>
                 {%else%}
                         <td width="62" >{{sarake.1}}</td>
-                {% endifequal %}
-                {% endifequal %}
-                {% endifequal %}
-                {% endifequal %}
-                {% endifequal %}
+                {% endif %}
+                {% endif %}
+                {% endif %}
+                {% endif %}
+                {% endif %}
                 {% endif %}
         {%endfor%}
         </tr>

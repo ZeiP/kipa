@@ -50,7 +50,7 @@ def korvaa(lause, pino, loppu=None):
         lause = re.sub(r"([^-.+*/()]+[.][.])", "", lause, count=1)
         poistoon = re.search(r"([^-.+*/()]+[.][.])", lause)
     haku = re.finditer(
-        "(?<![]])(\.{0,3})([a-zA-Z]\w*)(?:\.(\w+))?(?:\.(\w+))?(?:\.(\w+))?(?!\w*[(])",
+        r"(?<!])(\.{0,3})([a-zA-Z]\w*)(?:\.(\w+))?(?:\.(\w+))?(?:\.(\w+))?(?!\w*[(])",
         lause,
     )
     muutokset = []
@@ -96,10 +96,10 @@ def suoritusJoukko(s):
     'aikavali(...eka.a.b.2, .a)'
     """
     muokattu = re.sub(
-        "(([.][^-,+*/ ]+)+)(\.[^-,+*/)(]*)(?![^-,+*/() ])", "\g<1>", s, re.UNICODE
+        r"(([.][^-,+*/ ]+)+)(\.[^-,+*/)(]*)(?![^-,+*/() ])", r"\g<1>", s, re.UNICODE
     )
     muokattu = re.sub(
-        "(?<![a-zA-Z.])([a-zA-Z]\w*)(?!\w*[(.])", ".\g<1>", muokattu, re.UNICODE
+        r"(?<![a-zA-Z.])([a-zA-Z]\w*)(?!\w*[(.])", r".\g<1>", muokattu, re.UNICODE
     )
     return muokattu
 

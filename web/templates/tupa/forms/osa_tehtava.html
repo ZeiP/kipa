@@ -23,14 +23,14 @@ Osatehtävän tyyppi:
         <input type="radio" name="{{osatehtava.id}}" value="{{sarake.tyyppi}}"
         onclick="
         {% for sa in taulukko%}
-                {%ifequal sa.tyyppi sarake.tyyppi %}
+                {%if sa.tyyppi == sarake.tyyppi %}
                         setVisibility('{{sa.id}}','inline')
                 {% else %}
                         setVisibility('{{sa.id}}','none')
-                {% endifequal %}
+                {% endif %}
         {% endfor %} "
 
-        {%ifequal sarake.tyyppi tyyppi %} checked='checked' {% endifequal %} />
+        {%if sarake.tyyppi == tyyppi %} checked='checked' {% endif %} />
         {{sarake.otsikko}} &nbsp; &nbsp;
 {% endfor %}
 {% for sarake in taulukko%}

@@ -48,7 +48,7 @@ def is_number(s):
 
 
 def is_string(s):
-    if re.match("^\w+$", s.replace(" ", "_")):
+    if re.match(r"^\w+$", s.replace(" ", "_")):
         return True
     else:
         return False
@@ -71,7 +71,7 @@ def is_kaava(s):
     else:
         muuttujat = {}
         kaava = s.replace(".", "")
-        haku = re.finditer("([a-zA-Z]+)(?!\w*[(])", kaava)
+        haku = re.finditer(r"([a-zA-Z]+)(?!\w*[(])", kaava)
         numero = 1
         for h in haku:
             muuttujat[h.group(1)] = Decimal(numero)

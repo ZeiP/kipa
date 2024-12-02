@@ -114,13 +114,13 @@ TD {
                                <td align="right" style="padding-right:10px;"><em> {{ sarake.maksimipisteet }} </em></td>
                                 {% else %}
 
-                                {% ifnotequal forloop.counter 0 %}
-                                {% ifnotequal forloop.counter 1 %}
-                                {% ifnotequal forloop.counter 2 %}
+                                {% if forloop.counter != 0 %}
+                                {% if forloop.counter != 1 %}
+                                {% if forloop.counter != 2 %}
                                         <td align="right" style="padding-right:10px;"><em> {{ sarake.maksimipisteet }} </em></td>
-                                {% endifnotequal %}
-                                {% endifnotequal %}
-                                {% endifnotequal %}
+                                {% endif %}
+                                {% endif %}
+                                {% endif %}
                                 {% endif %}
 
                         {%endfor %}
@@ -137,7 +137,7 @@ TD {
                 {% else %}
                 {% for sarake in rivi %}
                      {% comment %} ylarivi {% endcomment %}
-                     {% ifequal forloop.counter 2 %}
+                     {% if forloop.counter == 2 %}
                      {% comment %} ekasarake {% endcomment %}
                         <td align="right" style="padding-right:10px;"> {{ sarake.nro }}</td> <td>{{sarake.nimi}}
                                                 {%if sarake.lippukunta %}<br>{%endif%}
@@ -145,7 +145,7 @@ TD {
                                                 {%if sarake.piiri %}<br>{%endif%}
                                                 {{sarake.piiri}}</td>
                      {% else %}
-                     {% ifequal forloop.counter 3 %}
+                     {% if forloop.counter == 3 %}
                         <td align="right" style="padding-right:10px;">{{sarake}}</td>
                      {% comment %} muut sarakkeet {% endcomment %}
                      {% else %}
@@ -154,8 +154,8 @@ TD {
                                         {{ sarake }}
                                 {% if forloop.first %} </b> {%endif%}
                         </td>
-                     {% endifequal %}
-                     {% endifequal %}
+                     {% endif %}
+                     {% endif %}
 
                 {% endfor %}
                      {% endif %}
@@ -169,7 +169,7 @@ TD {
                         {% for sarake in rivi %}
 
 
-                                {% ifequal forloop.counter 2 %}
+                                {% if forloop.counter == 2 %}
                                         {% comment %} ekasarake {% endcomment %}
                                         <td align="right" style="padding-right:10px;">{{ sarake.nro }}</td> <td>{{ sarake.nimi }}
                                                 {%if sarake.lippukunta %}<br>{%endif%}
@@ -184,7 +184,7 @@ TD {
                                         {{ sarake }}
                                         {% if forloop.first %} </b> {%endif%}
                                 </td>
-                                {% endifequal %}
+                                {% endif %}
                         {% endfor %}
                         </tr>
                         {%if forloop.counter|divisibleby:"5" %}

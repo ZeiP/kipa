@@ -63,10 +63,10 @@ def laske(lauseke, m={}, funktiot={}):
     lause = re.sub(r"([-][0](?![0-9.]))", r"", lause)
     # Korvataan funktiot
     # Vakionumerot numeroinstansseiksi:
-    oper = r"-+*/(,[<>="
-    num = "-?\d+([.]\d+)?"
+    oper = r"-+*/(,\[<>="
+    num = r"-?\d+([.]\d+)?"
     lause = re.sub(
-        r"((?<![^" + oper + "])" + num + ")(?=[" + oper + "]|$|\]|\))",
+        r"((?<![^" + oper + "])" + num + ")(?=[" + oper + "]|$|]|[)])",
         r"num('\g<1>')",
         lause,
     )
@@ -76,17 +76,17 @@ def laske(lauseke, m={}, funktiot={}):
     lause = re.sub(r"\.([a-zA-Z_]\w*)(?=\.)", r"['\g<1>']", lause)  # .x. -> [x].
     lause = re.sub(r"\.([a-zA-Z_]+[a-zA-Z_0-9]*)", r"['\g<1>']", lause)  # .x  -> [x]
     lause = re.sub(
-        r"\.(\d+)(?=[" + oper + "]|$|\]|\))", r"['\g<1>']", lause
+        r"\.(\d+)(?=[" + oper + "]|$|]|[)])", r"['\g<1>']", lause
     )  # .n  -> [n]
     lause = re.sub(
-        r"(?<=[" + oper + r"])([a-zA-Z_0-9]\w*(?=[[]))", r"m['\g<1>']", lause
+        r"(?<=[" + oper + r"])([a-zA-Z_0-9]\w*(?=[\[]))", r"m['\g<1>']", lause
     )  # x[  -> m[x][
     # Korvataan yksinäiset muuttujat (lähinnä funktioita):
     lause = re.sub(
-        r"([a-zA-Z_][a-zA-Z_0-9]*(?![a-zA-Z_0-9.(]|[[']))", r"m['\g<1>']", lause
+        r"([a-zA-Z_][a-zA-Z_0-9]*(?![a-zA-Z_0-9.(]|[\[']))", r"m['\g<1>']", lause
     )  # x -> m[x]
     lause = re.sub(
-        r"([a-zA-Z_][a-zA-Z_0-9]*(?![a-zA-Z_0-9.]|[[']))", r"f['\g<1>']", lause
+        r"([a-zA-Z_][a-zA-Z_0-9]*(?![a-zA-Z_0-9.]|[\[']))", r"f['\g<1>']", lause
     )  # x( -> f[x](
     tulos = None
     # lasketaan tulos:
