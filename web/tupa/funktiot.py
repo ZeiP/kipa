@@ -1,8 +1,7 @@
-# KiPa(KisaPalvelu), tuloslaskentajärjestelmä partiotaitokilpailuihin
-#    Copyright (C) 2010  Espoon Partiotuki ry. ept@partio.fi
 """
 Tässä tiedostossa on määritelty kaikki funktiot joita voi käyttää laskennan kaavoissa.
 """
+
 from __future__ import absolute_import
 
 from decimal import ROUND_FLOOR, ROUND_CEILING, getcontext
