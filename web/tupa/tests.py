@@ -1,18 +1,39 @@
-# encoding: utf-8
 # KiPa(KisaPalvelu), tuloslaskentaj�rjestelm� partiotaitokilpailuihin
 #    Copyright (C) 2010  Espoon Partiotuki ry. ept@partio.fi
 
+from __future__ import absolute_import
+from __future__ import print_function
+from decimal import Decimal
+import sys
 import unittest
 
-from models import *
-from taulukkolaskin import *
-import decimal
+from .taulukkolaskin import laske
 from django.test import TestCase
 from django.test.runner import DiscoverRunner
-from views import *
+from .models import Kisa, OsaTehtava, Parametri, Sarja, Syote, Tehtava, TestausTulos
+from .views import (
+    kisa,
+    kopioiTehtavia,
+    korvaaKisa,
+    laskennanTilanne,
+    maaritaKisa,
+    maaritaTehtava,
+    maaritaValitseTehtava,
+    maaritaVartiot,
+    poistaKisa,
+    sarjanTuloksetCSV,
+    syotaKisa,
+    syotaTehtava,
+    tallennaKisa,
+    tehtavanVaiheet,
+    testiTulos,
+    tulosta,
+    tulostaSarja,
+    tulostaSarjaHTML,
+)
 import os
 from django.test.client import Client
-from django.http import HttpRequest, QueryDict
+from django.http import HttpRequest
 import re
 import settings
 
@@ -208,7 +229,7 @@ def TulosTestFactory(fixture_name):
             settings.CACHE_TULOKSET = False
             settings.CACHE_BACKEND = "dummy:///"  # No cache in use
             for s in self.sarjat:
-                virheilmoitus = unicode("")
+                virheilmoitus = ""
                 for f in self.fixtures:
                     virheilmoitus = virheilmoitus + f + " "
 
@@ -269,9 +290,7 @@ def TulosTestFactory(fixture_name):
             virhe = str(len(virheet)) + " errors"
             for v in virheet:
                 virhe = virhe + "\n--------------------------------\n" + v
-            self.failUnless(
-                len(virheet) == 0, unicode(virhe).encode("ascii", "replace")
-            )
+            self.assertTrue(len(virheet) == 0, str(virhe))
             sys.stdout.flush()
 
         def testTehtavanUudelleenTallennus(self):
@@ -407,25 +426,25 @@ def run_one_fixture(test_labels, verbosity=1, interactive=True, extra_tests=[]):
         # print test_labels[0]
         # Jos testilabeliksi asetettu 'kisat', käytetään kisat-kansiota
         if test_labels[0] == "kisat":
-            print "\n***Ajetaan kisa fixtuurit***\n"
+            print("\n***Ajetaan kisa fixtuurit***\n")
             test_fixtures = []
             test_labels = ""
 
             for f in os.listdir(os.curdir + "/fixtures/tests/kisat/"):
                 if not f.find(".xml") == -1:
-                    print ("Löytyi: %s\n" % f)
+                    print("Löytyi: %s\n" % f)
                     test_fixtures.append("fixtures/tests/kisat/" + f)
                     sys.stdout.flush()
                     # print ('Testataan fixtuurit: %s\n' %test_fixtures)
 
         # Jos testilabeliksi asetettu 'perus' ajetaan ainoastaan fixtures kansiosta löytyvät testit
         elif test_labels[0] == "perus":
-            print "\n***Ajetaan perusfixtuurit***\n"
+            print("\n***Ajetaan perusfixtuurit***\n")
             test_fixtures = []
 
             for f in os.listdir(os.curdir + "/fixtures/tests/"):
                 if not f.find(".xml") == -1:
-                    print ("Löytyi: %s\n" % f)
+                    print("Löytyi: %s\n" % f)
                     test_fixtures.append("fixtures/tests/" + f)
                     sys.stdout.flush()
 
@@ -433,8 +452,8 @@ def run_one_fixture(test_labels, verbosity=1, interactive=True, extra_tests=[]):
         # ajettavaksi haluttu yksittäinen fixtuuri
         else:
             # Ajetaan vain yksi, annettu fixtuuri
-            print "\n***Ajetaan yksi fixtuuri***\n"
-            print ("%s.xml\n" % test_labels[0])
+            print("\n***Ajetaan yksi fixtuuri***\n")
+            print("%s.xml\n" % test_labels[0])
             test_fixtures = []
             test_fixtures.extend(test_labels)
             for item in range(len(test_fixtures)):
@@ -453,20 +472,20 @@ def run_one_fixture(test_labels, verbosity=1, interactive=True, extra_tests=[]):
     else:
         # Testeissä käytettävät fixturet:
         # haetaan kaikki xml fixtuurien nimet.
-        print "\n***Ajetaan kaikki testifixtuurit***\n"
+        print("\n***Ajetaan kaikki testifixtuurit***\n")
         test_fixtures = []
-        print "\n***Ajetaan perusfixtuurit***\n"
+        print("\n***Ajetaan perusfixtuurit***\n")
         for f in os.listdir(os.curdir + "/fixtures/tests/"):
             if not f.find(".xml") == -1:
-                print ("Löytyi: %s\n" % f)
+                print("Löytyi: %s\n" % f)
                 test_fixtures.append("fixtures/tests/" + f)
                 sys.stdout.flush()
 
-        print "\n***Ajetaan kisa fixtuurit***\n"
+        print("\n***Ajetaan kisa fixtuurit***\n")
         test_labels = ""
         for f in os.listdir(os.curdir + "/fixtures/tests/kisat/"):
             if not f.find(".xml") == -1:
-                print ("Löytyi: %s\n" % f)
+                print("Löytyi: %s\n" % f)
                 test_fixtures.append("fixtures/tests/kisat/" + f)
                 sys.stdout.flush()
 

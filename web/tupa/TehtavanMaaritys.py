@@ -1,18 +1,18 @@
-# encoding: utf-8
 # KiPa(KisaPalvelu), tuloslaskentajärjestelmä partiotaitokilpailuihin
 #    Copyright (C) 2010  Espoon Partiotuki ry. ept@partio.fi
 
-from django.utils.safestring import SafeUnicode
+from __future__ import absolute_import
 from django.template.loader import render_to_string
 import re
 import string
 import operator
-from decimal import *
-from taulukkolaskin import laskeTaulukko
-from TulosLaskin import luoOsatehtavanKaava
+from decimal import Decimal
+
+from .taulukkolaskin import laskeTaulukko
+from .TulosLaskin import luoOsatehtavanKaava
 
 # Lataamista varten:
-from models import *
+from .models import OsaTehtava, Parametri, SyoteMaarite, Tehtava
 from django.core import serializers
 
 # Tehtävätyyppien kaavapohja:
@@ -32,6 +32,7 @@ peruskaava = (
 
 """ This file is made with no explainable logic. It has only been made to work. Most propably the best way to improveis simply rewriting. Anyway the task is not simple. Strongly recommend of using the already defined database syntax. See developement documentation for the actual syntax definition.
 """
+
 
 #########################
 # Validiointi funktiot: #
@@ -135,7 +136,7 @@ def numero_ajaksi(n):
 # Pohjapalikoita: #
 ###################
 def syotteen_tyyppi_field(posti, data, prefix, syote_id, tyyppi):
-    nimi = string.letters[syote_id]
+    nimi = string.ascii_letters[syote_id]
     id = prefix + "_" + tyyppi + "_" + nimi + "_tyyppi"
     field_name = "tyyppi_" + nimi
     value = "piste"
@@ -229,7 +230,7 @@ def loadField(
 def syotteen_kuvaus_field(posti, data, prefix, syote_id, tyyppi):
     formi = None
     errors = ""
-    nimi = string.letters[syote_id]
+    nimi = string.ascii_letters[syote_id]
     id = prefix + "_" + tyyppi + "_" + nimi
     value = ""
     field_name = "kali_vihje_" + nimi
@@ -461,7 +462,7 @@ def maksimisuoritus(
     prefix,
     ot_tyyppi,
     formi,
-    validiointi=[[is_number], u"Syötä numeroita!"],
+    validiointi=[[is_number], "Syötä numeroita!"],
     muunnos=None,
 ):
     # Valinnat:
@@ -779,17 +780,21 @@ def vapaaKaavaForm(posti, data, prefix):
         validi = True
         if "valid" in data.keys() and data["valid"] == False:
             validi = False
-        formia = syotteen_kuvaus_field(posti, data, prefix, i, "vk").items()[0]
-        formib = syotteen_tyyppi_field(posti, data, prefix, i, "vk").items()[0]
+        formia = list(syotteen_kuvaus_field(posti, data, prefix, i, "vk").items())[0]
+        formib = list(syotteen_tyyppi_field(posti, data, prefix, i, "vk").items())[0]
         if validi and "valid" in data.keys() and data["valid"] == False:
             del data["valid"]
         formit.append(
-            {"kali_vihje": formia[1], "nimi": string.letters[i], "tyyppi": formib[1]}
+            {
+                "kali_vihje": formia[1],
+                "nimi": string.ascii_letters[i],
+                "tyyppi": formib[1],
+            }
         )
 
     if posti and prefix in posti.keys() and posti[prefix] == "vk":
         if "maaritteet" in data.keys():
-            maaritteet = data["maaritteet"].copy().items()
+            maaritteet = list(data["maaritteet"].copy().items())
             for i in range(maara):
                 if maaritteet[i][1]["kali_vihje"] == "":
                     if type(maaritteet[i][0]) == str and maaritteet[i][0][:1] == "#":
@@ -863,17 +868,21 @@ def puhdasKaavaForm(posti, data, prefix):
         validi = True
         if "valid" in data.keys() and data["valid"] == False:
             validi = False
-        formia = syotteen_kuvaus_field(posti, data, prefix, i, "pk").items()[0]
-        formib = syotteen_tyyppi_field(posti, data, prefix, i, "pk").items()[0]
+        formia = list(syotteen_kuvaus_field(posti, data, prefix, i, "pk").items())[0]
+        formib = list(syotteen_tyyppi_field(posti, data, prefix, i, "pk").items())[0]
         if validi and "valid" in data.keys() and data["valid"] == False:
             del data["valid"]
         formit.append(
-            {"kali_vihje": formia[1], "nimi": string.letters[i], "tyyppi": formib[1]}
+            {
+                "kali_vihje": formia[1],
+                "nimi": string.ascii_letters[i],
+                "tyyppi": formib[1],
+            }
         )
 
     if posti and prefix in posti.keys() and posti[prefix] == "pk":
         if "maaritteet" in data.keys():
-            maaritteet = data["maaritteet"].copy().items()
+            maaritteet = list(data["maaritteet"].copy().items())
             for i in range(maara):
                 if maaritteet[i][1]["kali_vihje"] == "":
                     if type(maaritteet[i][0]) == str and maaritteet[i][0][:1] == "#":
@@ -1021,7 +1030,7 @@ def tehtavanMaaritysForm(
             ot_formit = []
 
             # Osatehtavien maara kentta:
-            osatehtavia = len(v["osa_tehtavat"].keys())
+            osatehtavia = len(list(v["osa_tehtavat"].keys()))
             errors = ""
             if posti and prefix + str(k) + "_osatehtavia" in posti.keys():
                 # Ja validiointi:
@@ -1079,7 +1088,7 @@ def tehtavanMaaritysForm(
                     tId = None
 
                 v["osa_tehtavat"][uusi_id] = {
-                    "nimi": string.letters[osatehtava_id],
+                    "nimi": string.ascii_letters[osatehtava_id],
                     "tyyppi": "",
                     "kaava": "",
                     "tehtava": tId,
@@ -1230,7 +1239,7 @@ def tallennaTehtavaData(data):
                     osa_tehtava.id = ot_k
                 osa_tehtava.tehtava = tehtava
 
-                if osa_tehtava.id > 0 or osa_tehtava.id == None:
+                if osa_tehtava.id is None or osa_tehtava.id > 0:
                     osa_tehtava.save()
                     if "parametrit" in ot_v.keys():
                         for p_k, p_v in ot_v["parametrit"].items():
@@ -1241,7 +1250,7 @@ def tallennaTehtavaData(data):
                             if not type(p_k) == str:
                                 parametri.id = p_k
                             parametri.osa_tehtava = osa_tehtava
-                            if parametri.id > 0 or parametri.id == None:
+                            if parametri.id is None or parametri.id > 0:
 
                                 parametri.save()
                             else:
@@ -1257,7 +1266,7 @@ def tallennaTehtavaData(data):
                             if not type(m_k) == str:
                                 maarite.id = m_k
                             maarite.osa_tehtava = osa_tehtava
-                            if maarite.id > 0 or maarite.id == None:
+                            if maarite.id is None or maarite.id > 0:
                                 maarite.save()
                             else:
                                 maarite.id = -maarite.id

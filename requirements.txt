@@ -1,4 +1,4 @@
 django==1.6
 south
 #mysql-python
-git+https://github.com/PyMySQL/mysqlclient-python.git@v1.4.6#egg=MySQLdb
+# git+https://github.com/PyMySQL/mysqlclient-python.git@v1.4.6#egg=MySQLdb

@@ -1,16 +1,13 @@
-# encoding: utf-8
 # KiPa(KisaPalvelu), tuloslaskentajärjestelmä partiotaitokilpailuihin
 #    Copyright (C) 2010  Espoon Partiotuki ry. ept@partio.fi
 """
 Tässä tiedostossa on määritelty kaikki funktiot joita voi käyttää laskennan kaavoissa.
 """
-from laskentatyypit import *
+from __future__ import absolute_import
 
-from math import *
+from decimal import ROUND_FLOOR, ROUND_CEILING, getcontext
 
-# from decimal import *
-
-import log
+from .laskentatyypit import DictDecimal, suorita_lista
 
 
 def pienin(*lista):
@@ -33,10 +30,10 @@ def mediaani(*lista):
     """
     values = sorted(lista)
     if len(values) % 2 == 1:
-        return DictDecimal(values[(len(values) + 1) / 2 - 1])
+        return DictDecimal(values[(len(values) + 1) // 2 - 1])
     else:
-        lower = DictDecimal(values[len(values) / 2 - 1])
-        upper = DictDecimal(values[len(values) / 2])
+        lower = DictDecimal(values[len(values) // 2 - 1])
+        upper = DictDecimal(values[len(values) // 2])
         return (DictDecimal(lower + upper)) / 2
 
 
@@ -60,7 +57,7 @@ def summa(*lista):
     """
     s = DictDecimal(0)
     for v in lista:
-        if v and not type(v) == unicode and not type(v) == str:
+        if v and not type(v) == str:
             s = s + v
     return s
 

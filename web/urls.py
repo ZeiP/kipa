@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from django.conf.urls import include, patterns
 from django.contrib import admin
 from django.conf import settings

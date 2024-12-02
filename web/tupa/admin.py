@@ -1,11 +1,21 @@
-# encoding: utf-8
-
 # KiPa(KisaPalvelu), tuloslaskentajärjestelmä partiotaitokilpailuihin
 #    Copyright (C) 2010  Espoon Partiotuki ry. ept@partio.fi
 
-from models import *
+from __future__ import absolute_import
 from django.contrib import admin
-from formit import *
+from .formit import KisaForm
+from .models import (
+    Kisa,
+    OsaTehtava,
+    Parametri,
+    Sarja,
+    Syote,
+    SyoteMaarite,
+    Tehtava,
+    TestausTulos,
+    TuomarineuvosTulos,
+    Vartio,
+)
 
 
 class SarjaInline(admin.TabularInline):

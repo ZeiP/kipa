@@ -1,22 +1,22 @@
-# encoding: utf-8
 # KiPa(KisaPalvelu), tuloslaskentajärjestelmä partiotaitokilpailuihin
 #    Copyright (C) 2010  Espoon Partiotuki ry. ept@partio.fi
 
-
-from django.conf import settings
-from xml.dom.minidom import parse, parseString
+from __future__ import absolute_import
+from __future__ import print_function
+from xml.dom.minidom import getDOMImplementation
 import os.path
 import re
 
-##from tupa.models import Kisa
-from django.shortcuts import get_object_or_404
-from duplicate import kisa_xml
+from django.conf import settings
 
-from xml.dom.minidom import getDOMImplementation
+from .duplicate import kisa_xml
+from .models import Kisa
+
 
 impl = getDOMImplementation()
 
 record_base = '<?xml version="1.0" encoding="utf-8"?>\n<django-objects version="1.0">\n</django-objects>'
+
 
 # recorder middleware:
 class PostDataRecorder:
@@ -56,7 +56,7 @@ class PostDataRecorder:
                     if not kisa_haku.group(1) == "uusiKisa":
                         kisa = Kisa.objects.get(nimi=kisa_haku.group(1))
                         vanha = kisa_xml(kisa)
-                        print vanha
+                        print(vanha)
                         uusi.write(kisa_xml(kisa))  # talletetaan kisan kanta pohjaksi
                     else:
                         uusi.write(

@@ -1,19 +1,26 @@
-# encoding: utf-8
 # KiPa(KisaPalvelu), tuloslaskentajärjestelmä partiotaitokilpailuihin
 #    Copyright (C) 2010  Espoon Partiotuki ry. ept@partio.fi
 
 
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-
+from __future__ import absolute_import
 from django.forms.models import modelformset_factory
 from django import forms
-from models import *
+from .models import (
+    Kisa,
+    OsaTehtava,
+    Sarja,
+    Syote,
+    SyoteMaarite,
+    Tehtava,
+    TestausTulos,
+    TuomarineuvosTulos,
+    Vartio,
+)
 from django.forms import ModelForm
 from django.forms.models import inlineformset_factory
-from decimal import *
+from decimal import Decimal
 import re
-from django.utils.safestring import SafeUnicode
+from django.utils.safestring import mark_safe
 from django.template.loader import render_to_string
 
 
@@ -68,7 +75,7 @@ class SarjaForm(ModelForm):
 
 
 SarjaFormSet = inlineformset_factory(Kisa, Sarja, extra=8, form=SarjaForm)
-SarjaFormSet.helppiteksti = SafeUnicode(
+SarjaFormSet.helppiteksti = mark_safe(
     '<span onmouseover="tooltip.show(\'Sarjan <strong>nimet</strong> voivat sis&auml;lt&auml;&auml; &auml;&auml;kk&ouml;si&auml; ja v&auml;lily&ouml;ntej&auml;.<br><strong>Tasapisteiss&auml; m&auml;&auml;r&auml;&auml;v&auml;t teht&auml;v&auml;t</strong> -kohdat kertovat tasapisteiss&auml; m&auml;&auml;r&auml;&auml;vien teht&auml;vien numerot. Palaa t&auml;ytt&auml;m&auml;&auml;n ne m&auml;&auml;ritelty&auml;si kyseiset teht&auml;v&auml;t.\');" onmouseout="tooltip.hide();"><img src="/kipamedia/help_small.png" /></span>'
 )
 
@@ -100,18 +107,14 @@ tuhoaTehtaviaFormset = modelformset_factory(
 
 
 class TehtavaLinkkilistaFormset(tuhoaTehtaviaFormset):
-    def __unicode__(self):
-        piirto = unicode(self.management_form)
+    def __str__(self):
+        piirto = str(self.management_form)
         for form in self.forms:
             linkki = ""
             nimi = ""
             if form.instance:
-                linkki = unicode(form.instance.id) + "/"
-                nimi = (
-                    unicode(form.instance.jarjestysnro)
-                    + ". "
-                    + unicode(form.instance.nimi)
-                )
+                linkki = str(form.instance.id) + "/"
+                nimi = str(form.instance.jarjestysnro) + ". " + str(form.instance.nimi)
             piirto = (
                 piirto
                 + "<a href="
@@ -123,7 +126,7 @@ class TehtavaLinkkilistaFormset(tuhoaTehtaviaFormset):
                 + "<br>"
             )
             piirto = piirto.replace("<p>", "").replace("</p>", "")
-        return SafeUnicode(piirto)
+        return mark_safe(piirto)
 
 
 class HelpWidget(forms.TextInput):
@@ -137,7 +140,7 @@ class HelpWidget(forms.TextInput):
 
     def render(self, name, value=None, attrs=None):
         return (
-            SafeUnicode(super(HelpWidget, self).render(name, value, attrs))
+            mark_safe(super(HelpWidget, self).render(name, value, attrs))
             + "<span onmouseover=\"tooltip.show('"
             + self.helptext
             + '\');" onmouseout="tooltip.hide();"><img src="/kipamedia/help_small.png" /></span>'
@@ -180,7 +183,7 @@ class PisteField(forms.CharField):
         haku = re.match(r"^((\d*)[,.]?\d+)$", value)
         if haku:
             merkkijono = "0" + haku.group(0)
-            return unicode(Decimal(merkkijono.replace(",", ".")))
+            return str(Decimal(merkkijono.replace(",", ".")))
         if value == "kesk":
             return value
         elif value == "h":
@@ -208,7 +211,7 @@ class AikaField(forms.CharField):
         super(AikaField, self).clean(value)
         haku = re.match(r"^(\d+):(\d+):(\d+)$", value)
         if haku:
-            return unicode(
+            return str(
                 int(haku.group(1)) * 60 * 60
                 + int(haku.group(2)) * 60
                 + int(haku.group(3))
@@ -356,7 +359,7 @@ def tulostauluFormFactory(tauluTyyppi):
                 self.taulu = tulos
             return tulos
 
-        def __unicode__(self):
+        def __str__(self):
             formidata = {
                 "name": self.id,
                 "id": self.id,

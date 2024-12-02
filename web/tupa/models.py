@@ -1,22 +1,17 @@
-# encoding: utf-8
 # KiPa(KisaPalvelu), tuloslaskentajarjestelma partiotaitokilpailuihin
 #    Copyright (C) 2010  Espoon Partiotuki ry. ept@partio.fi
 
 
-#!/usr/bin/python
-
-
+from __future__ import absolute_import
+from django.core.cache import cache
 from django.db import models
-from random import uniform
-from TulosLaskin import *
+from .TulosLaskin import laskeSarja
 import settings
 
-import thread
+import threading
 import time
 
-import log
-from binascii import *
-import sys
+from . import log
 
 
 class Kipa(models.Model):
@@ -32,12 +27,12 @@ class Kisa(models.Model):
     paikka = models.CharField(max_length=255, blank=True)
     tunnistus = models.BooleanField(default=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.nimi
 
     class Meta:
         verbose_name_plural = "Kisat"
-        db_table = u"kipa_kisa"
+        db_table = "kipa_kisa"
 
 
 class Sarja(models.Model):
@@ -49,7 +44,7 @@ class Sarja(models.Model):
     tasapiste_teht2 = models.IntegerField(blank=True, null=True)
     tasapiste_teht3 = models.IntegerField(blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.kisa.nimi + "." + self.nimi
 
     def save(self, *args, **kwargs):  # Tulokset uusiksi tallennuksen yhteydessä
@@ -93,7 +88,7 @@ class Sarja(models.Model):
                 laskeeName
             )  # Tarkistetaan ollaanko tuloksia jo laskemassa.
             if not laskee:
-                thread.start_new_thread(self.laskeTulokset, ())
+                threading.start_new_thread(self.laskeTulokset, ())
 
     def tuloksetUusiksi(self):
         # Poistetaan tulosten cache
@@ -102,7 +97,7 @@ class Sarja(models.Model):
 
     class Meta:
         verbose_name_plural = "Sarjat"
-        db_table = u"kipa_sarja"
+        db_table = "kipa_sarja"
 
 
 class Vartio(models.Model):
@@ -125,13 +120,13 @@ class Vartio(models.Model):
         self.sarja.tuloksetUusiksi()
         super(Vartio, self).delete(*args, **kwargs)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.sarja.kisa.nimi + "." + self.sarja.nimi + "." + str(self.nro)
 
     class Meta:
         ordering = ("nro",)
         verbose_name_plural = "Vartiot"
-        db_table = u"kipa_vartio"
+        db_table = "kipa_vartio"
 
 
 class Henkilo(models.Model):
@@ -142,12 +137,12 @@ class Henkilo(models.Model):
     puhelin_nro = models.CharField(max_length=15, blank=True, null=True)
     homma = models.CharField(max_length=255, blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.nimi
 
     class Meta:
         verbose_name_plural = "Henkilot"
-        db_table = u"kipa_henkilo"
+        db_table = "kipa_henkilo"
 
 
 class Tehtava(models.Model):
@@ -202,7 +197,7 @@ class Tehtava(models.Model):
         self.sarja.tuloksetUusiksi()
         super(Tehtava, self).delete(*args, **kwargs)
 
-    def __unicode__(self):
+    def __str__(self):
         sarja = self.sarja
         kisa = sarja.kisa
         return kisa.nimi + "." + sarja.nimi + "." + self.nimi
@@ -210,7 +205,7 @@ class Tehtava(models.Model):
     class Meta:
         ordering = ("jarjestysnro",)
         verbose_name_plural = "Tehtavat"
-        db_table = u"kipa_tehtava"
+        db_table = "kipa_tehtava"
 
 
 class OsaTehtava(models.Model):
@@ -234,7 +229,7 @@ class OsaTehtava(models.Model):
         self.tehtava.sarja.tuloksetUusiksi()
         super(OsaTehtava, self).delete(*args, **kwargs)
 
-    def __unicode__(self):
+    def __str__(self):
         tehtava = self.tehtava
         sarja = tehtava.sarja
         kisa = sarja.kisa
@@ -243,7 +238,7 @@ class OsaTehtava(models.Model):
     class Meta:
         verbose_name_plural = "Osatehtavat"
         ordering = ["nimi"]
-        db_table = u"kipa_osatehtava"
+        db_table = "kipa_osatehtava"
 
 
 class SyoteMaarite(models.Model):
@@ -265,7 +260,7 @@ class SyoteMaarite(models.Model):
         self.osa_tehtava.tehtava.sarja.tuloksetUusiksi()
         super(SyoteMaarite, self).delete(*args, **kwargs)
 
-    def __unicode__(self):
+    def __str__(self):
         ot = self.osa_tehtava
         tehtava = ot.tehtava
         sarja = tehtava.sarja
@@ -285,7 +280,7 @@ class SyoteMaarite(models.Model):
     class Meta:
         ordering = ["osa_tehtava", "nimi"]
         verbose_name_plural = "Syotteen maaritteet"
-        db_table = u"kipa_syotemaarite"
+        db_table = "kipa_syotemaarite"
 
 
 class Syote(models.Model):
@@ -302,7 +297,7 @@ class Syote(models.Model):
         self.vartio.sarja.tuloksetUusiksi()
         super(Syote, self).delete(*args, **kwargs)
 
-    def __unicode__(self):
+    def __str__(self):
         vartio = self.vartio
         maarite = self.maarite
         ot = maarite.osa_tehtava
@@ -325,7 +320,7 @@ class Syote(models.Model):
 
     class Meta:
         verbose_name_plural = "Syotteet"
-        db_table = u"kipa_syote"
+        db_table = "kipa_syote"
 
 
 class TulosTaulu(models.Model):
@@ -341,7 +336,7 @@ class TulosTaulu(models.Model):
         self.vartio.sarja.tuloksetUusiksi()
         super(TulosTaulu, self).delete(*args, **kwargs)
 
-    def __unicode__(self):
+    def __str__(self):
         tehtava = self.tehtava
         sarja = tehtava.sarja
         kisa = sarja.kisa
@@ -357,7 +352,7 @@ class TulosTaulu(models.Model):
 
     class Meta:
         abstract = True
-        db_table = u"kipa_tulostaulu"
+        db_table = "kipa_tulostaulu"
 
 
 class TuomarineuvosTulos(TulosTaulu):
@@ -369,7 +364,7 @@ class TuomarineuvosTulos(TulosTaulu):
 class TestausTulos(TulosTaulu):
     class Meta:
         verbose_name_plural = "Testattavat tulokset"
-        db_table = u"kipa_testaustulos"
+        db_table = "kipa_testaustulos"
 
 
 class Parametri(models.Model):
@@ -379,9 +374,9 @@ class Parametri(models.Model):
 
     class Meta:
         verbose_name_plural = "OsaTehtavan paramentrit"
-        db_table = u"kipa_parametri"
+        db_table = "kipa_parametri"
 
-    def __unicode__(self):
+    def __str__(self):
         ot = self.osa_tehtava
         tehtava = ot.tehtava
         sarja = tehtava.sarja

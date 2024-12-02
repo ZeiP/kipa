@@ -1,15 +1,15 @@
-# encoding: utf-8
 # KiPa(KisaPalvelu), tuloslaskentajärjestelmä partiotaitokilpailuihin
 #    Copyright (C) 2010  Espoon Partiotuki ry. ept@partio.fi
 
+from __future__ import absolute_import
+from __future__ import division
 import re
-from laskentatyypit import *
-from funktiot import perusfunktiot
-from funktiot import listafunktiot
-import settings
+from decimal import Decimal, DivisionByZero, ROUND_HALF_UP
+from .laskentatyypit import suorita, suorita_lista, MathDict, DictDecimal
+from .funktiot import listafunktiot, perusfunktiot
 
-# from tupa.log import *
-import log
+import settings
+from . import log
 
 pfunktiot = {}
 lfunktiot = {}
@@ -53,7 +53,7 @@ def laske(lauseke, m={}, funktiot={}):
     f = dictToMathDict(f)
 
     log.logString("<h4> Laskenta: </h4>")
-    log.logString(u"Tehtävän lause = " + lauseke)
+    log.logString("Tehtävän lause = " + lauseke)
 
     # Poistetaan välilyonnit ja enterit:
     lause = lauseke.replace("\n", "")

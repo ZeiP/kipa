@@ -1,37 +1,56 @@
-# encoding: utf-8
-# coding: UTF-8
 # KiPa(KisaPalvelu), tuloslaskentajärjestelmä partiotaitokilpailuihin
 #    Copyright (C) 2011  Espoon Partiotuki ry. ept@partio.fi
-#!/usr/bin/env python
-# -*- coding: UTF-8 -*-
 
-from django.shortcuts import render_to_response, redirect, get_object_or_404
-from django.http import Http404, HttpResponse, HttpResponseRedirect
-import operator
-from decimal import *
+from __future__ import absolute_import
+import re
+
 from django import forms
+from django.core import serializers
+from django.shortcuts import render_to_response, redirect, get_object_or_404
+from django.http import HttpResponse
+from django.utils.safestring import mark_safe
+from decimal import ROUND_UP, Decimal
 import django.template
 from django.template import RequestContext
-from django.utils.safestring import SafeUnicode
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import permission_required
-from duplicate import kopioiTehtava
-from duplicate import kisa_xml
+from .duplicate import kopioiTehtava
+from .duplicate import kisa_xml
 import random
 
-from models import *
-import re
-from formit import *
-from TehtavanMaaritys import *
+from .formit import (
+    KisaForm,
+    SarjaFormSet,
+    SyoteForm,
+    TarkistusSyoteForm,
+    TehtavaLinkkilistaFormset,
+    TestiTulosForm,
+    TuomarineuvosForm,
+    UploadFileForm,
+    UploadFileNameForm,
+    VartioFormSet,
+)
+from .models import (
+    Kisa,
+    OsaTehtava,
+    Parametri,
+    Sarja,
+    Syote,
+    SyoteMaarite,
+    Tehtava,
+    TestausTulos,
+    TuomarineuvosTulos,
+    Vartio,
+)
+from .TehtavanMaaritys import luoTehtavaData, tallennaTehtavaData, tehtavanMaaritysForm
 
 import time
-from UnicodeTools import *
+from .UnicodeTools import UnicodeWriter
 import django.db
 
-from TulosLaskin import *
-from log import *
+from .TulosLaskin import laskeSarja
+from .log import clearLoki, enableLogging, palautaLoki
 
 
 def kipaResponseRedirect(url):
@@ -279,7 +298,7 @@ def maaritaValitseTehtava(request, kisa_nimi):
             "tupa/maaritaValitseTehtava.html",
             {
                 "taulukko": taulukko,
-                "heading": u"Muokkaa tehtävää",
+                "heading": "Muokkaa tehtävää",
                 "kisa_nimi": kisa_nimi,
             },
             context_instance=RequestContext(request),
@@ -390,10 +409,10 @@ def maaritaTehtava(request, kisa_nimi, tehtava_id=None, sarja_id=None, talletett
 
     sarja.taustaTulokset()  # Taustalaskenta
 
-    otsikko = u"Uusi tehtävä" + " (" + sarja.nimi + ")"
+    otsikko = "Uusi tehtävä" + " (" + sarja.nimi + ")"
 
     if tehtava and not tehtava.nimi == "":
-        otsikko = unicode(tehtava.nimi) + " (" + sarja.nimi + ")"
+        otsikko = str(tehtava.nimi) + " (" + sarja.nimi + ")"
 
     # Talletetaanko ja siirrytäänkö talletettu sivuun?
     if posti and not "lisaa_maaritteita" in posti.keys() and daatta["valid"]:
@@ -428,7 +447,7 @@ def maaritaTehtava(request, kisa_nimi, tehtava_id=None, sarja_id=None, talletett
                 "tehtava_ida": 5,
                 "taakse": {
                     "url": "/kipa/" + kisa_nimi + "/maarita/tehtava/",
-                    "title": u"Muokkaa tehtävää",
+                    "title": "Muokkaa tehtävää",
                 },
                 "talletettu": tal,
                 "ohjaus_nappi": "lisää uusi tehtävä",
@@ -597,7 +616,7 @@ def syotaTehtava(request, kisa_nimi, tehtava_id, talletettu=None, tarkistus=None
                 + "/",
                 "taakse": {
                     "url": "/kipa/" + kisa_nimi + "/syota/",
-                    "title": u"Syötä tuloksia",
+                    "title": "Syötä tuloksia",
                 },
             },
             context_instance=RequestContext(request),
@@ -808,7 +827,7 @@ def sarjanTuloksetCSV(request, kisa_nimi, sarja_id):
 
     otsikkorivi = ["", "Sij.", "Nro:", "Vartio:", "Yht:"]
     for teht in mukana[0][2:]:
-        otsikkorivi.append(unicode(teht.jarjestysnro))
+        otsikkorivi.append(str(teht.jarjestysnro))
     writer.writerow(otsikkorivi)
 
     nimirivi = ["", "", "", "", ""]
@@ -836,12 +855,12 @@ def sarjanTuloksetCSV(request, kisa_nimi, sarja_id):
         vartiorivi = [
             mukana[i + 1][0].tasa,
             str(numero),
-            unicode(mukana[i + 1][0].nro),
-            unicode(mukana[i + 1][0].nimi),
+            str(mukana[i + 1][0].nro),
+            str(mukana[i + 1][0].nimi),
         ]
-        vartiorivi.append(unicode(mukana[i + 1][1]).replace(".", ","))
+        vartiorivi.append(str(mukana[i + 1][1]).replace(".", ","))
         for num in mukana[i + 1][2:]:
-            vartiorivi.append(unicode(num).replace(".", ","))
+            vartiorivi.append(str(num).replace(".", ","))
         writer.writerow(vartiorivi)
         numero = numero + 1
 
@@ -851,26 +870,24 @@ def sarjanTuloksetCSV(request, kisa_nimi, sarja_id):
         vartiorivi = [
             ulkona[i][0].tasa,
             str(numero),
-            unicode(ulkona[i][0].nro),
-            unicode(ulkona[i][0].nimi),
+            str(ulkona[i][0].nro),
+            str(ulkona[i][0].nimi),
         ]
-        vartiorivi.append(unicode(ulkona[i][1]).replace(".", ","))
+        vartiorivi.append(str(ulkona[i][1]).replace(".", ","))
         for num in ulkona[i][2:]:
-            vartiorivi.append(unicode(num).replace(".", ","))
+            vartiorivi.append(str(num).replace(".", ","))
         writer.writerow(vartiorivi)
 
         ulkona[i].insert(0, numero)
         numero = numero + 1
 
     writer.writerow([""])
-    writer.writerow([u"S = syöttämättä"])
-    writer.writerow([u"H = vartion suoritus hylätty"])
-    writer.writerow([u"K = vartio keskeyttänyt"])
-    writer.writerow([u"E = vartio ei ole tehnyt tehtävää"])
+    writer.writerow(["S = syöttämättä"])
+    writer.writerow(["H = vartion suoritus hylätty"])
+    writer.writerow(["K = vartio keskeyttänyt"])
+    writer.writerow(["E = vartio ei ole tehnyt tehtävää"])
     writer.writerow(
-        [
-            u"! = vartion sijaluku laskettu tasapisteissä määräävien tehtävien perusteella"
-        ]
+        ["! = vartion sijaluku laskettu tasapisteissä määräävien tehtävien perusteella"]
     )
     return response
 
@@ -927,7 +944,7 @@ def kopioiTehtavia(request, kisa_nimi, sarja_id):
         return render_to_response(
             "tupa/valitse_form.html",
             {
-                "heading": u"Kopioi Tehtäviä sarjaan: " + sarjaan.nimi,
+                "heading": "Kopioi Tehtäviä sarjaan: " + sarjaan.nimi,
                 "taulukko": formit,
                 "kisa_nimi": kisa_nimi,
                 "taakse": "/kipa/" + kisa_nimi + "/maarita/tehtava/",
@@ -978,9 +995,9 @@ def korvaaKisa(request, kisa_nimi=None):
     except:
         kisa = None
 
-    otsikko = u"Korvaa kisa tiedostosta"
+    otsikko = "Korvaa kisa tiedostosta"
     if not kisa_nimi:
-        otsikko = u"Lisää kisa tiedostosta "
+        otsikko = "Lisää kisa tiedostosta "
 
     form = None
     if request.method == "POST":
@@ -997,9 +1014,7 @@ def korvaaKisa(request, kisa_nimi=None):
                 except:
                     kisa = None
 
-            xml = r""
-            for chunk in request.FILES["file"].chunks():
-                xml += chunk
+            xml = request.FILES["file"].read().decode("utf-8")
 
             kisat = []
             sarjat = []
@@ -1145,11 +1160,11 @@ def raportti_500(request):
     -Sisältää linkin joka palauttaa tietokannan,
     sekä viimeisimmän post datan xml formaatissa testausta varten.
     """
-    linkki = SafeUnicode("<a href=/kipa")
+    linkki = mark_safe("<a href=/kipa")
     linkki += "/> #00000000" + str(random.uniform(1, 10)) + "</a>"
     return render_to_response(
         "500.html",
-        {"error": SafeUnicode(linkki)},
+        {"error": mark_safe(linkki)},
         context_instance=RequestContext(request),
     )
 
@@ -1270,7 +1285,7 @@ def tehtavanVaiheet(request, kisa_nimi, tehtava_id, vartio_id=None):
             '<a href="/kipa/lista/maarita/tehtava/'
             + str(tehtava_id)
             + '/">'
-            + u"Takaisin määrittelyyn </a> <br><br>"
+            + "Takaisin määrittelyyn </a> <br><br>"
         )
         responssi += "</body></html>"
         return HttpResponse(responssi)
@@ -1282,7 +1297,7 @@ def tehtavanVaiheet(request, kisa_nimi, tehtava_id, vartio_id=None):
     tehtava = get_object_or_404(Tehtava, id=tehtava_id)
 
     responssi = (
-        u"<html><body>Vartion laskennan vaiheet tehtävässä " + tehtava.nimi + " <br> "
+        "<html><body>Vartion laskennan vaiheet tehtävässä " + tehtava.nimi + " <br> "
     )
     enableLogging()
     clearLoki()
@@ -1297,7 +1312,7 @@ def tehtavanVaiheet(request, kisa_nimi, tehtava_id, vartio_id=None):
         '<a href="/kipa/lista/maarita/tehtava/'
         + str(tehtava_id)
         + '/">'
-        + u"Takaisin määrittelyyn </a> <br><br>"
+        + "Takaisin määrittelyyn </a> <br><br>"
     )
     for v in vartiot:
         responssi += (
