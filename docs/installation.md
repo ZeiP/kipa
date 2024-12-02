@@ -1,5 +1,25 @@
 # Asennusohjeet
 
+## Kipan verkkoasennus
+
+### Lähiverkko
+
+Kaikkien tietokoneiden pitää olla samassa verkossa niin että niillä on
+verkkoyhteys palvelimelle johon Kipa on asennettu. Yhteyden toimivuutta voi
+kokeilla vaikka ping \<IP osoite\> komennolla. Palvelimelle tarvitaan
+portti 80 auki http-liikennöintiä varten. Jos kisatoimistosta ei ole pääsy
+Internettiin kannattaa harkita palomuurin sammuttamisesta palvelimelta.
+
+### Internet
+
+On myös mahdollista asentaa Kipa julkisesti Internettiin jolloin kaikki
+kisat ovat verkossa näkyvillä kaikille, tällöin kannattaa miettiä onko
+turvallisuusriskinä, että kuka tahansa, jolla on osoite, voi mennä
+muokkamaan kisan määrittelyitä ja tehtäviä. Lisäturvana kannattaa harkita
+käyttäjäautentikoitia osoitteeseen jossa Kipa pyörii. Samoin rajoituksia
+voi tulla syrjäseuduilla toimiville kisatoimistoille, joihin ei saada
+riittävän hyvää verkkoyhteyttä.
+
 ## Docker-asennus
 
 1. Luo itsellesi GitHubin personal access

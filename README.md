@@ -42,3 +42,11 @@ Suontausta.
 
 Kipaa on ollut jatkokehittämässä tekijöitä alkuperäisen projektiryhmän
 ulkopuolelta.
+
+## Kehitysprojekti
+
+Kipa on alunperin kehitetty espoolaisten partiolaisten voimin korvaamaan
+Sakari "Sacu" Koutin koodaama Tupa ja vastaamaan ajan haasteisiin.
+Kehitystyö alkoi lokakuussa 2008 ja ensimmäinen valmis versio valmistui
+Keväällä 2011. Espoon Partiotuki ry. oli taustayhteisönä ja tuki
+taloudellisesti projektia sen kehitysaikana.
