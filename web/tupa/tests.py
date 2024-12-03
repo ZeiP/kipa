@@ -1,6 +1,3 @@
-# KiPa(KisaPalvelu), tuloslaskentaj�rjestelm� partiotaitokilpailuihin
-#    Copyright (C) 2010  Espoon Partiotuki ry. ept@partio.fi
-
 from __future__ import absolute_import
 from __future__ import print_function
 from decimal import Decimal

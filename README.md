@@ -1,51 +1,52 @@
 # Kipa
 
-Kipa-ohjelmisto, jota käytetään partiotaitokilpailujen tuloslaskentaan. 
+Kipa eli Kisapalvelu on partiotaitokilpailujen tuloslaskentaan tehty
+selainpohjainen ohjelmisto. Kipalla voi laskea myös tehtävät joihin Tupa,
+Excel tai taskulaskin ei taivu. Kipa soveltuu myös sinulle, joka tarvitset
+vaihtelevia interpolointikertoimia, syötät tuloksia muillakin kuin
+Windows-koneilla, tai haluat helpottaa tarkistuslaskentaa.
 
-Asennusohjeet löytyvät [wikistä](https://github.com/partio-scout/kipa/wiki).
+Kipaa saa käyttää, kehittää ja levittää vapaasti. Kipaa jaellaan GNU GPLv3
+-lisenssin ehtojen mukaisesti. Lue lisää tiedostosta
+[COPYING](COPYING).
 
-## Lisenssi
+Ohjeita Kipan käyttöön ja tarkempaa tietoa ohjelmistosta löytyy
+[käyttöohjeesta](docs/manual.md).
 
-Tämä ohjelma on vapaa; tätä ohjelmaa on sallittu levittää edelleen ja muuttaa GNU yleisen lisenssin (GPL-lisenssin) ehtojen mukaan sellaisina kuin Free Software Foundation on ne julkaissut Lisenssin version 3 mukaisesti.
+Asennusohjeet löytyvät [asennusohjeesta](docs/installation.md).
 
-Tätä ohjelmaa levitetään siinä toivossa, että se olisi hyödyllinen, mutta ilman mitään takuuta; ilman edes hiljaista takuuta kaupallisesti hyväksyttävästä laadusta tai soveltuvuudesta tiettyyn tarkoitukseen. Katso GPL-lisenssistä lisää yksityiskohtia.
+## Kehitys
 
-Tämän ohjelman mukana pitäisi tulla kopio GPL-lisenssistä; jos näin ei ole, kirjoita osoitteeseen Free Software Foundation Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+Apu Kipan kehittämiseen on tervetullutta. Lisätietoa kehitysprosessista ja
+siihen osallistumisesta löytyy
+[prosessiohjeesta](docs/CONTRIBUTING.md). Yleistä tietoa kehittämisestä
+löytyy [kehittäjäohjeesta](docs/development.md).
 
+## Tekijänoikeudet
 
-## Kehittäminen
+Tämän ohjelmiston tekijänoikeudet kuuluvat ainakin vuosilta 2008 - 2012
+Espoon Partiotuki ry.:lle (ept@partio.fi) ja sen jälkeen muille Kipan
+kehitykseen osallistuneille henkilöille.
 
-### Paikallisen kehitysympäristön pystytys
+Alkuperäiseen projektiryhmään ovat kuuluneet:
 
+* Joonas "Jones" Hirn
+* Visa "Viski" Jokelainen
+* Frans "Ransu" Korhonen
+* Samu Wikstedt
+* Markus "Mara" Vuorinen
 
-* Luo Kipalle virtuaaliympäristö jonnekkin: `python -m venv /tmp/venv`
-* Ota virtuaaliympäristö käyttöön: `source /tmp/venv/bin/activate`
-* Asenna riippuvuudet: `pip install -r requirements.txt`
-* Luo jonnekkin väliaikainen hakemisto tietokannalle: `mkdir /tmp/tietokanta`
-* Kopioi kehitystietokanta: `cp docs/initial.db /tmp/tietokanta/kipa.db`
-* `cp ./web/settings/local.py.example ./web/settings/local.py`
-* Muokkaa edellisessä luotuun asetustiedostoon tietokantatiedostolle polku `/tmp/tietokanta/kipa.db`
-* `cd web`
-* `python manage.py migrate --fake-initial --noinput`
-* `python manage.py runserver`
+Muuta projektiryhmää, joka on ollut enemmän tai vähemmän projektin
+vaiheissa mukana: Janne "Peltsi" Peltola, Teemu Penttilä, Martti "Mara"
+Suontausta.
 
-### Yksikkötestien ajaminen
+Kipaa on ollut jatkokehittämässä tekijöitä alkuperäisen projektiryhmän
+ulkopuolelta.
 
-* `cd web`
-* `python manage.py test`
+## Kehitysprojekti
 
-### E2E-testien ajaminen
-
-* Käynnistä Kipan kehityspalvelin
-* `python3 -m venv ./robot-venv`
-* `source ./robot-venv/bin/activate`
-* `pip install robotframework robotframework-seleniumlibrary`
-* `robot --outputdir /tmp/test-report --variable BROWSER:headlessfirefox --exitonfailure ./web/robot/perustoiminnot.robot`
-
-Hakemistosta `./web/roobt` löytyy myös toinen robot-tiedosto nimeltään
-`autentikointi.txt`, mutta sen ajaminen ei taida onnistua, ellei ensin toteuta
-Kipaan suunniteltua kirjautumista.
-
-### Python-koodin formatointi
-
-Koodi noudattaa Black-autoformatterin vesion 24.10.0 mukaista tyyliä. Blackille annetaan lippu `--target-version py312`. Formatointi tarkastetaan osana CI-putkea.
+Kipa on alunperin kehitetty espoolaisten partiolaisten voimin korvaamaan
+Sakari "Sacu" Koutin koodaama Tupa ja vastaamaan ajan haasteisiin.
+Kehitystyö alkoi lokakuussa 2008 ja ensimmäinen valmis versio valmistui
+Keväällä 2011. Espoon Partiotuki ry. oli taustayhteisönä ja tuki
+taloudellisesti projektia sen kehitysaikana.

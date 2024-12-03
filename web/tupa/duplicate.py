@@ -1,6 +1,3 @@
-# KiPa(KisaPalvelu), tuloslaskentajärjestelmä partiotaitokilpailuihin
-#    Copyright (C) 2010  Espoon Partiotuki ry. ept@partio.fi
-
 from django.core import serializers
 
 
