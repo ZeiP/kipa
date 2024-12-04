@@ -67,7 +67,6 @@ def laske(lauseke, m={}, funktiot={}):
         r"num('\g<1>')",
         lause,
     )
-    # lause=re.sub(r"((?<![^-+*/(,[])-?\d+([.]\d+)?)(?![\.0-9])",r"num('\g<1>')",lause)
 
     # Korvataan muuttujien nimet oikeilla muuttujilla:
     lause = re.sub(r"\.([a-zA-Z_]\w*)(?=\.)", r"['\g<1>']", lause)  # .x. -> [x].

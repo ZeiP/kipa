@@ -72,7 +72,6 @@ def is_kaava(s):
         numero = 1
         for h in haku:
             muuttujat[h.group(1)] = Decimal(numero)
-            # numero+=1
         tulos = laskeTaulukko([[kaava]], muuttujat)
         if tulos[0][0] == None or tulos[0][0] == "S":
             return False
@@ -903,7 +902,6 @@ def puhdasKaavaForm(posti, data, prefix):
         lataa_parametrit(state, data, prefix, "_pk")
     else:
         state = posti.copy()
-    # formi.update( field(state,"parhaan_haku",prefix+"_pk")  )
 
     errors = ""
     if state and prefix in state.keys() and state[prefix] == "pk":
@@ -998,15 +996,6 @@ def tehtavanMaaritysForm(
     formidata = []
     # luodaan uusi tehtava jos vanhaa ei loydy
     if len(data.items()) == 0:
-        """
-        if not posti:
-                data['#1']={'sarja' : sarja_id,
-                                        'kaava': 'ss' ,
-                                        'nimi': '' ,
-                                        'jarjestysnro':suurin_jarjestysnro+1,
-                                        'osa_tehtavat' : { '#1': { "nimi": "a","tyyppi": "" }  } }
-        else :
-        """
         data["#1"] = {
             "sarja": sarja_id,
             "kaava": "ss",
@@ -1158,8 +1147,6 @@ def tehtavanMaaritysForm(
                     )
                 data[k][fk] = value
             formidata.append(("osa_tehtavat", ot_formit))
-            # formidata.append( ('tehtava_id',k) )
-            # formidata.append( ('kisa_nimi',) )
             tags.update(formidata)
     return render_to_string("tupa/forms/tehtava.html", tags)
 
