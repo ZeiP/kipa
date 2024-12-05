@@ -12,10 +12,6 @@ def decimal_repr(self):
     return str(self.quantize(Decimal("0.1"), rounding=ROUND_HALF_UP))
 
 
-# Decimal.__repr__ = decimal_repr
-# Decimal.__str__ = decimal_uni
-
-
 class SequenceOperations:
     def __add__(self, other):
         return self.operate_to_all(lambda a, b: a + b, other)
@@ -289,8 +285,6 @@ def karsi(lista, lfunktio):
                     varvi.append(l[index])
             else:
                 varvi.append(l)
-            # if type(varvi[-1])==unicode :
-            #        varvi.pop(-1)
         if tavaraa == 0 and index > 0:
             break
         index += 1
@@ -321,8 +315,6 @@ def listaksi(a, *opt):
         joukkio = [DictDecimal(joukkio)]
     elif type(joukkio) == str:
         return joukkio
-    # elif type( joukkio )== MathDict:
-    # return joukkio
     if type(joukkio) == list:
         lista = []
         for v in joukkio:
@@ -369,7 +361,6 @@ def run_dict(list, funktio, *param):
 
         if list:
             rValue[k] = karsi(listaksi(*parametrit), funktio)
-            # rValue[k] = funktio(listaksi(*parametrit))
         else:
             try:
                 rValue[k] = funktio(*parametrit)

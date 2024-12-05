@@ -116,9 +116,6 @@ class aritmeettinen_laskin_test(unittest.TestCase):
     def testMedFunktio(self):
         assert laske("med(a)", {"a": Decimal("4")}) == Decimal("4")
 
-    # def testMedFunktio2(self):
-    #    assert laske('med(a)', {'a': {'a' : Decimal("4"),'b' : Decimal("5"),'c' : Decimal("6")} }) == Decimal("5")
-    # Poistettu, koska nykyinen toteutsu ei toimi n�in, muutetaan vastaavaksi joskus...
     def testListaFunktio(self):
         assert laske("min([a,3,1])", {"a": Decimal("100")}) == Decimal("1")
 
@@ -299,8 +296,6 @@ def TulosTestFactory(fixture_name):
             settings.DEBUG = False
             self.TAUSTALASKENTA = settings.TAUSTALASKENTA
             settings.TAUSTALASKENTA = None
-            posti_vapaa = {}
-            posti_puhdas = {}
             for s in Sarja.objects.select_related().all():
                 for t in s.tehtava_set.all():
                     # Parsitaan post data html sivusta:

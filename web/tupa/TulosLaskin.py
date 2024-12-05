@@ -166,10 +166,7 @@ def luoOsatehtavanKaava(ot_lause, parametrit):
         ot_lause = re.sub("muk" + r"(?!\w+)", "..mukana", ot_lause)
         # Muunnos "suor" -> kaikkien vartioiden lasketut suoritukset
         try:
-            vartion_kaava = parametrit[
-                "vartion_kaava"
-            ]  # .filter(nimi="vartion_kaava")[0].arvo
-            # vartion_kaava=re.sub("vartio"+r"(?!\w+)", str(v.nro) ,vartion_kaava)
+            vartion_kaava = parametrit["vartion_kaava"]
             for p_nimi, p_arvo in parametrit.items():
                 vartion_kaava = re.sub(p_nimi + r"(?!\w+)", p_arvo, vartion_kaava)
             ot_lause = re.sub(
@@ -270,7 +267,6 @@ def laskeSarja(sarja, syotteet, vartiot=None, tehtavat=None):
     Taulukon ensimmäisissä sarakkeissa on vartio tai tehtävä objekteja muissa pisteitä.
     Taulukon vasemmassa ylänurkassa on sarjan objekti
     """
-    # syotteetr=Syote.objects.all() #(maarite__osa_tehtava__tehtava__sarja=sarja )
 
     if not vartiot:
         vartiot = sarja.vartio_set.all()
@@ -294,7 +290,6 @@ def laskeSarja(sarja, syotteet, vartiot=None, tehtavat=None):
             tehtSyotteet = syotteet.filter(
                 maarite__osa_tehtava__tehtava=tehtavat[t]
             ).filter(vartio=vartiot[i])
-            # syotteet= vartiot[i].syote_set.filter(maarite__osa_tehtava__tehtava=tehtavat[t])
             for s in tehtSyotteet:
                 if s.arvo == "e":
                     tekematta = True

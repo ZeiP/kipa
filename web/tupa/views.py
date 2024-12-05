@@ -500,8 +500,6 @@ def syotaTehtava(request, kisa_nimi, tehtava_id, talletettu=None, tarkistus=None
     validi = True
 
     tehtavan_syotteet = Syote.objects.filter(maarite__osa_tehtava__tehtava=tehtava)
-    if tehtavan_syotteet:
-        hot = 69  # Viettelee syotteet kannasta.
 
     tehtava.svirhe = 0
     for v in vartiot:
@@ -1266,8 +1264,6 @@ def tehtavanVaiheet(request, kisa_nimi, tehtava_id, vartio_id=None):
     enableLogging()
     clearLoki()
     tehtavan_syotteet = Syote.objects.filter(maarite__osa_tehtava__tehtava=tehtava)
-    if tehtavan_syotteet:
-        hot = 69  # Viettelee syotteet kannasta.
 
     laskeSarja(
         tehtava.sarja, tehtavan_syotteet, Vartio.objects.filter(id=vartio_id), [tehtava]
