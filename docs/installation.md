@@ -26,7 +26,7 @@ riittävän hyvää verkkoyhteyttä.
    token [täältä](https://github.com/settings/tokens) jakirjaudu
    Docker-clientillä sisään GitHubin pakettivarantoon esimerkiksi
    komennolla `docker login ghcr.io`
-2. Aja komento `docker run -d -p 3000:3000 -v kipa_db:/app/db --name kipa -d ghcr.io/partio-scout/kipa:latest`
+2. Aja komento `docker run -d -p 3000:80 -v kipa_db:/app/db --name kipa -d ghcr.io/partio-scout/kipa:latest`
     * Halutessasi voit myös käyttää kehitysversiota vaihtamalla `latest`-tagin sijaan `develop`in.
 3. Mene selaimella osoitteeseen http://localhost:3000/kipa/ – voilá!
 

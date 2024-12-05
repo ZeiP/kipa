@@ -1,12 +1,9 @@
-with open("/app/db/secret.txt", "r") as f:
+with open("/secret.txt", "r") as f:
     SECRET_KEY = f.readline()
 
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "/app/db/kipa.db",
+        "NAME": "/db/kipa.db",
     }
 }
-
-# Should we serve the media files through Python?
-SERVE_MEDIA = True
