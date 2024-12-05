@@ -1,3 +1,2 @@
 django==5.1
-#mysql-python
-# git+https://github.com/PyMySQL/mysqlclient-python.git@v1.4.6#egg=MySQLdb
+gunicorn==23.0.0
