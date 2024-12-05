@@ -33,19 +33,19 @@ urlpatterns = [
     ),
     path("<kisa_nimi>/maarita/vartiot/", maaritaVartiot),
     path(
-        "<kisa_nimi>/maarita/vartiot/talletettu",
+        "<kisa_nimi>/maarita/vartiot/talletettu/",
         partial(maaritaVartiot, talletettu="talletettu"),
     ),
     path("<kisa_nimi>/maarita/tehtava/kopioi/sarjaan/<sarja_id>/", kopioiTehtavia),
     path("<kisa_nimi>/maarita/testitulos/", testiTulos),
     path(
-        "<kisa_nimi>/maarita/testitulos/talletettu(",
+        "<kisa_nimi>/maarita/testitulos/talletettu/",
         partial(testiTulos, talletettu="talletettu"),
     ),
     path("<kisa_nimi>/luo/sarja/<sarja_id>/testitulokset/", luoTestiTulokset),
     path("<kisa_nimi>/maarita/tuomarineuvos/", tuomarineuvos),
     path(
-        "<kisa_nimi>/maarita/tuomarineuvos/talletettu",
+        "<kisa_nimi>/maarita/tuomarineuvos/talletettu/",
         partial(tuomarineuvos, talletettu="talletettu"),
     ),
     path("<kisa_nimi>/syota/", syotaKisa),
