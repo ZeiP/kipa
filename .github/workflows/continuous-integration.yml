@@ -38,8 +38,8 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - name: start SUT
-        run: docker compose up --quiet-pull --detach --build
+      - name: build SUT
+        run: docker build -t kipa .
       - name: Set up Python 3.12.1
         uses: actions/setup-python@v5
         with:
@@ -49,6 +49,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install robotframework
           pip install robotframework-seleniumlibrary
+      - name: start SUT
+        run: docker run -d -p 3000:3000 kipa
       - name: wait SUT to start
         run: while ! curl -s -f 'http://localhost:3000/kipa' ; do sleep 2; docker ps; done
         shell: bash
