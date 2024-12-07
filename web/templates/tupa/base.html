@@ -52,7 +52,7 @@ document.getElementById(id).style.display = visibility;
             {% include "tupa/login.html" %}
         </div>
 
-    </div><!-- /header -->
+    </div>
     <div id="breadcrumbs">
         {% if tarkistus %}
         <a href="/kipa/{{kisa_nimi}}/" class="capitalize">{{kisa_nimi|alaviiva_pois}}</a> {%if taakse.url and taakse.title%}» <a href="{{taakse.url}}tarkistus/">{{taakse.title|alaviiva_pois}} (tarkistus)</a> {% endif %}» {{heading|alaviiva_pois}}
@@ -77,7 +77,7 @@ document.getElementById(id).style.display = visibility;
                     <a href="/kipa/{{kisa_nimi}}/maarita/tehtava/" class="sitetoolbarnav" title="Määrittele tehtävät"><img src="/kipamedia/edit_page.png" width="32" height="32" alt="Määrittele tehtävät" /></a>
                     <a href="/kipamedia/Manuaali_v03.pdf" class="sitetoolbarnav" title="Apua"><img src="/kipamedia/help.png" width="32" height="32" alt="Apua" /></a>
                 </div>
-            </div><!-- /left -->
+            </div>
 
             <div id="right" class="column">
 
@@ -100,13 +100,13 @@ document.getElementById(id).style.display = visibility;
                         </script>
                 {% endif %}
 
-            </div><!-- /right -->
+            </div>
 
-        </div><!-- /container -->
+        </div>
 
-    </div><!-- /main -->
+    </div>
 
-</div><!-- /wrap -->
+</div>
 
 </body>
 

@@ -5,7 +5,6 @@
 {% block title %}{{tehtava.nimi}}{% endblock %}
 {% block header %}
 {{ block.super }}
-<!--<script type="text/javascript" language="javascript" src="/kipamedia/jquery.form-changed-warning.js"></script>-->
 <script type="text/javascript" language="javascript" src="/kipamedia/jquery.maskedinput-1.3.js"></script>
 <script type="text/javascript" language="javascript" src="/kipamedia/jquery.stickytableheaders.js"></script>
 <script type="text/javascript" language="javascript" src="/kipamedia/keyhandler.js"></script>
@@ -28,19 +27,6 @@ $(document).ready(function(){
        $.mask.definitions['~']='[he0123456789]'; /* hylätty, ei syötetty, numeroarvot*/
        $(".time").mask("~?9:99:99");
     });
-
-/*    jQuery("input#kopioi_sarake1").click(function(){
-        if ($("input#kopioi_sarake1").is(':checked'))
-        {
-            // Checked, copy values
-            $("input.col0").val($("input#copy_from1").val());
-        }
-        else
-        {
-            // Clear on uncheck
-            $("input.col0").val("");
-        }
-*/
     });
 
 </script>
@@ -63,11 +49,6 @@ $(document).ready(function(){
     <td class="tauluOtsikko">Sarja: </td>
     <td colspan="2" bgcolor="#E8EDFF">{{tehtava.sarja.nimi}}</td>
   </tr>
-<!--  <tr>
-    <td valign="middle" class="tauluOtsikko">Yhteyshenkilö:</td>
-    <td valign="middle" bgcolor="#E8EDFF">&nbsp;</td>
-    <td bgcolor="#E8EDFF">&nbsp;</td>
-  </tr>-->
   <tr valign="middle">
     <td valign="middle" class="tauluOtsikko">Tehtävän tila:</td>
     {%if tilanne.0 == "a"%}
@@ -147,19 +128,6 @@ $(document).ready(function(){
                 <th class="th_erotin"></th>
             {% endfor %}
         </tr>
-<!--        <tr>
-            <th colspan="2">Käytä oletusarvoa:</th>
-            {% for osatehtava in osatehtavat %}
-                {% for maarite in osatehtava.syotemaarite_set.all %}
-                   <th>
-                       <input type="checkbox" id="kopioi_sarake{{forloop.counter}}" />
-                       <input type="text" id="copy_from{{forloop.counter}}" size="8" />
-                   </th>
-                {% endfor %}
-                <th class="th_erotin"></th>
-            {% endfor %}
-        </tr>
--->
     </thead>
 
     <tbody>
