@@ -1,31 +1,24 @@
 {% extends "tupa/valitse.html" %}
-
 {% block sarake %}
     <table width="600" border="1">
         <tr>
-        <td></td>
-                {% for kentta in sarake.tiedot.0.tehtavat %}
-                        <td>
-                                {{ kentta.nimi }}
-                        </td>
-                {% endfor %}
+            <td></td>
+            {% for kentta in sarake.tiedot.0.tehtavat %}<td>{{ kentta.nimi }}</td>{% endfor %}
         </tr>
-        <a href="/kipa/{{sarake.sarja.kisa.nimi}}/luo/sarja/{{sarake.sarja.id}}/testitulokset/">
-        luo testitulokset sarjalle </a><br>
+        <a href="/kipa/{{ sarake.sarja.kisa.nimi }}/luo/sarja/{{ sarake.sarja.id }}/testitulokset/">
+        luo testitulokset sarjalle </a>
+        <br>
         {% for rivi in sarake.tiedot %}
-                <tr>
-                <td>{{rivi.nimi}}</td>
-                {% for kentta in rivi.formit%}
-                    <td>{{ kentta }}{{kentta.errors}}</td>
-                {% endfor %}
+            <tr>
+                <td>{{ rivi.nimi }}</td>
+                {% for kentta in rivi.formit %}<td>{{ kentta }}{{ kentta.errors }}</td>{% endfor %}
             </tr>
         {% endfor %}
     </table>
-{% endblock%}
+{% endblock %}
 {% block content %}
-        <form action="." method="post">
+    <form action="." method="post">
         {{ block.super }}
         {% include "tupa/tallenna.html" %}
-{% endblock%}
+    {% endblock %}
 </form>
-

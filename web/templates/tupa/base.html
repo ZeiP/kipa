@@ -1,113 +1,159 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE" />
-<title>Kipa - {% block title %}  {% endblock %}</title>
-<link rel="stylesheet" type="text/css" href="/kipamedia/kipa.css" />
-<link rel="stylesheet" type="text/css" href="/kipamedia/tabcontent.css" />
-<link rel="stylesheet" type="text/css" href="/kipamedia/jquery.jgrowl.css" />
-<link rel="icon" type="image/x-icon" href="/kipamedia/favicon.ico" />
-
-<script type="text/javascript" language="javascript" src="/kipamedia/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" language="javascript" src="/kipamedia/jquery.jgrowl_minimized.js"></script>
-<script type="text/javascript" language="javascript" src="/kipamedia/tooltip.js"></script>
-<script type="text/javascript" src="/kipamedia/tabcontent.js">
-/***********************************************
-* Tab Content script v2.2- © Dynamic Drive DHTML code library (www.dynamicdrive.com)
-* This notice MUST stay intact for legal use
-* Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
-***********************************************/
-</script>
-
-{% load kipatags %}
-{% block header %}  {% endblock %}
-
-<script language="JavaScript">
+    <head>
+        <meta http-equiv="Content-Type"
+              content="text/html; charset=utf-8"
+              HTTP-EQUIV="PRAGMA"
+              CONTENT="NO-CACHE" />
+        <title>Kipa -
+            {% block title %}{% endblock %}
+        </title>
+        <link rel="stylesheet" type="text/css" href="/kipamedia/kipa.css" />
+        <link rel="stylesheet" type="text/css" href="/kipamedia/tabcontent.css" />
+        <link rel="stylesheet" type="text/css" href="/kipamedia/jquery.jgrowl.css" />
+        <link rel="icon" type="image/x-icon" href="/kipamedia/favicon.ico" />
+        <script type="text/javascript"
+                language="javascript"
+                src="/kipamedia/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript"
+                language="javascript"
+                src="/kipamedia/jquery.jgrowl_minimized.js"></script>
+        <script type="text/javascript"
+                language="javascript"
+                src="/kipamedia/tooltip.js"></script>
+        <script type="text/javascript" src="/kipamedia/tabcontent.js">
+            /***********************************************
+            * Tab Content script v2.2- © Dynamic Drive DHTML code library (www.dynamicdrive.com)
+            * This notice MUST stay intact for legal use
+            * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
+            ***********************************************/
+        </script>
+        {% load kipatags %}
+        {% block header %}{% endblock %}
+        <script language="JavaScript">
 function setVisibility(id, visibility) {
 document.getElementById(id).style.display = visibility;
 }
-</script>
-{% if talletettu %}
-<script type="text/javascript">
-   $.jGrowl.defaults.position = 'center';
-</script>
-    <script type="text/javascript">
+        </script>
+        {% if talletettu %}
+            <script type="text/javascript">$.jGrowl.defaults.position = 'center';</script>
+            <script type="text/javascript">
         $(document).ready(function() {
             $.jGrowl('{{talletettu}}', {
                 life: 3000
                 });
         });
-    </script>
-{% endif %}
-
-</head>
-
-<body>
-
-{% include "tupa/vaara_tietokanta.html" %}
-
-<div id="wrap">
-
-    <div id="header"><div id="pageTitle" class="capitalize"><a href="/kipa/{{kisa_nimi}}/">{{kisa_nimi|alaviiva_pois}}</a></div>
-        <div style="float:right; margin-top:-4px; margin-bottom:0; padding-bottom:0; height:18px;">
-            {% include "tupa/login.html" %}
-        </div>
-
-    </div>
-    <div id="breadcrumbs">
-        {% if tarkistus %}
-        <a href="/kipa/{{kisa_nimi}}/" class="capitalize">{{kisa_nimi|alaviiva_pois}}</a> {%if taakse.url and taakse.title%}» <a href="{{taakse.url}}tarkistus/">{{taakse.title|alaviiva_pois}} (tarkistus)</a> {% endif %}» {{heading|alaviiva_pois}}
-        {% else %}
-        <a href="/kipa/{{kisa_nimi}}/" class="capitalize">{{kisa_nimi|alaviiva_pois}}</a> {%if taakse.url and taakse.title%}» <a href="{{taakse.url}}">{{taakse.title|alaviiva_pois}}</a> {% endif %}» {{heading|alaviiva_pois}}
+            </script>
         {% endif %}
-
-    </div>
-
-    <div id="main" class="clearfix">
-
-        <div id="container">
-
-            <div id="left" class="column">
-                <div id="sitetoolbarrow">
-                    <a href="/kipa/{{kisa_nimi}}/" class="sitetoolbarnav" title="Etusivulle"><img src="/kipamedia/home.png" width="32" height="32" alt="Etusivulle" /></a>
-                    <a href="/kipa/{{kisa_nimi}}/syota/" class="sitetoolbarnav" title="Syötä suorituksia"><img src="/kipamedia/add.png" width="32" height="32" alt="Syötä suorituksia" /></a>
-                    <a href="/kipa/{{kisa_nimi}}/syota/tarkistus/" class="sitetoolbarnav" title="Syötä suorituksia (tarkistus)"><img src="/kipamedia/accept.png" width="32" height="32" alt="Syötä suorituksia (tarkistus)" /></a>
-                    <a href="/kipa/{{kisa_nimi}}/tulosta/normaali/" class="sitetoolbarnav" title="Tulokset"><img src="/kipamedia/chart.png" width="32" height="32" alt="Tulokset" /></a>
-                    <a href="/kipa/{{kisa_nimi}}/tulosta/tilanne/" class="sitetoolbarnav" title="Laskennan tilanne"><img src="/kipamedia/chart_up.png" width="32" height="32" alt="Laskennan tilanne" /></a>
-                    <a href="/kipa/{{kisa_nimi}}/maarita/vartiot/" class="sitetoolbarnav" title="Määrittele vartiot"><img src="/kipamedia/edit_profile.png" width="32" height="32" alt="Määrittele vartiot" /></a>
-                    <a href="/kipa/{{kisa_nimi}}/maarita/tehtava/" class="sitetoolbarnav" title="Määrittele tehtävät"><img src="/kipamedia/edit_page.png" width="32" height="32" alt="Määrittele tehtävät" /></a>
-                    <a href="/kipamedia/Manuaali_v03.pdf" class="sitetoolbarnav" title="Apua"><img src="/kipamedia/help.png" width="32" height="32" alt="Apua" /></a>
+    </head>
+    <body>
+        {% include "tupa/vaara_tietokanta.html" %}
+        <div id="wrap">
+            <div id="header">
+                <div id="pageTitle" class="capitalize">
+                    <a href="/kipa/{{ kisa_nimi }}/">{{ kisa_nimi|alaviiva_pois }}</a>
                 </div>
+                <div style="float:right;
+                            margin-top:-4px;
+                            margin-bottom:0;
+                            padding-bottom:0;
+                            height:18px">{% include "tupa/login.html" %}</div>
             </div>
-
-            <div id="right" class="column">
-
-                {% block content %}{% endblock %}
-                {% if tabs %}
-                        {% for tab in tabs %}
+            <div id="breadcrumbs">
+                {% if tarkistus %}
+                    <a href="/kipa/{{ kisa_nimi }}/" class="capitalize">{{ kisa_nimi|alaviiva_pois }}</a>
+                    {% if taakse.url and taakse.title %}
+                        » <a href="{{ taakse.url }}tarkistus/">{{ taakse.title|alaviiva_pois }} (tarkistus)</a>
+                    {% endif %}
+                    » {{ heading|alaviiva_pois }}
+                {% else %}
+                    <a href="/kipa/{{ kisa_nimi }}/" class="capitalize">{{ kisa_nimi|alaviiva_pois }}</a>
+                    {% if taakse.url and taakse.title %}» <a href="{{ taakse.url }}">{{ taakse.title|alaviiva_pois }}</a>{% endif %}
+                    » {{ heading|alaviiva_pois }}
+                {% endif %}
+            </div>
+            <div id="main" class="clearfix">
+                <div id="container">
+                    <div id="left" class="column">
+                        <div id="sitetoolbarrow">
+                            <a href="/kipa/{{ kisa_nimi }}/"
+                               class="sitetoolbarnav"
+                               title="Etusivulle">
+                                <img src="/kipamedia/home.png" width="32" height="32" alt="Etusivulle" />
+                            </a>
+                            <a href="/kipa/{{ kisa_nimi }}/syota/"
+                               class="sitetoolbarnav"
+                               title="Syötä suorituksia">
+                                <img src="/kipamedia/add.png"
+                                     width="32"
+                                     height="32"
+                                     alt="Syötä suorituksia" />
+                            </a>
+                            <a href="/kipa/{{ kisa_nimi }}/syota/tarkistus/"
+                               class="sitetoolbarnav"
+                               title="Syötä suorituksia (tarkistus)">
+                                <img src="/kipamedia/accept.png"
+                                     width="32"
+                                     height="32"
+                                     alt="Syötä suorituksia (tarkistus)" />
+                            </a>
+                            <a href="/kipa/{{ kisa_nimi }}/tulosta/normaali/"
+                               class="sitetoolbarnav"
+                               title="Tulokset">
+                                <img src="/kipamedia/chart.png" width="32" height="32" alt="Tulokset" />
+                            </a>
+                            <a href="/kipa/{{ kisa_nimi }}/tulosta/tilanne/"
+                               class="sitetoolbarnav"
+                               title="Laskennan tilanne">
+                                <img src="/kipamedia/chart_up.png"
+                                     width="32"
+                                     height="32"
+                                     alt="Laskennan tilanne" />
+                            </a>
+                            <a href="/kipa/{{ kisa_nimi }}/maarita/vartiot/"
+                               class="sitetoolbarnav"
+                               title="Määrittele vartiot">
+                                <img src="/kipamedia/edit_profile.png"
+                                     width="32"
+                                     height="32"
+                                     alt="Määrittele vartiot" />
+                            </a>
+                            <a href="/kipa/{{ kisa_nimi }}/maarita/tehtava/"
+                               class="sitetoolbarnav"
+                               title="Määrittele tehtävät">
+                                <img src="/kipamedia/edit_page.png"
+                                     width="32"
+                                     height="32"
+                                     alt="Määrittele tehtävät" />
+                            </a>
+                            <a href="/kipamedia/Manuaali_v03.pdf"
+                               class="sitetoolbarnav"
+                               title="Apua">
+                                <img src="/kipamedia/help.png" width="32" height="32" alt="Apua" />
+                            </a>
+                        </div>
+                    </div>
+                    <div id="right" class="column">
+                        {% block content %}{% endblock %}
+                        {% if tabs %}
+                            {% for tab in tabs %}
                                 <script type="text/javascript">
                                         var sarjat=new ddtabcontent("{{tab}}")
                                         sarjat.setpersist(true)
                                         sarjat.setselectedClassTarget("link") //"link" or "linkparent"
                                         sarjat.init()
                                 </script>
-                        {% endfor %}
-                {% else %}
-                        <script type="text/javascript">
+                            {% endfor %}
+                        {% else %}
+                            <script type="text/javascript">
                                 var sarjat=new ddtabcontent("sarjatabs")
                                 sarjat.setpersist(true)
                                 sarjat.setselectedClassTarget("link") //"link" or "linkparent"
                                 sarjat.init()
-                        </script>
-                {% endif %}
-
+                            </script>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
-
         </div>
-
-    </div>
-
-</div>
-
-</body>
-
+    </body>
 </html>

@@ -1,47 +1,52 @@
-
 <b>Syötteet:</b>
-<span onmouseover="tooltip.show('Kuvaus näytetään otsikkona tehtävää syötettäessä. Tyyppi kertoo syötteen tyypin: piste vai aika.');" onmouseout="tooltip.hide();">
+<span onmouseover="tooltip.show('Kuvaus näytetään otsikkona tehtävää syötettäessä. Tyyppi kertoo syötteen tyypin: piste vai aika.');"
+      onmouseout="tooltip.hide();">
     <img src="/kipamedia/help_small.png" />
 </span>
 <br>
 <table>
-{% for maarite in maaritteet %}
-    <tr>
-        <td>Syötteen {{maarite.nimi}} kuvaus:</td>
-        <td>
-            <input type="text"
-                    name="{{maarite.kali_vihje.name}}"
-                    id="{{maarite.kali_vihje.id}}"
-                    value="{{maarite.kali_vihje.value}}" />
-                    Tyyppi:
-
-            <select name="{{maarite.tyyppi.name}}">
-                <option value="piste"
-                {% if maarite.tyyppi.value == "piste" %}selected="selected"{% endif %}
-                 >piste</option>
-                <option value="aika"
-                {% if maarite.tyyppi.value == "aika" %}selected="selected"{% endif %}
-                >aika</option>
-            </select>
-        </td>
-    </tr>
-{% endfor %}
+    {% for maarite in maaritteet %}
+        <tr>
+            <td>Syötteen {{ maarite.nimi }} kuvaus:</td>
+            <td>
+                <input type="text"
+                       name="{{ maarite.kali_vihje.name }}"
+                       id="{{ maarite.kali_vihje.id }}"
+                       value="{{ maarite.kali_vihje.value }}" />
+                Tyyppi:
+                <select name="{{ maarite.tyyppi.name }}">
+                    <option value="piste"
+                            {% if maarite.tyyppi.value == "piste" %}selected="selected"{% endif %}>piste</option>
+                    <option value="aika"
+                            {% if maarite.tyyppi.value == "aika" %}selected="selected"{% endif %}>aika</option>
+                </select>
+            </td>
+        </tr>
+    {% endfor %}
 </table>
-
-<button name="lisaa_maaritteita" type="submit" class="small blue awesome" value='{{maaritteita.name}}' title="Lisää 5 tyhjää kenttää">Lisää 5 kenttää</button><br><br>
-<font color=red><b>{{kaava.errors}}</b></font><strong>Kaavassa käytettävät funktiot:</strong>
+<button name="lisaa_maaritteita"
+        type="submit"
+        class="small blue awesome"
+        value='{{ maaritteita.name }}'
+        title="Lisää 5 tyhjää kenttää">Lisää 5 kenttää</button>
+<br>
+<br>
+<font color=red><b>{{ kaava.errors }}</b></font><strong>Kaavassa käytettävät funktiot:</strong>
 {% include "tupa/forms/funktiot_apu.html" %}
-<b>operaattorit:</b>{% include "tupa/forms/operaattorit_apu.html" %}
+<b>operaattorit:</b>
+{% include "tupa/forms/operaattorit_apu.html" %}
 <br>
 Vartion suorituksen kaava:
 <span onmouseover="tooltip.show('Anna kaava, joka määrää suoraan vartion osatehtävän pisteet. Syötteisiin ja osatehtäviin viitataan niiden kirjaimilla. Välilyöntejä sekä rivinvaihtoa voi käyttää vapaasti kaavan jäsentelyyn. Aikaa käsitellään laskennallisesti sekunteina. <br><br>Esimerkkejä:<br> a+b+c syötteiden summa <br>1/a (käänteisluku)<br>a (vartion syöte) <br>.a (sarjan kaikkien vartioiden syötteet)<br>.a.vartio (vartion syöte)  <br>min(.a) (sarjan vartioiden syötteen minimi)<br>muk ja ..mukana (mukana olevien vartioiden filtteri)<br>max(.a*muk) (mukana olevien vartioiden syöteen maksimi)<br>vartio (vartion numero)<br>..b.a.vartio (syöte a vartiolle osatehtävästä b)<br>...start.c.a.vartio (syöte a vartiolle osatehtästä c tehtävään start)' );"
-onmouseout="tooltip.hide();">
+      onmouseout="tooltip.hide();">
     <img src="/kipamedia/help_small.png" />
-</span><br />
+</span>
+<br />
 <blockquote>
-    <textarea name="{{kaava.name}}" id="{{kaava.id}}" cols="80" rows="7">{{kaava.value}}</textarea><br><br>
+    <textarea name="{{kaava.name}}" id="{{kaava.id}}" cols="80" rows="7">{{kaava.value}}</textarea>
+    <br>
+    <br>
 </blockquote>
-
-<INPUT TYPE=HIDDEN NAME="{{maaritteita.name}}" value="{{maaritteita.value}}">
-
-
+<input TYPE="HIDDEN"
+       NAME="{{ maaritteita.name }}"
+       value="{{ maaritteita.value }}">

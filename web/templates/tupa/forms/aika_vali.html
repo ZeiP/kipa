@@ -1,25 +1,27 @@
 <fieldset>
-
-<legend> <b>Alkuaika ja loppuaika</b> </legend>
-<font color=red>
-    <b>{{kali_vihje_a.errors}}</b>
-</font>
-Syötteen 1 kuvaus (esim. Alkuaika): <input type="text"
-                        name="{{kali_vihje_a.name}}"
-                        id="{{kali_vihje_a.id}}"
-                        value="{{kali_vihje_a.value}}" />
-<br> <br>
-<font color=red>
-    <b>{{kali_vihje_b.errors}}</b>
-</font>
-Syötteen 2 kuvaus (esim. Loppuaika): <input type="text"
-                        name="{{kali_vihje_b.name}}"
-                        id="{{kali_vihje_b.id}}"
-                        value="{{kali_vihje_b.value}}" />
-<br> <br>
-
-{% include "tupa/forms/maksimi_suoritus.html" %}
-{% include "tupa/forms/nolla_suoritus.html" %}
-
+    <legend>
+        <b>Alkuaika ja loppuaika</b>
+    </legend>
+    <font color=red>
+        <b>{{ kali_vihje_a.errors }}</b>
+    </font>
+    Syötteen 1 kuvaus (esim. Alkuaika):
+    <input type="text"
+           name="{{ kali_vihje_a.name }}"
+           id="{{ kali_vihje_a.id }}"
+           value="{{ kali_vihje_a.value }}" />
+    <br>
+    <br>
+    <font color=red>
+        <b>{{ kali_vihje_b.errors }}</b>
+    </font>
+    Syötteen 2 kuvaus (esim. Loppuaika):
+    <input type="text"
+           name="{{ kali_vihje_b.name }}"
+           id="{{ kali_vihje_b.id }}"
+           value="{{ kali_vihje_b.value }}" />
+    <br>
+    <br>
+    {% include "tupa/forms/maksimi_suoritus.html" %}
+    {% include "tupa/forms/nolla_suoritus.html" %}
 </fieldset>
-

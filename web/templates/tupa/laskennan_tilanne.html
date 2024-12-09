@@ -1,73 +1,73 @@
-
 {% extends "tupa/base.html" %}
 {% block title %}Tulokset sarjoittain{% endblock %}
-
 {% block header %}
-<meta http-equiv="refresh" content="60" http-equiv="Content-Type" content="text/html; charset=utf-8"  />
-<title>Tulokset sarjoittain</title>
-<link href="kipa.css" rel="stylesheet" type="text/css" />
-
+    <meta http-equiv="refresh"
+          content="60"
+          http-equiv="Content-Type"
+          content="text/html; charset=utf-8" />
+    <title>Tulokset sarjoittain</title>
+    <link href="kipa.css" rel="stylesheet" type="text/css" />
 {% endblock header %}
-
 {% block content %}
-<body>
-{% load kipatags %}
-
-<h1>Laskennan tilanne {% now " j.n.Y G:i"%} </h1>
-  <table border="0" id="taulukko" cellpadding="2">
-    {% for rivi in taulukko %}
-        <tr valign="top">
-        {%for sarake in rivi %}
-                {% if forloop.first %}
-                        <td width="50" fgcolor="#FFFFFF" bgcolor="#000000" ><font color="#FFFFFF">{{ sarake.1 }}</font></td>
-                {%else%}
-
-                {% if sarake.0 == "a" %}
-                        <td width="100" class='aloittamatta'>{{sarake.1|alaviiva_pois}}</td>
-                {%else%}{% if sarake.0 == "o" %}
-                        <td width="100" class='osittain'>{{sarake.1}}</td>
-                {%else%}{% if sarake.0 == "s" %}
-                        <td width="62" class='syotetty'>{{sarake.1}}</td>
-                {%else%}{% if sarake.0 == "t" %}
-                        <td width="100" class='tarkistettu'> {{sarake.1|alaviiva_pois}}</td>
-                {%else%}{% if sarake.0 == "v" %}
-                        <td width="62" class='virhe'> {{sarake.1|alaviiva_pois}}</td>
-                {%else%}
-                        <td width="62" >{{sarake.1}}</td>
-                {% endif %}
-                {% endif %}
-                {% endif %}
-                {% endif %}
-                {% endif %}
-                {% endif %}
-        {%endfor%}
-        </tr>
-      {%endfor%}
-   </table>
-
-<br /><br />
-  <table width="150" border="0" cellpadding="1">
-    <tr>
-      <td width="150" class='aloittamatta'>&nbsp;&nbsp;&nbsp;aloittamatta</td>
-    </tr>
-    <tr>
-      <td class='osittain'>&nbsp;&nbsp;&nbsp;syötetty osittain</td>
-    </tr>
-    <tr>
-      <td class='syotetty'>&nbsp;&nbsp;&nbsp;syötetty</td>
-    </tr>
-    <tr>
-      <td class='tarkistettu'>&nbsp;&nbsp;&nbsp;tarkistettu</td>
-    </tr>
-     <tr>
-     <td class='virhe'>&nbsp;&nbsp;&nbsp;syöttövirhe</td>
-    </tr>
-  </table>
-  <p><br />
-
-  </p>
-
-</body>
-
+    <body>
+        {% load kipatags %}
+        <h1>Laskennan tilanne {% now " j.n.Y G:i" %}</h1>
+        <table border="0" id="taulukko" cellpadding="2">
+            {% for rivi in taulukko %}
+                <tr valign="top">
+                    {% for sarake in rivi %}
+                        {% if forloop.first %}
+                            <td width="50" fgcolor="#FFFFFF" bgcolor="#000000">
+                                <font color="#FFFFFF">{{ sarake.1 }}</font>
+                            </td>
+                        {% else %}
+                            {% if sarake.0 == "a" %}
+                                <td width="100" class='aloittamatta'>{{ sarake.1|alaviiva_pois }}</td>
+                            {% else %}
+                                {% if sarake.0 == "o" %}
+                                    <td width="100" class='osittain'>{{ sarake.1 }}</td>
+                                {% else %}
+                                    {% if sarake.0 == "s" %}
+                                        <td width="62" class='syotetty'>{{ sarake.1 }}</td>
+                                    {% else %}
+                                        {% if sarake.0 == "t" %}
+                                            <td width="100" class='tarkistettu'>{{ sarake.1|alaviiva_pois }}</td>
+                                        {% else %}
+                                            {% if sarake.0 == "v" %}
+                                                <td width="62" class='virhe'>{{ sarake.1|alaviiva_pois }}</td>
+                                            {% else %}
+                                                <td width="62">{{ sarake.1 }}</td>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+        <br />
+        <br />
+        <table width="150" border="0" cellpadding="1">
+            <tr>
+                <td width="150" class='aloittamatta'>&nbsp;&nbsp;&nbsp;aloittamatta</td>
+            </tr>
+            <tr>
+                <td class='osittain'>&nbsp;&nbsp;&nbsp;syötetty osittain</td>
+            </tr>
+            <tr>
+                <td class='syotetty'>&nbsp;&nbsp;&nbsp;syötetty</td>
+            </tr>
+            <tr>
+                <td class='tarkistettu'>&nbsp;&nbsp;&nbsp;tarkistettu</td>
+            </tr>
+            <tr>
+                <td class='virhe'>&nbsp;&nbsp;&nbsp;syöttövirhe</td>
+            </tr>
+        </table>
+        <p>
+            <br />
+        </p>
+    </body>
 {% endblock %}
-

@@ -1,19 +1,25 @@
 {% extends "tupa/base.html" %}
-
 {% load kipatags %}
-
-{% block title %}{{tehtava.nimi}}{% endblock %}
+{% block title %}{{ tehtava.nimi }}{% endblock %}
 {% block header %}
-{{ block.super }}
-<script type="text/javascript" language="javascript" src="/kipamedia/jquery.maskedinput-1.3.js"></script>
-<script type="text/javascript" language="javascript" src="/kipamedia/jquery.stickytableheaders.js"></script>
-<script type="text/javascript" language="javascript" src="/kipamedia/keyhandler.js"></script>
-<script type="text/javascript" language="javascript" src="/kipamedia/tooltip.js"></script>
-<style type="text/css">
+    {{ block.super }}
+    <script type="text/javascript"
+            language="javascript"
+            src="/kipamedia/jquery.maskedinput-1.3.js"></script>
+    <script type="text/javascript"
+            language="javascript"
+            src="/kipamedia/jquery.stickytableheaders.js"></script>
+    <script type="text/javascript"
+            language="javascript"
+            src="/kipamedia/keyhandler.js"></script>
+    <script type="text/javascript"
+            language="javascript"
+            src="/kipamedia/tooltip.js"></script>
+    <style type="text/css">
     label { width: 10em; float: left; }
     label.error { float: none; color: red; padding-left: .5em; vertical-align: top; }
-</style>
-<script type="text/javascript">
+    </style>
+    <script type="text/javascript">
 $(document).ready(function(){
     $("#taulukko").stickyTableHeaders();
 
@@ -29,144 +35,141 @@ $(document).ready(function(){
     });
     });
 
-</script>
-{% endblock header%}
-
+    </script>
+{% endblock header %}
 {% block content %}
-
-<h1>{{tehtava.nimi|alaviiva_pois}}</h1>
-
-<form action="." name="form1" id="form1" method="post">
-
-<p>{% include "tupa/tallenna.html" %}</p>
-
-<table width="600" border="0" cellpadding="2" cellspacing="0">
-  <tr>
-    <td width="100" class="tauluOtsikko">Tehtävä:</td>
-    <td colspan="2" bgcolor="#E8EDFF">{{tehtava.jarjestysnro}} &nbsp; &nbsp; {{tehtava.nimi|alaviiva_pois}}</td>
-  </tr>
-  <tr>
-    <td class="tauluOtsikko">Sarja: </td>
-    <td colspan="2" bgcolor="#E8EDFF">{{tehtava.sarja.nimi}}</td>
-  </tr>
-  <tr valign="middle">
-    <td valign="middle" class="tauluOtsikko">Tehtävän tila:</td>
-    {%if tilanne.0 == "a"%}
-    <td width="150" valign="middle" class='aloittamatta'><label>aloittamatta</label></td>
-    {% endif %}
-    {%if tilanne.0 == "o"%}
-    <td width="150" valign="middle" class='osittain'><label>syötetty osittain</label></td>
-    {% endif %}
-    {%if tilanne.0 == "s"%}
-    <td width="150" valign="middle" class='syotetty'><label>syötetty</label></td>
-    {% endif %}
-    {%if tilanne.0 == "t"%}
-    <td width="150" valign="middle" class='tarkistettu'><label>tarkistettu</label></td>
-    {% endif %}
-    {%if tilanne.0 == "v"%}
-    <td width="150" valign="middle" class='virhe'><label>syöttövirhe</label></td>
-    {% endif %}
-
-
-    <td bgcolor="#E8EDFF"><label><input type="checkbox" {%if tarkistettu %}checked="checked" {% endif %} name="tarkistettu" id="tarkistettu" />tarkistettu</label></td>
-  </tr>
-{% if tarkistus %}<tr bgcolor="#ff9900"><td colspan=3>Syötät tarkistustuloksia</td></tr>{% endif %}
-</table>
-<br />
-
-
-    <table id="taulukko" border="0" cellpadding="2" cellspacing="0">
-    <thead>
-        <tr>
-            <th colspan="2">
-            Osatehtävä:
-            </th>
-            {% for osatehtava in osatehtavat %}
-               <th class="osatehtava_otsikko" colspan="{{osatehtava.syotemaarite_set.all|length}}">
-                   Osatehtävä {{ osatehtava.nimi }}
-               </th>
-               <th class="th_erotin" width=1></th>
-            {% endfor %}
-        </tr>
-        <tr>
-            <th colspan="2">
-            Syötteen nimi:
-            </th>
-            {% for osatehtava in osatehtavat %}
-                {% for maarite in osatehtava.syotemaarite_set.all %}
-                   <th>
-                       {{ maarite.nimi }}
-                   </th>
-                {% endfor %}
-                <th class="th_erotin"></th>
-            {% endfor %}
-        </tr>
-        <tr>
-            <th colspan="2">
-            Syötteen tyyppi:
-            </th>
-            {% for osatehtava in osatehtavat %}
-                {% for maarite in osatehtava.syotemaarite_set.all %}
-                   <th>
-                       {{ maarite.tyyppi }}
-                       {% if maarite.tyyppi == "aika" %}(hh:mm:ss){% endif %}
-                   </th>
-                {% endfor %}
-                <th class="th_erotin"></th>
-            {% endfor %}
-        </tr>
-        <tr>
-            <th colspan="2">
-            Syötteen kuvaus:
-            </th>
-            {% for osatehtava in osatehtavat %}
-                {% for maarite in osatehtava.syotemaarite_set.all %}
-                   <th>
-                       {{ maarite.kali_vihje }}
-                   </th>
-                {% endfor %}
-                <th class="th_erotin"></th>
-            {% endfor %}
-        </tr>
-    </thead>
-
-    <tbody>
-        {% for vartio in syotteet %}
-            <tr valign="top" class="{% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %}">
-                  <td width="15">
-                  {{ vartio.0.nro}}
-                  </td>
-                <td width="200">
-                        {{ vartio.0.nimi }}
-                </td>
-                    {% for osatehtava in vartio.1 %}
-                        {% for kentta in osatehtava %}
-                            <td{% if  kentta.syottovirhe %}
-                                bgcolor="#FF4F00"
-                            {%endif%}>
-
-                             {{kentta.errors}}
-                             {{kentta.arvo}}
-                             {{kentta.tarkistus}}
-                             </td>
-                        {% endfor %}
-                    <td class="th_erotin"></td>
-                {% endfor %}
+    <h1>{{ tehtava.nimi|alaviiva_pois }}</h1>
+    <form action="." name="form1" id="form1" method="post">
+        <p>{% include "tupa/tallenna.html" %}</p>
+        <table width="600" border="0" cellpadding="2" cellspacing="0">
+            <tr>
+                <td width="100" class="tauluOtsikko">Tehtävä:</td>
+                <td colspan="2" bgcolor="#E8EDFF">{{ tehtava.jarjestysnro }} &nbsp; &nbsp; {{ tehtava.nimi|alaviiva_pois }}</td>
             </tr>
-        {% endfor %}
-    </tbody>
-    </table>
-    {% include "tupa/tallenna.html" %}
+            <tr>
+                <td class="tauluOtsikko">Sarja:</td>
+                <td colspan="2" bgcolor="#E8EDFF">{{ tehtava.sarja.nimi }}</td>
+            </tr>
+            <tr valign="middle">
+                <td valign="middle" class="tauluOtsikko">Tehtävän tila:</td>
+                {% if tilanne.0 == "a" %}
+                    <td width="150" valign="middle" class='aloittamatta'>
+                        <label>aloittamatta</label>
+                    </td>
+                {% endif %}
+                {% if tilanne.0 == "o" %}
+                    <td width="150" valign="middle" class='osittain'>
+                        <label>syötetty osittain</label>
+                    </td>
+                {% endif %}
+                {% if tilanne.0 == "s" %}
+                    <td width="150" valign="middle" class='syotetty'>
+                        <label>syötetty</label>
+                    </td>
+                {% endif %}
+                {% if tilanne.0 == "t" %}
+                    <td width="150" valign="middle" class='tarkistettu'>
+                        <label>tarkistettu</label>
+                    </td>
+                {% endif %}
+                {% if tilanne.0 == "v" %}
+                    <td width="150" valign="middle" class='virhe'>
+                        <label>syöttövirhe</label>
+                    </td>
+                {% endif %}
+                <td bgcolor="#E8EDFF">
+                    <label>
+                        <input type="checkbox"
+                               {% if tarkistettu %}checked="checked"{% endif %}
+                               name="tarkistettu"
+                               id="tarkistettu" />
+                        tarkistettu
+                    </label>
+                </td>
+            </tr>
+            {% if tarkistus %}
+                <tr bgcolor="#ff9900">
+                    <td colspan=3>Syötät tarkistustuloksia</td>
+                </tr>
+            {% endif %}
+        </table>
+        <br />
+        <table id="taulukko" border="0" cellpadding="2" cellspacing="0">
+            <thead>
+                <tr>
+                    <th colspan="2">Osatehtävä:</th>
+                    {% for osatehtava in osatehtavat %}
+                        <th class="osatehtava_otsikko"
+                            colspan="{{ osatehtava.syotemaarite_set.all|length }}">
+                            Osatehtävä {{ osatehtava.nimi }}
+                        </th>
+                        <th class="th_erotin" width=1></th>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th colspan="2">Syötteen nimi:</th>
+                    {% for osatehtava in osatehtavat %}
+                        {% for maarite in osatehtava.syotemaarite_set.all %}<th>{{ maarite.nimi }}</th>{% endfor %}
+                        <th class="th_erotin"></th>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th colspan="2">Syötteen tyyppi:</th>
+                    {% for osatehtava in osatehtavat %}
+                        {% for maarite in osatehtava.syotemaarite_set.all %}
+                            <th>
+                                {{ maarite.tyyppi }}
+                                {% if maarite.tyyppi == "aika" %}(hh:mm:ss){% endif %}
+                            </th>
+                        {% endfor %}
+                        <th class="th_erotin"></th>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th colspan="2">Syötteen kuvaus:</th>
+                    {% for osatehtava in osatehtavat %}
+                        {% for maarite in osatehtava.syotemaarite_set.all %}<th>{{ maarite.kali_vihje }}</th>{% endfor %}
+                        <th class="th_erotin"></th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for vartio in syotteet %}
+                    <tr valign="top"
+                        class="{% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %}">
+                        <td width="15">{{ vartio.0.nro }}</td>
+                        <td width="200">{{ vartio.0.nimi }}</td>
+                        {% for osatehtava in vartio.1 %}
+                            {% for kentta in osatehtava %}
+                                <td {% if  kentta.syottovirhe %}bgcolor="#FF4F00"{% endif %}>
+                                    {{ kentta.errors }}
+                                    {{ kentta.arvo }}
+                                    {{ kentta.tarkistus }}
+                                </td>
+                            {% endfor %}
+                            <td class="th_erotin"></td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% include "tupa/tallenna.html" %}
     </form>
-
-<p>
-e - vartio ei ole tehnyt tehtävää<br />
-h - vartion suoritus on hylätty<br />
-</p>
-
-{% if tarkistus %}<p>Syötät tällä hetkellä tarkistussyötteitä. <a href="{{varsinaiset_syotteet_url}}">Katso tehtävän varsinaiset syötteet</a></p>{% endif %}
-<p><a href="{{maaritys_url}}">Tehtävän määrittely</a></p>
-<p><a href="{{tulokset_url}}">Tämän sarjan tulokset</a></p>
-
+    <p>
+        e - vartio ei ole tehnyt tehtävää
+        <br />
+        h - vartion suoritus on hylätty
+        <br />
+    </p>
+    {% if tarkistus %}
+        <p>
+            Syötät tällä hetkellä tarkistussyötteitä. <a href="{{ varsinaiset_syotteet_url }}">Katso tehtävän varsinaiset syötteet</a>
+        </p>
+    {% endif %}
+    <p>
+        <a href="{{ maaritys_url }}">Tehtävän määrittely</a>
+    </p>
+    <p>
+        <a href="{{ tulokset_url }}">Tämän sarjan tulokset</a>
+    </p>
 {% endblock %}
-

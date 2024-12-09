@@ -1,52 +1,37 @@
 <h1>{{ heading }}</h1>
-
 <fieldset>
-<legend><b>Osatehtävä {{ nimi }}</b></legend>
-
-<style type="text/css">
-
+    <legend>
+        <b>Osatehtävä {{ nimi }}</b>
+    </legend>
+    <style type="text/css">
 .hidden
 {
     display: none;
 }
 
-</style>
-<font color=red><b> {{osatehtava.errors}} </b> </font>
-{% if taulukko %}
-
-Osatehtävän tyyppi:
-<span onmouseover="tooltip.show('<b>Kisapiste</b> on yksi syöte, joka ei vaadi laskentaa. <br /><b>Raakapiste</b> on syöte, jonka perusteella lasketaan vartiolle kisapisteet, esim. interpoloimalla. <br /><b>Kokonaisaika</b> on aikasyöte, jonka perusteella lasketaan vartiolle kisapisteet. <br /><b>Aikaväliin</b> syötetään alkuaika ja loppuaika, jonka perusteella Kipa laskee vartion suoritusajan ja senmukaiset kisapisteet. <br /><b>Vapaakaava</b> antaa mahdollisuuden määritellä matemaattisen kaavan, jonka perusteella lasketaan syötteistä kisapisteet. <br /><b>Puhdaskaavalla</b> voi määritellä täysin vapaasti Kipan syötteiden laskennan.');" onmouseout="tooltip.hide();">
-    <img src="/kipamedia/help_small.png" />
-</span>
-
-{% for sarake in taulukko%}
-        <input type="radio" name="{{osatehtava.id}}" value="{{sarake.tyyppi}}"
-        onclick="
-        {% for sa in taulukko%}
-                {%if sa.tyyppi == sarake.tyyppi %}
-                        setVisibility('{{sa.id}}','inline');
-                {% else %}
-                        setVisibility('{{sa.id}}','none');
-                {% endif %}
-        {% endfor %} "
-
-        {%if sarake.tyyppi == tyyppi %} checked='checked' {% endif %} />
-        {{sarake.otsikko}} &nbsp; &nbsp;
-{% endfor %}
-{% for sarake in taulukko%}
-
-        <div id="{{sarake.id}}" class='hidden' >
-
-        <table border="0">
-            <td>{{sarake.form}}</td>
-        </table>
-        </div>
-{% endfor %}
-<script type="text/javascript">
-setVisibility('{{nimi}}_{{tyyppi}}','inline')
-</script>
-
-{%endif%}
-
-
+    </style>
+    <font color=red><b> {{ osatehtava.errors }} </b> </font>
+    {% if taulukko %}
+        Osatehtävän tyyppi:
+        <span onmouseover="tooltip.show('<b>Kisapiste</b> on yksi syöte, joka ei vaadi laskentaa. <br /><b>Raakapiste</b> on syöte, jonka perusteella lasketaan vartiolle kisapisteet, esim. interpoloimalla. <br /><b>Kokonaisaika</b> on aikasyöte, jonka perusteella lasketaan vartiolle kisapisteet. <br /><b>Aikaväliin</b> syötetään alkuaika ja loppuaika, jonka perusteella Kipa laskee vartion suoritusajan ja senmukaiset kisapisteet. <br /><b>Vapaakaava</b> antaa mahdollisuuden määritellä matemaattisen kaavan, jonka perusteella lasketaan syötteistä kisapisteet. <br /><b>Puhdaskaavalla</b> voi määritellä täysin vapaasti Kipan syötteiden laskennan.');"
+              onmouseout="tooltip.hide();">
+            <img src="/kipamedia/help_small.png" />
+        </span>
+        {% for sarake in taulukko %}
+            <input type="radio"
+                   name="{{ osatehtava.id }}"
+                   value="{{ sarake.tyyppi }}"
+                   onclick=" {% for sa in taulukko %} {% if sa.tyyppi == sarake.tyyppi %} setVisibility('{{ sa.id }}','inline'); {% else %} setVisibility('{{ sa.id }}','none'); {% endif %} {% endfor %} "
+                   {% if sarake.tyyppi == tyyppi %}checked='checked'{% endif %} />
+            {{ sarake.otsikko }} &nbsp; &nbsp;
+        {% endfor %}
+        {% for sarake in taulukko %}
+            <div id="{{ sarake.id }}" class='hidden'>
+                <table border="0">
+                    <td>{{ sarake.form }}</td>
+                </table>
+            </div>
+        {% endfor %}
+        <script type="text/javascript">setVisibility('{{nimi}}_{{tyyppi}}','inline')</script>
+    {% endif %}
 </fieldset>

@@ -1,27 +1,30 @@
 {% extends "tupa/valitse.html" %}
-
 {% block alku %}
-<form method="POST" action="">
-{% include "tupa/tallenna.html" %}<br><br>
-{% endblock %}
-
-{% block sarake %}
-
-    {{ sarake.management_form }}
-<script type="text/javascript" language="javascript" src="/kipamedia/jquery.form-changed-warning.js"></script>
-
-<p><strong>Vaaditut kentät: Nro ja Nimi<br />
-Syötä 'Keskeyttänyt' ja 'Ulkopuolella' kenttiin sen tehtävän numero, josta lähtien vartio on sarjan ulkopuolella. <br />
-Keskeyttäneille vartioille ei enää syötetä tuloksia kyseisestä tehtävästä lähtien. <br />
-Sarjan ulkopuolelle siirtyneet vartiot saavat tulokset normaalisti, mutta niiden syötteitä ei käytetä esim. määriteltäessä interpoloinnissa nopeinta suoritusta.</strong></p>
-    {% for form in sarake.forms %}
-        <div class="oneRowInlineForm">
-            {{ form }}
-        </div>
-    {% endfor %}
-{% endblock%}
-{% block content %}
-{{ block.super }}
-{% include "tupa/tallenna.html" %}
-</form>
+    <form method="POST" action="">
+        {% include "tupa/tallenna.html" %}
+        <br>
+        <br>
+    {% endblock %}
+    {% block sarake %}
+        {{ sarake.management_form }}
+        <script type="text/javascript"
+                language="javascript"
+                src="/kipamedia/jquery.form-changed-warning.js"></script>
+        <p>
+            <strong>
+                Vaaditut kentät: Nro ja Nimi
+                <br />
+                Syötä 'Keskeyttänyt' ja 'Ulkopuolella' kenttiin sen tehtävän numero, josta lähtien vartio on sarjan ulkopuolella.
+                <br />
+                Keskeyttäneille vartioille ei enää syötetä tuloksia kyseisestä tehtävästä lähtien.
+                <br />
+                Sarjan ulkopuolelle siirtyneet vartiot saavat tulokset normaalisti, mutta niiden syötteitä ei käytetä esim. määriteltäessä interpoloinnissa nopeinta suoritusta.
+            </strong>
+        </p>
+        {% for form in sarake.forms %}<div class="oneRowInlineForm">{{ form }}</div>{% endfor %}
+    {% endblock %}
+    {% block content %}
+        {{ block.super }}
+        {% include "tupa/tallenna.html" %}
+    </form>
 {% endblock %}

@@ -1,19 +1,13 @@
 {% extends "tupa/valitse.html" %}
-
-{% block alku %}
-{{form}}
-{% endblock %}
-
-{% block sarake %}
-    {{ sarake }}
-{% endblock%}
+{% block alku %}{{ form }}{% endblock %}
+{% block sarake %}{{ sarake }}{% endblock %}
 {% block content %}
-<form method="POST" action="">
-{{ block.super }}
-{%if napin_tyyppi == "kopioi" %}
-{% include "tupa/kopioi.html" %}
-{% else %}
-{% include "tupa/tallenna.html" %}
-{% endif %}
-</form>
+    <form method="POST" action="">
+        {{ block.super }}
+        {% if napin_tyyppi == "kopioi" %}
+            {% include "tupa/kopioi.html" %}
+        {% else %}
+            {% include "tupa/tallenna.html" %}
+        {% endif %}
+    </form>
 {% endblock %}

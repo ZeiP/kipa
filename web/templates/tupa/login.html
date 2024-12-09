@@ -1,15 +1,11 @@
 <!-- Käydään viestit läpi -->
-{% for message in messages %}
-{{ message }}
-{% endfor %}
-
+{% for message in messages %}{{ message }}{% endfor %}
 {% if user.is_authenticated %}
-<a href="/kipa/logout">Kirjaudu ulos</a>
+    <a href="/kipa/logout">Kirjaudu ulos</a>
 {% else %}
-<form action="/kipa/login/" name="form1" id="form1" method="post">
-    <input type="text" id="uname" name="uname">
-    <input type="password" id="pword" name="pword">
-    <button type="submit" class="small blue awesome" style="height:20px;">Kirjaudu »</button>
-</form>
+    <form action="/kipa/login/" name="form1" id="form1" method="post">
+        <input type="text" id="uname" name="uname">
+        <input type="password" id="pword" name="pword">
+        <button type="submit" class="small blue awesome" style="height:20px;">Kirjaudu »</button>
+    </form>
 {% endif %}
-

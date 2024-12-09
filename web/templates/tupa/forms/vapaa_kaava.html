@@ -1,47 +1,52 @@
-
-<b>Syötteet:</b><br>
+<b>Syötteet:</b>
+<br>
 <table>
-{% for maarite in maaritteet %}
-    <tr>
-        <td>Syötteen {{maarite.nimi}} kuvaus:</td>
-        <td>
-            <input type="text"
-                    name="{{maarite.kali_vihje.name}}"
-                    id="{{maarite.kali_vihje.id}}"
-                    value="{{maarite.kali_vihje.value}}" />
-            Tyyppi:
-
-            <select name="{{maarite.tyyppi.name}}">
-                <option value="piste"
-                {% if maarite.tyyppi.value == "piste" %}selected="selected"{% endif %}
-                 >piste</option>
-                <option value="aika"
-                {% if maarite.tyyppi.value == "aika" %}selected="selected"{% endif %}
-                >aika</option>
-            </select>
-        </td>
-    </tr>
-{% endfor %}
+    {% for maarite in maaritteet %}
+        <tr>
+            <td>Syötteen {{ maarite.nimi }} kuvaus:</td>
+            <td>
+                <input type="text"
+                       name="{{ maarite.kali_vihje.name }}"
+                       id="{{ maarite.kali_vihje.id }}"
+                       value="{{ maarite.kali_vihje.value }}" />
+                Tyyppi:
+                <select name="{{ maarite.tyyppi.name }}">
+                    <option value="piste"
+                            {% if maarite.tyyppi.value == "piste" %}selected="selected"{% endif %}>piste</option>
+                    <option value="aika"
+                            {% if maarite.tyyppi.value == "aika" %}selected="selected"{% endif %}>aika</option>
+                </select>
+            </td>
+        </tr>
+    {% endfor %}
 </table>
-
-<button name="lisaa_maaritteita" type="submit" class="small blue awesome" value='{{maaritteita.name}}' title="Lisää 5 tyhjää kenttää">Lisää 5 kenttää</button><br><br>
-
-<font color=red><b>{{kaava.errors}}</b></font> Vartion suorituksen kaava:
-<span onmouseover="tooltip.show('Tähän tulee kaava, jolla lasketaan yksittäisen vartion suoritus osatehtävässä. Syötteisiin viitataan niiden kirjaimilla. Aikaa käsitellään laskennallisesti sekunteina.' );" onmouseout="tooltip.hide();"><img src="/kipamedia/help_small.png" />
-
-Funktiot: {% include "tupa/forms/funktiot_apu.html" %} Operaattorit: {% include "tupa/forms/operaattorit_apu.html" %}
+<button name="lisaa_maaritteita"
+        type="submit"
+        class="small blue awesome"
+        value='{{ maaritteita.name }}'
+        title="Lisää 5 tyhjää kenttää">Lisää 5 kenttää</button>
+<br>
+<br>
+<font color=red><b>{{ kaava.errors }}</b></font> Vartion suorituksen kaava:
+<span onmouseover="tooltip.show('Tähän tulee kaava, jolla lasketaan yksittäisen vartion suoritus osatehtävässä. Syötteisiin viitataan niiden kirjaimilla. Aikaa käsitellään laskennallisesti sekunteina.' );"
+      onmouseout="tooltip.hide();">
+    <img src="/kipamedia/help_small.png" />
+    Funktiot:
+    {% include "tupa/forms/funktiot_apu.html" %}
+    Operaattorit:
+    {% include "tupa/forms/operaattorit_apu.html" %}
 </span>
-
 <input type="text"
-                        name="{{kaava.name}}"
-                        id="{{kaava.id}}"
-                        value="{{kaava.value}}" style="width:100%;" /><br />
-<br><br>
-
+       name="{{ kaava.name }}"
+       id="{{ kaava.id }}"
+       value="{{ kaava.value }}"
+       style="width:100%" />
+<br />
+<br>
+<br>
 {% include "tupa/forms/maksimi_suoritus.html" %}
 {% include "tupa/forms/nolla_suoritus.html" %}
 {% include "tupa/forms/arviointi.html" %}
-
-<INPUT TYPE=HIDDEN NAME="{{maaritteita.name}}" value="{{maaritteita.value}}">
-
-
+<input TYPE="HIDDEN"
+       NAME="{{ maaritteita.name }}"
+       value="{{ maaritteita.value }}">

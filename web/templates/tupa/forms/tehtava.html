@@ -1,65 +1,97 @@
-
 <font color=red>
-<b>{{nimi.errors}}</b>
+    <b>{{ nimi.errors }}</b>
 </font>
 Nimi:*
-<span onmouseover="tooltip.show('Anna tehtävän nimi. Älä käytä ääkkösiä, välilyöntiä tai muita erikoismerkkejä. Korvaa välilyönnit alaviivalla (_).');" onmouseout="tooltip.hide();">
+<span onmouseover="tooltip.show('Anna tehtävän nimi. Älä käytä ääkkösiä, välilyöntiä tai muita erikoismerkkejä. Korvaa välilyönnit alaviivalla (_).');"
+      onmouseout="tooltip.hide();">
     <img src="/kipamedia/help_small.png" />
-</span><input type="text" id="{{nimi.id}}"  name="{{nimi.name}}" value="{{nimi.value}}" maxlength="255" />
+</span>
+<input type="text"
+       id="{{ nimi.id }}"
+       name="{{ nimi.name }}"
+       value="{{ nimi.value }}"
+       maxlength="255" />
 <font color=red>
-<b>{{jarjestysnro.errors}}</b>
+    <b>{{ jarjestysnro.errors }}</b>
 </font>
 Järjestysnumero:*
-<span onmouseover="tooltip.show('Tehtävän numero, jota käytetään sarjassa ulkopuolella olevien vartioiden määrittämiseen');" onmouseout="tooltip.hide();">
+<span onmouseover="tooltip.show('Tehtävän numero, jota käytetään sarjassa ulkopuolella olevien vartioiden määrittämiseen');"
+      onmouseout="tooltip.hide();">
     <img src="/kipamedia/help_small.png" />
-</span><input type="text" size="6" id="{{jarjestysnro.id}}" name="{{jarjestysnro.name}}"  value="{{jarjestysnro.value}}"  />
+</span>
+<input type="text"
+       size="6"
+       id="{{ jarjestysnro.id }}"
+       name="{{ jarjestysnro.name }}"
+       value="{{ jarjestysnro.value }}" />
 <font color=red>
-<b>{{osatehtavia.errors}}</b>
+    <b>{{ osatehtavia.errors }}</b>
 </font>
 Osatehtäviä:*
-<span onmouseover="tooltip.show('Kukin tehtävä koostuu osatehtävistä ja kukin osatehtävä syötteistä. Anna osatehtävien lukumäärä.');" onmouseout="tooltip.hide();">
+<span onmouseover="tooltip.show('Kukin tehtävä koostuu osatehtävistä ja kukin osatehtävä syötteistä. Anna osatehtävien lukumäärä.');"
+      onmouseout="tooltip.hide();">
     <img src="/kipamedia/help_small.png" />
-</span><input type="text" size="6" id="{{osatehtavia.id}}" name="{{osatehtavia.name}}" value="{{osatehtavia.value}}" />
+</span>
+<input type="text"
+       size="6"
+       id="{{ osatehtavia.id }}"
+       name="{{ osatehtavia.name }}"
+       value="{{ osatehtavia.value }}" />
 <font color=red>
-<b>{{lyhenne.errors}}</b>
+    <b>{{ lyhenne.errors }}</b>
 </font>
 Lyhenne:
-<span onmouseover="tooltip.show('Anna tässä lyhenne, jolla tehtävä näkyy tuloksissa.');" onmouseout="tooltip.hide();"><img src="/kipamedia/help_small.png" />
-</span><input type="text" size="6" id="{{lyhenne.id}}" name="{{lyhenne.name}}" value="{{lyhenne.value}}" />
-
-
+<span onmouseover="tooltip.show('Anna tässä lyhenne, jolla tehtävä näkyy tuloksissa.');"
+      onmouseout="tooltip.hide();">
+    <img src="/kipamedia/help_small.png" />
+</span>
+<input type="text"
+       size="6"
+       id="{{ lyhenne.id }}"
+       name="{{ lyhenne.name }}"
+       value="{{ lyhenne.value }}" />
 <font color=red>
-    <b>{{maksimipisteet.errors}}</b>
+    <b>{{ maksimipisteet.errors }}</b>
 </font>
 Maksimipisteet:
-<span onmouseover="tooltip.show('Tehtävän maksimipisteet. Ei vaikutusta laskentaan. Näkyvät infona tuloksissa.');" onmouseout="tooltip.hide();">
+<span onmouseover="tooltip.show('Tehtävän maksimipisteet. Ei vaikutusta laskentaan. Näkyvät infona tuloksissa.');"
+      onmouseout="tooltip.hide();">
     <img src="/kipamedia/help_small.png" />
-</span><input type="text" size="6" id="{{maksimipisteet.id}}" name="{{maksimipisteet.name}}" value="{{maksimipisteet.value}}" />
-
+</span>
+<input type="text"
+       size="6"
+       id="{{ maksimipisteet.id }}"
+       name="{{ maksimipisteet.name }}"
+       value="{{ maksimipisteet.value }}" />
 <br>
 <font color=red>
-<b>{{kaava.errors}}</b>
+    <b>{{ kaava.errors }}</b>
 </font>
 Kaava:*
-<span onmouseover="tooltip.show('Anna tässä kaava, jolla osatehtävien pisteistä lasketaan tehtävästä jaettavat pisteet. Esim. \'ss\' (suora summa, eli osatehtävistä saatavat pisteet lasketaan yhteen) tai \'a+b(c*d)\'');" onmouseout="tooltip.hide();">
+<span onmouseover="tooltip.show('Anna tässä kaava, jolla osatehtävien pisteistä lasketaan tehtävästä jaettavat pisteet. Esim. \'ss\' (suora summa, eli osatehtävistä saatavat pisteet lasketaan yhteen) tai \'a+b(c*d)\'');"
+      onmouseout="tooltip.hide();">
     <img src="/kipamedia/help_small.png" />
-</span> <input type="text" size="100" id="{{kaava.id}}" name="{{kaava.name}}" value="{{kaava.value}}" />
-<a href="/kipa/{{kisa_nimi}}/maarita/vaiheet/{{tehtava_id}}/"> Laskennan välivaiheet </a>
-
-
+</span>
+<input type="text"
+       size="100"
+       id="{{ kaava.id }}"
+       name="{{ kaava.name }}"
+       value="{{ kaava.value }}" />
+<a href="/kipa/{{ kisa_nimi }}/maarita/vaiheet/{{ tehtava_id }}/">Laskennan välivaiheet</a>
 <br>
 <font color=red>
-<b>{{rastikasky.errors}}</b>
+    <b>{{ rastikasky.errors }}</b>
 </font>
 Rastikäskylinkki:
-<span onmouseover="tooltip.show('Anna www-linkki rastikäskytiedostoon tai rastikäskytiedoston polku paikallisella levyllä. Linkki muodostuu tulostettavan tulosliuskan tehtävien nimiin. Toimintoa voidaan käyttää esim. laitettaessa tulokset nettiin ja haluttaessa linkittää Kiskan rastikäskyt suoraan tulosliuskoihin.');" onmouseout="tooltip.hide();">
-        <img src="/kipamedia/help_small.png" />
-</span><input type="text" size="50" id="{{rastikasky.id}}"  name="{{rastikasky.name}}" value="{{rastikasky.value}}" maxlength="255" />
-
-{% for form in osa_tehtavat %}
-        {{ form }}
-{% endfor %}
-
-{{osatehtavat}}
-
-
+<span onmouseover="tooltip.show('Anna www-linkki rastikäskytiedostoon tai rastikäskytiedoston polku paikallisella levyllä. Linkki muodostuu tulostettavan tulosliuskan tehtävien nimiin. Toimintoa voidaan käyttää esim. laitettaessa tulokset nettiin ja haluttaessa linkittää Kiskan rastikäskyt suoraan tulosliuskoihin.');"
+      onmouseout="tooltip.hide();">
+    <img src="/kipamedia/help_small.png" />
+</span>
+<input type="text"
+       size="50"
+       id="{{ rastikasky.id }}"
+       name="{{ rastikasky.name }}"
+       value="{{ rastikasky.value }}"
+       maxlength="255" />
+{% for form in osa_tehtavat %}{{ form }}{% endfor %}
+{{ osatehtavat }}

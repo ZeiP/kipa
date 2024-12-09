@@ -1,29 +1,31 @@
 {% extends "tupa/base.html" %}
 {% block title %}{{ heading }}{% endblock %}
 {% block content %}
-<h1> {{heading}} </h1>
-
-<form method="POST" action="">
-<br>
-<br>
-<br>
-<font size=5 >
-Olet poistamassa kisaa {{kisa_nimi}} <br>
-<br>
-Oletko tosissasi?
-<br>
-<br>
-</font>
-
-
-<table>
-<tr>
-<td width="200" align="right"><button type="button" class="small awesome" onClick="history.back();" title="Palaa edelliselle sivulle">Peruuta</button></td>
-<td width="100" align="right"><button type="submit" class="small blue awesome" >Kyllä</button></td>
-</tr>
-</table>
-
-</form>
-
+    <h1>{{ heading }}</h1>
+    <form method="POST" action="">
+        <br>
+        <br>
+        <br>
+        <font size=5>
+            Olet poistamassa kisaa {{ kisa_nimi }}
+            <br>
+            <br>
+            Oletko tosissasi?
+            <br>
+            <br>
+        </font>
+        <table>
+            <tr>
+                <td width="200" align="right">
+                    <button type="button"
+                            class="small awesome"
+                            onClick="history.back();"
+                            title="Palaa edelliselle sivulle">Peruuta</button>
+                </td>
+                <td width="100" align="right">
+                    <button type="submit" class="small blue awesome">Kyllä</button>
+                </td>
+            </tr>
+        </table>
+    </form>
 {% endblock %}
-
