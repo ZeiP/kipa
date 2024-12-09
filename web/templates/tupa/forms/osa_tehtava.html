@@ -24,9 +24,9 @@ Osatehtävän tyyppi:
         onclick="
         {% for sa in taulukko%}
                 {%if sa.tyyppi == sarake.tyyppi %}
-                        setVisibility('{{sa.id}}','inline')
+                        setVisibility('{{sa.id}}','inline');
                 {% else %}
-                        setVisibility('{{sa.id}}','none')
+                        setVisibility('{{sa.id}}','none');
                 {% endif %}
         {% endfor %} "
 
