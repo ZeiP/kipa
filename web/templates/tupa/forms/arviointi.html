@@ -8,9 +8,9 @@
 <td width=300>
 <p>Käytössa: <input type="checkbox" name="{{arvio.name}}" id="{{arvio.id}}" value="abs"
 {% if arvio.value == "abs" %}checked="checked" {% endif %}/></p>
-<p><font color=red><b>
-                        {{oikea.errors}}
-</b></font>
+<p><font color=red>
+    <b>{{oikea.errors}}</b>
+</font>
 Oikea vastaus: <input type="text" name="{{oikea.name}}" id="{{oikea.id}}" value="{{oikea.value}}" /> <br>
 </td>
 <td>

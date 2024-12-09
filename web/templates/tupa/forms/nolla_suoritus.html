@@ -8,8 +8,9 @@
 
 <tr valign="top">
 <td>
-        <font color=red><b>
-        </b></font>
+        <font color=red>
+            <b></b>
+        </font>
 </td>
 <td>
 </td>
@@ -30,9 +31,9 @@ onmouseout="tooltip.hide();">
 <img src="/kipamedia/help_small.png" />
 </span>
                         {%else%}  Kiinteä suoritus: {% endif %}
-                        <font color=red><b>
-                        {{nollan_kaava.errors}}
-                        </b></font>
+                        <font color=red>
+                        <b>{{nollan_kaava.errors}}</b>
+                        </font>
                         <input type="text" name="{{nollan_kaava.name}}" id="{{nollan_kaava.id}}" value="{{nollan_kaava.value}}" {% if vapaa %} size=40 {%endif %} ><br>
                 </p>
                 </fieldset>
@@ -43,8 +44,9 @@ onmouseout="tooltip.hide();">
                 <legend>Kerroin keskimmäisestä tuloksesta</legend>
 
                    <p>
-                        <font color=red><b>
-                        </b></font>
+                        <font color=red>
+                            <b></b>
+                        </font>
 
 <input type="radio" id="{{nollan_kerroin.id}}" value="1.5" name="{{nollan_kerroin.name}}"
 {% if nollan_kerroin.value == "1.5" %}checked="checked" {% endif %}/>
@@ -66,9 +68,9 @@ checked="checked"
 
 muu:
 
-                        <font color=red><b>
-                        {{muu_kerroin.errors}}
-                        </b></font>
+                        <font color=red>
+                        <b>{{muu_kerroin.errors}}</b>
+                        </font>
                       <input type="text" name="{{muu_kerroin.name}}" id="{{muu_kerroin.id}}" value="{{muu_kerroin.value}}" />
                     </p>
                 </fieldset>
