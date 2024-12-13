@@ -16,10 +16,12 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install 'black==24.10.0'
+          pip install 'djlint==1.36.3'
       - name: Check formatting
         run: |
           black -t py312 --check .
           black -t py312 --check web/**/*.py.example
+          djlint --check .
   unit-tests-sqlite:
     runs-on: ubuntu-latest
     timeout-minutes: 15

@@ -72,11 +72,15 @@ Hakemistosta `./web/roobt` löytyy myös toinen robot-tiedosto nimeltään
 `autentikointi.txt`, mutta sen ajaminen ei taida onnistua, ellei ensin
 toteuta Kipaan suunniteltua kirjautumista.
 
-## Python-koodin formatointi
+## Python-koodin ja Django-templaattien formatointi
 
 Koodi noudattaa Black-autoformatterin vesion 24.10.0 mukaista tyyliä.
-Blackille annetaan lippu `--target-version py312`. Formatointi tarkastetaan
-osana CI-putkea.
+Blackille annetaan lippu `--target-version py312`. Templaatit formatoidaan
+käyttäen [djLint:tiä](https://www.djlint.com/), joka ajetaan seuraavasti:
+`djlint --reformat --profile=django .`. Toisin kuin Black, djLint ei takaa
+tiedostojen ehjänä pysymistä, joten muutosten tarkastaminen manuaalisesti
+formatoinnin jälkeen voi olla tarpeen. Formatoinnit tarkastetaan osana
+CI-putkea.
 
 ## Selityksiä lähdekooditiedostoista
 
