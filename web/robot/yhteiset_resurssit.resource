@@ -30,7 +30,7 @@ Kipa Suite Setup
 
 Open Sub Page Verify Location And Title
     [Arguments]    ${link_name}    ${link}    ${page_title}
-    Click Link    ${link_name}
+    Click Link    xpath://a[contains(., '${link_name}')]
     Wait Until Keyword Succeeds    10 sec    2 sec    Location Should Be    ${KIPA_URL}/${TESTIKISA}/${link}/
     Wait Until Keyword Succeeds    10 sec    2 sec    Title Should Be    ${page_title}
 
@@ -46,7 +46,7 @@ Remove Competition
     Open KiPa Main Page
     click link    ${competition}
     title should be    Kipa - ${competition}
-    Click Link    poista kisa
+    Click Link    xpath://a[contains(., 'poista kisa')]
     Title Should Be    ${KISAN_POISTO_OTSIKKO}
     Click Button    Kyllä
     Wait Until Keyword Succeeds    10 sec    2 sec    Title Should Be    ${KAIKKI_KISAT_OTSIKKO}
