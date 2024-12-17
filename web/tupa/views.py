@@ -51,7 +51,7 @@ from .log import clearLoki, enableLogging, palautaLoki
 
 def kipaResponseRedirect(url):
     return HttpResponse(
-        '<html><head><meta http-equiv="REFRESH" content="0;url='
+        '<!DOCTYPE html><html><head><meta http-equiv="REFRESH" content="0;url='
         + url
         + '"></HEAD><BODY></BODY></HTML>'
     )
@@ -1242,7 +1242,7 @@ def tehtavanVaiheet(request, kisa_nimi, tehtava_id, vartio_id=None):
     tehtava = get_object_or_404(Tehtava, id=tehtava_id)
     vartiot = Vartio.objects.filter(sarja=tehtava.sarja)
     if not len(vartiot):
-        responssi = "<html><body><h1>Ei vartioita</h1><br></body></html>"
+        responssi = "<!DOCTYPE html><html><body><h1>Ei vartioita</h1><br></body></html>"
         responssi += (
             '<a href="/kipa/lista/maarita/tehtava/'
             + str(tehtava_id)
@@ -1259,7 +1259,9 @@ def tehtavanVaiheet(request, kisa_nimi, tehtava_id, vartio_id=None):
     tehtava = get_object_or_404(Tehtava, id=tehtava_id)
 
     responssi = (
-        "<html><body>Vartion laskennan vaiheet tehtävässä " + tehtava.nimi + " <br> "
+        "<!DOCTYPE html><html><body>Vartion laskennan vaiheet tehtävässä "
+        + tehtava.nimi
+        + " <br> "
     )
     enableLogging()
     clearLoki()

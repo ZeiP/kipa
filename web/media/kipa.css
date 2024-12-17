@@ -110,7 +110,7 @@ h3
 	font-size:11px;
 }
 
-.etusivunotsikko
+.etusivun-otsikko
 {
 	font:20px Georgia,Helvetica,"Lucida Sans Unicode",Tahoma,Verdana,Arial,Helvetica,sans-serif;
 	letter-spacing:0;
@@ -148,7 +148,7 @@ h3
 	text-decoration:underline;
 }
 
-.etusivunotsikko img
+.etusivun-otsikko img
 {
 	padding:10px;
 	padding-left:40px;
@@ -230,7 +230,7 @@ tr .odd:hover
 	color:#339;
 }
 
-.tauluotsikko
+.taulu-otsikko
 {
 	font-family:Verdana, Arial, Helvetica, sans-serif;
 	font-size:x-small;
@@ -352,7 +352,7 @@ tr .odd:hover
 	background:url(/kipamedia/header.png) repeat-x;
 }
 
-#pagetitle {
+#page-title {
 	text-transform:uppercase;
 	text-decoration:none;
 	color:#9fa8a9;
@@ -364,7 +364,7 @@ tr .odd:hover
 	line-height:normal;
 }
 
-#pagetitle a, #pagetitle a:visited {
+#page-title a, #page-title a:visited {
 	text-decoration:none;
 	color:#9fa8a9;
 	font-family:Verdana,"Lucida Grande",Lucida,sans-serif;
