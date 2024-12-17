@@ -53,27 +53,27 @@ $(document).ready(function(){
             <tr valign="middle">
                 <td valign="middle" class="taulu-otsikko">Tehtävän tila:</td>
                 {% if tilanne.0 == "a" %}
-                    <td width="150" valign="middle" class='aloittamatta'>
+                    <td width="150" valign="middle" class="aloittamatta">
                         <label>aloittamatta</label>
                     </td>
                 {% endif %}
                 {% if tilanne.0 == "o" %}
-                    <td width="150" valign="middle" class='osittain'>
+                    <td width="150" valign="middle" class="osittain">
                         <label>syötetty osittain</label>
                     </td>
                 {% endif %}
                 {% if tilanne.0 == "s" %}
-                    <td width="150" valign="middle" class='syotetty'>
+                    <td width="150" valign="middle" class="syotetty">
                         <label>syötetty</label>
                     </td>
                 {% endif %}
                 {% if tilanne.0 == "t" %}
-                    <td width="150" valign="middle" class='tarkistettu'>
+                    <td width="150" valign="middle" class="tarkistettu">
                         <label>tarkistettu</label>
                     </td>
                 {% endif %}
                 {% if tilanne.0 == "v" %}
-                    <td width="150" valign="middle" class='virhe'>
+                    <td width="150" valign="middle" class="virhe">
                         <label>syöttövirhe</label>
                     </td>
                 {% endif %}

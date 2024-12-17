@@ -22,19 +22,19 @@
                             </td>
                         {% else %}
                             {% if sarake.0 == "a" %}
-                                <td width="100" class='aloittamatta'>{{ sarake.1|alaviiva_pois }}</td>
+                                <td width="100" class="aloittamatta">{{ sarake.1|alaviiva_pois }}</td>
                             {% else %}
                                 {% if sarake.0 == "o" %}
-                                    <td width="100" class='osittain'>{{ sarake.1 }}</td>
+                                    <td width="100" class="osittain">{{ sarake.1 }}</td>
                                 {% else %}
                                     {% if sarake.0 == "s" %}
-                                        <td width="62" class='syotetty'>{{ sarake.1 }}</td>
+                                        <td width="62" class="syotetty">{{ sarake.1 }}</td>
                                     {% else %}
                                         {% if sarake.0 == "t" %}
-                                            <td width="100" class='tarkistettu'>{{ sarake.1|alaviiva_pois }}</td>
+                                            <td width="100" class="tarkistettu">{{ sarake.1|alaviiva_pois }}</td>
                                         {% else %}
                                             {% if sarake.0 == "v" %}
-                                                <td width="62" class='virhe'>{{ sarake.1|alaviiva_pois }}</td>
+                                                <td width="62" class="virhe">{{ sarake.1|alaviiva_pois }}</td>
                                             {% else %}
                                                 <td width="62">{{ sarake.1 }}</td>
                                             {% endif %}
@@ -51,19 +51,19 @@
         <br />
         <table width="150" border="0" cellpadding="1">
             <tr>
-                <td width="150" class='aloittamatta'>&nbsp;&nbsp;&nbsp;aloittamatta</td>
+                <td width="150" class="aloittamatta">&nbsp;&nbsp;&nbsp;aloittamatta</td>
             </tr>
             <tr>
-                <td class='osittain'>&nbsp;&nbsp;&nbsp;syötetty osittain</td>
+                <td class="osittain">&nbsp;&nbsp;&nbsp;syötetty osittain</td>
             </tr>
             <tr>
-                <td class='syotetty'>&nbsp;&nbsp;&nbsp;syötetty</td>
+                <td class="syotetty">&nbsp;&nbsp;&nbsp;syötetty</td>
             </tr>
             <tr>
-                <td class='tarkistettu'>&nbsp;&nbsp;&nbsp;tarkistettu</td>
+                <td class="tarkistettu">&nbsp;&nbsp;&nbsp;tarkistettu</td>
             </tr>
             <tr>
-                <td class='virhe'>&nbsp;&nbsp;&nbsp;syöttövirhe</td>
+                <td class="virhe">&nbsp;&nbsp;&nbsp;syöttövirhe</td>
             </tr>
         </table>
     </body>

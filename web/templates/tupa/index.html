@@ -28,18 +28,18 @@
                         <blockquote>
                             {% if object_list %}
                                 {% for kisa in object_list %}
-                                    <a href='{{ kisa.nimi }}/'>{{ kisa.nimi }}</a>
+                                    <a href="{{ kisa.nimi }}/">{{ kisa.nimi }}</a>
                                     <br>
                                 {% endfor %}
                             {% else %}
                                 <p>Ei määriteltyjä kisoja.</p>
                             {% endif %}
                             <p>
-                                <a href='uusiKisa/maarita/'>Luo uusi kisa</a>
+                                <a href="uusiKisa/maarita/">Luo uusi kisa</a>
                                 <br>
                             </p>
                             <p>
-                                <a href='lisaaKisa/'>Lisää kisa tiedostosta</a>
+                                <a href="lisaaKisa/">Lisää kisa tiedostosta</a>
                                 <br>
                             </p>
                         </blockquote>
