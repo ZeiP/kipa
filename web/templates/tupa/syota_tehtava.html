@@ -141,7 +141,7 @@ $(document).ready(function(){
                         <td width="200">{{ vartio.0.nimi }}</td>
                         {% for osatehtava in vartio.1 %}
                             {% for kentta in osatehtava %}
-                                <td {% if  kentta.syottovirhe %}bgcolor="#FF4F00"{% endif %}>
+                                <td {% if kentta.syottovirhe %}bgcolor="#FF4F00"{% endif %}>
                                     {{ kentta.errors }}
                                     {{ kentta.arvo }}
                                     {{ kentta.tarkistus }}
