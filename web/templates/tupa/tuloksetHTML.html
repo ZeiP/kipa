@@ -32,11 +32,7 @@
         {% if tulos_taulukko %}
             <table id="tulostaulukko_screen" border=0>
                 {% for rivi in tulos_taulukko %}
-                    {% if forloop.counter|add:"3"|divisibleby:"5" %}
-                        <tr height="10">
-                            <td></td>
-                        </tr>
-                    {% endif %}
+                    {% if forloop.counter|add:"3"|divisibleby:"5" %}<tr height="10"></tr>{% endif %}
                     {% if forloop.first %}
                         <tr>
                             {% for sarake in rivi %}
@@ -44,9 +40,7 @@
                                 {% if forloop.first %}
                                     {% comment %} ylarivin eka {% endcomment %}
                                     <td width="30" align="right"></td>
-                                    <td width="30" align="right" style="padding-right:10px;">
-                                        <b></b>
-                                    </td>
+                                    <td width="30" align="right" style="padding-right:10px;"></td>
                                     <td style="min-width:100px;"></td>
                                     <td align="right" width=30 style="padding-right:10px;"></td>
                                 {% else %}
@@ -122,9 +116,7 @@
                             <td width="30" align="right">
                                 <b>SIJ.</b>
                             </td>
-                            <td width="30" align="right" style="padding-right:10px;">
-                                <b></b>
-                            </td>
+                            <td width="30" align="right" style="padding-right:10px;"></td>
                             <td style="min-width:100px;">
                                 <b>VARTIO</b>
                             </td>
