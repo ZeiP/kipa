@@ -17,10 +17,10 @@
         <table width="100%" border="0" id="tulostaulukko_otsikko">
             <tr valign="top">
                 <td width="33%">
-                    <h1 class="uppercase" style="margin:0; padding:0; line-height:normal;">{{ kisa_nimi|alaviiva_pois }}</h1>
+                    <h1 class="tulostaulukko-otsikko uppercase">{{ kisa_nimi|alaviiva_pois }}</h1>
                 </td>
                 <td width="33%" align="center">
-                    <h2 style="line-height:normal;">{{ heading }}</h2>
+                    <h2 class="tulostaulukko-otsikko">{{ heading }}</h2>
                 </td>
                 <td width="33%" align="right">&nbsp;</td>
             </tr>
@@ -52,7 +52,7 @@
                                     {% comment %} ylarivin eka {% endcomment %}
                                     <td width="30" align="right"></td>
                                     <td width="30" align="right" class="tulostaulukko-solu"></td>
-                                    <td style="min-width:100px;"></td>
+                                    <td class="vartiosarake-solu"></td>
                                     <td align="right" width=30 class="tulostaulukko-solu"></td>
                                 {% else %}
                                     {% comment %} ylarivi {% endcomment %}
@@ -122,7 +122,7 @@
                                 <b>SIJ.</b>
                             </td>
                             <td width="30" align="right" class="tulostaulukko-solu"></td>
-                            <td style="min-width:100px;">
+                            <td class="vartiosarake-solu">
                                 <b>VARTIO</b>
                             </td>
                             <td align="right" width=30 class="tulostaulukko-solu">

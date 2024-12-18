@@ -501,3 +501,21 @@ td.th_erotin {
 .oneRowInlineForm {
 	display: flex;
 }
+
+.login-form {
+	float:right;
+    margin-top:-4px;
+    margin-bottom:0;
+    padding-bottom:0;
+    height:18px
+}
+
+.tab-selection-box {
+	border:1px solid gray;
+	margin-bottom: 1em;
+	padding: 10px
+}
+
+.vapaakaava-input {
+	width: 100%;
+}
