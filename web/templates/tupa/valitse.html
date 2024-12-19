@@ -1,39 +1,31 @@
 {% extends "tupa/base.html" %}
 {% block title %}{{ heading }}{% endblock %}
-{% block header %}
-{% endblock %}
-
+{% block header %}{% endblock %}
 {% block content %}
-
-<h1>{{ heading }}</h1>
-
-{% block alku %}
-
-{% endblock %}
-
-
-{% if taulukko %}
-    <ul id="sarjatabs" class="shadetabs">
-        {% for sarake in taulukko %}
-            {% if sarake == taulukko.0  %}
-                <li><a href="#" rel="sarake{{ sarake.id }}" class="selected">{{ sarake.otsikko }}</a></li>
+    <h1>{{ heading }}</h1>
+    {% block alku %}{% endblock %}
+    {% if taulukko %}
+        <ul id="sarjatabs" class="shadetabs">
+            {% for sarake in taulukko %}
+                {% if sarake == taulukko.0 %}
+                    <li>
+                        <a href="#" rel="sarake{{ sarake.id }}" class="selected">{{ sarake.otsikko }}</a>
+                    </li>
                 {% else %}
-                <li><a href="#" rel="sarake{{ sarake.id }}">{{ sarake.otsikko }}</a></li>
-            {% endif %}
-        {% endfor %}
-    </ul>
-
-    <div style="border:1px solid gray; margin-bottom: 1em; padding: 10px">
-
-        {% for sarake in taulukko%}
-        <div id="sarake{{ sarake.id }}" class="tabcontent">
-            <ul id="tehtavatabs" class="">
-                 {% block sarake %} {{sarake}} {% endblock %}
-            </ul>
+                    <li>
+                        <a href="#" rel="sarake{{ sarake.id }}">{{ sarake.otsikko }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <div style="border:1px solid gray; margin-bottom: 1em; padding: 10px">
+            {% for sarake in taulukko %}
+                <div id="sarake{{ sarake.id }}" class="tabcontent">
+                    <ul id="tehtavatabs" class="">
+                        {% block sarake %}{{ sarake }}{% endblock %}
+                    </ul>
+                </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
-{%endif%}
-
+    {% endif %}
 {% endblock %}
-

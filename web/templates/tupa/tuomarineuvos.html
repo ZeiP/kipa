@@ -1,31 +1,22 @@
 {% extends "tupa/valitse.html" %}
-
 {% load kipatags %}
-
 {% block sarake %}
     <table width="600" border="1">
         <tr>
-        <td></td>
-                {% for kentta in sarake.tiedot.0.tehtavat %}
-                        <td>
-                                {{ kentta.nimi|alaviiva_pois }}
-                        </td>
-                {% endfor %}
+            <td></td>
+            {% for kentta in sarake.tiedot.0.tehtavat %}<td>{{ kentta.nimi|alaviiva_pois }}</td>{% endfor %}
         </tr>
         {% for rivi in sarake.tiedot %}
-                <tr>
-                <td>{{rivi.nimi}}</td>
-                {% for kentta in rivi.formit%}
-                     <td>{{ kentta }}{{kentta.errors}}</td>
-                {% endfor %}
-              </tr>
+            <tr>
+                <td>{{ rivi.nimi }}</td>
+                {% for kentta in rivi.formit %}<td>{{ kentta }}{{ kentta.errors }}</td>{% endfor %}
+            </tr>
         {% endfor %}
-   </table>
-{% endblock%}
+    </table>
+{% endblock %}
 {% block content %}
-        <form action="." method="post">
+    <form action="." method="post">
         {{ block.super }}
         {% include "tupa/tallenna.html" %}
-{% endblock%}
+    {% endblock %}
 </form>
-

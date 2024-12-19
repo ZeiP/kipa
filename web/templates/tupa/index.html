@@ -1,49 +1,51 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Kipa - kaikki kisat</title>
-<link rel="stylesheet" type="text/css" href="/kipamedia/kipa.css" />
-<link rel="stylesheet" type="text/css" href="/kipamedia/tabcontent.css" />
-<link rel="icon" type="image/x-icon" href="/kipamedia/favicon.ico" />
-</head>
-<body>
-
-{% include "tupa/vaara_tietokanta.html" %}
-
-<div id="wrap">
-    <div id="header"><div id="pageTitle">{{kisa_nimi}} <font color=00FF00 size=3><b>{{talletettu}}</b></font></div>
-        <div style="float:right; margin-top:-4px; margin-bottom:0; padding-bottom:0; height:18px;">
-            {% include "tupa/login.html" %}
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Kipa - kaikki kisat</title>
+        <link rel="stylesheet" type="text/css" href="/kipamedia/kipa.css" />
+        <link rel="stylesheet" type="text/css" href="/kipamedia/tabcontent.css" />
+        <link rel="icon" type="image/x-icon" href="/kipamedia/favicon.ico" />
+    </head>
+    <body>
+        {% include "tupa/vaara_tietokanta.html" %}
+        <div id="wrap">
+            <div id="header">
+                <div id="pageTitle">
+                    {{ kisa_nimi }} <font color=00FF00 size=3><b>{{ talletettu }}</b></font>
+                </div>
+                <div style="float:right;
+                            margin-top:-4px;
+                            margin-bottom:0;
+                            padding-bottom:0;
+                            height:18px">{% include "tupa/login.html" %}</div>
+            </div>
+            <div id="breadcrumbs"></div>
+            <div id="main" class="clearfix">
+                <div id="container">
+                    <div id="right" class="column">
+                        <h1>Kisat</h1>
+                        <blockquote>
+                            {% if object_list %}
+                                {% for kisa in object_list %}
+                                    <a href='{{ kisa.nimi }}/'>{{ kisa.nimi }}</a>
+                                    <br>
+                                {% endfor %}
+                            {% else %}
+                                <p>Ei määriteltyjä kisoja.</p>
+                            {% endif %}
+                            <p>
+                                <a href='uusiKisa/maarita/'>Luo uusi kisa</a>
+                                <br>
+                            </p>
+                            <p>
+                                <a href='lisaaKisa/'>Lisää kisa tiedostosta</a>
+                                <br>
+                            </p>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div><!-- /header -->
-    <div id="breadcrumbs"></div>
-
-    <div id="main" class="clearfix">
-
-        <div id="container">
-            <div id="right" class="column">
-
-        <h1>Kisat</h1>
-        <blockquote>
-            {% if object_list %}
-                {% for kisa in object_list %}
-                <a href='{{kisa.nimi}}/' > {{kisa.nimi}} </a> <br>
-                {% endfor %}
-
-            {% else %}
-                <p>Ei määriteltyjä kisoja.</p>
-            {% endif %}
-
-            <p><a href='uusiKisa/maarita/'>Luo uusi kisa</a><br></p>
-            <p><a href='lisaaKisa/'> Lisää kisa tiedostosta</a><br></p>
-        </blockquote>
-
-            </div><!-- /right -->
-        </div><!-- /container -->
-    </div><!-- /main -->
-</div><!-- /wrap -->
-
-<div id="footer">Kipa</div>
-
-</body>
+        <div id="footer">Kipa</div>
+    </body>
 </html>

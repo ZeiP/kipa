@@ -12,3 +12,6 @@ ae6391ac34b6f959fd16053f24076353aae0e54b
 
 # Format python code with black
 b215abbc7ae11614bab50fb7c3b95c307cf933d5
+
+# Format Django templates with djLint
+047d51f497bdb08d6c092b05d917d331fb7cebd0

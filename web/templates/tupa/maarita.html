@@ -1,36 +1,30 @@
 {% extends "tupa/base.html" %}
 {% block title %}{{ heading }}{% endblock %}
 {% block content %}
-
-{% load kipatags %}
-
-<h1>{{heading|alaviiva_pois}}</h1>
-
-<form method="POST" action="">
-<p>{% include "tupa/tallenna.html" %}</p>
-{% if forms %}
-    {% for form in forms%}
-        <fieldset>
-        <legend>{{form.label}}</legend>
-        {{form}}
-        {{form.helppiteksti}}<br>
-    </fieldset>
-    {% endfor%}
-{% endif %}
-<br>
-{% if formsets %}
-    {% for formset in formsets %}
-        <fieldset>
-        <legend>{{formset.label}} {{formset.helppiteksti}} </legend>
-        {{ formset.management_form }}
-        {% for form in formset.forms %}
-            <div class="oneRowInlineForm">
-                {{ form }}
-            </div>
-        {% endfor %}
-    </fieldset>
-    {% endfor%}
-{% endif %}
-{% include "tupa/tallenna.html" %}
-</form>
+    {% load kipatags %}
+    <h1>{{ heading|alaviiva_pois }}</h1>
+    <form method="POST" action="">
+        <p>{% include "tupa/tallenna.html" %}</p>
+        {% if forms %}
+            {% for form in forms %}
+                <fieldset>
+                    <legend>{{ form.label }}</legend>
+                    {{ form }}
+                    {{ form.helppiteksti }}
+                    <br>
+                </fieldset>
+            {% endfor %}
+        {% endif %}
+        <br>
+        {% if formsets %}
+            {% for formset in formsets %}
+                <fieldset>
+                    <legend>{{ formset.label }} {{ formset.helppiteksti }}</legend>
+                    {{ formset.management_form }}
+                    {% for form in formset.forms %}<div class="oneRowInlineForm">{{ form }}</div>{% endfor %}
+                </fieldset>
+            {% endfor %}
+        {% endif %}
+        {% include "tupa/tallenna.html" %}
+    </form>
 {% endblock %}

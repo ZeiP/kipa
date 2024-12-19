@@ -1,79 +1,96 @@
 <fieldset>
-<legend> <b>Nollasuoritus</b> </legend>
-        <table border="0">
-<p>
-        Tässä kerrotaan suoritus, jolla saa nolla pistettä.
-        Tämä voi olla jokin kiinteä suoritus tai interpoloinnissa keskimmäisestä tuloksesta laskettu.
-</p>
-
-<tr valign="top">
-<td>
-        <font color=red><b>
-        </b></font>
-</td>
-<td>
-</td>
-<td>
-        <fieldset>
-                <legend>{%if vapaa %} Vapaa: {%else%} Kiinteä {% endif %}</legend>
-                <p>
-        <input type="radio" id="{{nollan_kerroin.id}}" value="1" name="{{nollan_kerroin.name}}"
-        {% if nollan_kerroin.value == "1" %}
-        checked="checked"
-        {% endif %}
-        {% if not nollan_kerroin.value %}
-        checked="checked"
-        {% endif %} />
-                        {%if vapaa %} kaava:
-                        <span onmouseover="tooltip.show('Tähän tulee kaava, joka määrittää suorituksen, jolla saa nolla pistettä.<br> Kaavassa voi käyttää normaalien funktioiden lisäksi muutamaa lisäviitettä:<br>suor (kaikkien vartioiden suoritukset)<br>muk (mukana olevien vartioiden suodatin)<br><br>Esimerkiksi<br>min(suor*muk) pienin mukana olevan vartion suoritus<br>' );"
-onmouseout="tooltip.hide();">
-<img src="/kipamedia/help_small.png" />
-</span>
-                        {%else%}  Kiinteä suoritus: {% endif %}
-                        <font color=red><b>
-                        {{nollan_kaava.errors}}
-                        </b></font>
-                        <input type="text" name="{{nollan_kaava.name}}" id="{{nollan_kaava.id}}" value="{{nollan_kaava.value}}" {% if vapaa %} size=40 {%endif %} ><br>
-                </p>
-                </fieldset>
-</td>
-
-<td>
-        <fieldset>
-                <legend>Kerroin keskimmäisestä tuloksesta</legend>
-
-                   <p>
-                        <font color=red><b>
-                        </b></font>
-
-<input type="radio" id="{{nollan_kerroin.id}}" value="1.5" name="{{nollan_kerroin.name}}"
-{% if nollan_kerroin.value == "1.5" %}checked="checked" {% endif %}/>
-1.5 (pienin tulos saa parhaat pisteet)<br>
-<input type="radio" id="{{nollan_kerroin.id}}" value="0.5" name="{{nollan_kerroin.name}}"
-{% if nollan_kerroin.value == "0.5" %}checked="checked" {% endif%}/>
-0.5 (suurin tulos saa parhaat pisteet)<br>
-<input type="radio" id="{{nollan_kerroin.id}}" value="m" name="{{nollan_kerroin.name}}"
-{% if nollan_kerroin.value != "1.5" %}
-{% if nollan_kerroin.value != "0.5" %}
-{% if nollan_kerroin.value != "1" %}
-{% if nollan_kerroin.value %}
-
-checked="checked"
-{% endif %}
-{% endif %}
-{% endif %}
-{% endif %}/>
-
-muu:
-
-                        <font color=red><b>
-                        {{muu_kerroin.errors}}
-                        </b></font>
-                      <input type="text" name="{{muu_kerroin.name}}" id="{{muu_kerroin.id}}" value="{{muu_kerroin.value}}" />
+    <legend>
+        <b>Nollasuoritus</b>
+    </legend>
+    <table border="0">
+        <p>
+            Tässä kerrotaan suoritus, jolla saa nolla pistettä.
+            Tämä voi olla jokin kiinteä suoritus tai interpoloinnissa keskimmäisestä tuloksesta laskettu.
+        </p>
+        <tr valign="top">
+            <td>
+                <font color=red>
+                    <b></b>
+                </font>
+            </td>
+            <td></td>
+            <td>
+                <fieldset>
+                    <legend>
+                        {% if vapaa %}
+                            Vapaa:
+                        {% else %}
+                            Kiinteä
+                        {% endif %}
+                    </legend>
+                    <p>
+                        <input type="radio"
+                               id="{{ nollan_kerroin.id }}"
+                               value="1"
+                               name="{{ nollan_kerroin.name }}"
+                               {% if nollan_kerroin.value == "1" %}checked="checked"{% endif %}
+                               {% if not nollan_kerroin.value %}checked="checked"{% endif %} />
+                        {% if vapaa %}
+                            kaava:
+                            <span onmouseover="tooltip.show('Tähän tulee kaava, joka määrittää suorituksen, jolla saa nolla pistettä.<br> Kaavassa voi käyttää normaalien funktioiden lisäksi muutamaa lisäviitettä:<br>suor (kaikkien vartioiden suoritukset)<br>muk (mukana olevien vartioiden suodatin)<br><br>Esimerkiksi<br>min(suor*muk) pienin mukana olevan vartion suoritus<br>' );"
+                                  onmouseout="tooltip.hide();">
+                                <img src="/kipamedia/help_small.png" />
+                            </span>
+                        {% else %}
+                            Kiinteä suoritus:
+                        {% endif %}
+                        <font color=red>
+                            <b>{{ nollan_kaava.errors }}</b>
+                        </font>
+                        <input type="text"
+                               name="{{ nollan_kaava.name }}"
+                               id="{{ nollan_kaava.id }}"
+                               value="{{ nollan_kaava.value }}"
+                               {% if vapaa %}size=40{% endif %}>
+                        <br>
                     </p>
                 </fieldset>
-</td>
-</tr>
-</table>
+            </td>
+            <td>
+                <fieldset>
+                    <legend>Kerroin keskimmäisestä tuloksesta</legend>
+                    <p>
+                        <font color=red>
+                            <b></b>
+                        </font>
+                        <input type="radio"
+                               id="{{ nollan_kerroin.id }}"
+                               value="1.5"
+                               name="{{ nollan_kerroin.name }}"
+                               {% if nollan_kerroin.value == "1.5" %}checked="checked"{% endif %} />
+                        1.5 (pienin tulos saa parhaat pisteet)
+                        <br>
+                        <input type="radio"
+                               id="{{ nollan_kerroin.id }}"
+                               value="0.5"
+                               name="{{ nollan_kerroin.name }}"
+                               {% if nollan_kerroin.value == "0.5" %}checked="checked"{% endif %} />
+                        0.5 (suurin tulos saa parhaat pisteet)
+                        <br>
+                        <input type="radio"
+                               id="{{ nollan_kerroin.id }}"
+                               value="m"
+                               name="{{ nollan_kerroin.name }}"
+                               {% if nollan_kerroin.value != "1.5" %} {% if nollan_kerroin.value != "0.5" %} {% if nollan_kerroin.value != "1" %} {% if nollan_kerroin.value %}checked="checked"{% endif %}
+                               {% endif %}
+                               {% endif %}
+                               {% endif %} />
+                        muu:
+                        <font color=red>
+                            <b>{{ muu_kerroin.errors }}</b>
+                        </font>
+                        <input type="text"
+                               name="{{ muu_kerroin.name }}"
+                               id="{{ muu_kerroin.id }}"
+                               value="{{ muu_kerroin.value }}" />
+                    </p>
+                </fieldset>
+            </td>
+        </tr>
+    </table>
 </fieldset>
-

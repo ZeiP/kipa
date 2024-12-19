@@ -1,46 +1,69 @@
 <fieldset>
-
-<legend> <b>Maksimisuoritus</b> </legend>
-
-<table>
-<tr>
-<td width=400>
-<font color=red><b>
-</b></font>
-Parhaat pisteet saa:<br>
-<input type="radio" id="{{parhaan_haku.id}}_1" value="min" name="{{parhaan_haku.name}}"
-{% if parhaan_haku.value == "min" %}checked="checked" {% endif %}
-/> <label for="{{parhaan_haku.id}}_1">pienin</label><br>
-<input type="radio" id="{{parhaan_haku.id}}_2" value="max" name="{{parhaan_haku.name}}"
-{% if parhaan_haku.value == "max" %}checked="checked" {% endif %}
-/> <label for="{{parhaan_haku.id}}_2">suurin</label><br>
-<input type="radio" id="{{parhaan_haku.id}}_3" value="" name="{{parhaan_haku.name}}"
-{% if parhaan_haku.value == "" %}checked="checked" {% endif %}
-/>
-<label for="{{parhaan_haku.id}}_3">
-{%if vapaa %} kaava:
-<span onmouseover="tooltip.show('Tähän tulee kaava, joka määrittää suorituksen, jolla saa täydet pisteet.<br> Kaavassa voi käyttää normaalien funktioiden lisäksi muutamaa lisäviitettä:<br>suor (kaikkien vartioiden suoritukset)<br>muk (mukana olevien vartioiden suodatin)<br><br>Esimerkiksi<br>min(suor*muk) pienin mukana olevan vartion suoritus<br>' );"
-onmouseout="tooltip.hide();">
-<img src="/kipamedia/help_small.png" />
-</span>
-{%else%} kiinteä: {% endif %}</label>
-<font color=red><b>
-        {{kiintea.errors}}
-</b></font>
-<input type="text" size="40" name="{{kiintea.name}}" id="{{kiintea.id}}" value="{{kiintea.value}}"{%if vapaa %}size=80{% endif %} /><br>
-
-<font color=red><b>  </b></font>
-Montako kisapistettä jaetaan:
-<font color=red><b>
-        {{jaettavat.errors}}
-</b></font>
-<input type="text" size="6" name="{{jaettavat.name}}" id="{{jaettavat.id}}" value="{{jaettavat.value}}" />
-</td>
-<td>
-Tässä kerrotaan suoritus, jolla saa maksimipisteet. Tämä voi olla vartioiden suorituksista pienin, suurin tai jokin kiinteä luku. Mikäli kyseessä on arviointi valitse pienin.
-</td>
-</tr>
-</table>
-
+    <legend>
+        <b>Maksimisuoritus</b>
+    </legend>
+    <table>
+        <tr>
+            <td width=400>
+                <font color=red>
+                    <b></b>
+                </font>
+                Parhaat pisteet saa:
+                <br>
+                <input type="radio"
+                       id="{{ parhaan_haku.id }}_1"
+                       value="min"
+                       name="{{ parhaan_haku.name }}"
+                       {% if parhaan_haku.value == "min" %}checked="checked"{% endif %} />
+                <label for="{{ parhaan_haku.id }}_1">pienin</label>
+                <br>
+                <input type="radio"
+                       id="{{ parhaan_haku.id }}_2"
+                       value="max"
+                       name="{{ parhaan_haku.name }}"
+                       {% if parhaan_haku.value == "max" %}checked="checked"{% endif %} />
+                <label for="{{ parhaan_haku.id }}_2">suurin</label>
+                <br>
+                <input type="radio"
+                       id="{{ parhaan_haku.id }}_3"
+                       value=""
+                       name="{{ parhaan_haku.name }}"
+                       {% if parhaan_haku.value == "" %}checked="checked"{% endif %} />
+                <label for="{{ parhaan_haku.id }}_3">
+                    {% if vapaa %}
+                        kaava:
+                        <span onmouseover="tooltip.show('Tähän tulee kaava, joka määrittää suorituksen, jolla saa täydet pisteet.<br> Kaavassa voi käyttää normaalien funktioiden lisäksi muutamaa lisäviitettä:<br>suor (kaikkien vartioiden suoritukset)<br>muk (mukana olevien vartioiden suodatin)<br><br>Esimerkiksi<br>min(suor*muk) pienin mukana olevan vartion suoritus<br>' );"
+                              onmouseout="tooltip.hide();">
+                            <img src="/kipamedia/help_small.png" />
+                        </span>
+                    {% else %}
+                        kiinteä:
+                    {% endif %}
+                </label>
+                <font color=red>
+                    <b>{{ kiintea.errors }}</b>
+                </font>
+                <input type="text"
+                       size="40"
+                       name="{{ kiintea.name }}"
+                       id="{{ kiintea.id }}"
+                       value="{{ kiintea.value }}"
+                       {% if vapaa %}size=80{% endif %} />
+                <br>
+                <font color=red><b>  </b></font>
+                Montako kisapistettä jaetaan:
+                <font color=red>
+                    <b>{{ jaettavat.errors }}</b>
+                </font>
+                <input type="text"
+                       size="6"
+                       name="{{ jaettavat.name }}"
+                       id="{{ jaettavat.id }}"
+                       value="{{ jaettavat.value }}" />
+            </td>
+            <td>
+                Tässä kerrotaan suoritus, jolla saa maksimipisteet. Tämä voi olla vartioiden suorituksista pienin, suurin tai jokin kiinteä luku. Mikäli kyseessä on arviointi valitse pienin.
+            </td>
+        </tr>
+    </table>
 </fieldset>
-

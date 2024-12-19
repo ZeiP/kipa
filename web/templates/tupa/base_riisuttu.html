@@ -1,79 +1,76 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Kipa - {% block title %}  {% endblock %}</title>
-<link rel="stylesheet" type="text/css" href="/kipamedia/kipa.css" />
-<link rel="stylesheet" type="text/css" href="/kipamedia/tabcontent.css" />
-<link rel="icon" type="image/x-icon" href="/kipamedia/favicon.ico" />
-{% block header %}  {% endblock %}
-<script type="text/javascript" language="javascript" src="/kipamedia/tooltip.js"></script>
-<script type="text/javascript" src="/kipamedia/tabcontent.js">
-/***********************************************
-* Tab Content script v2.2- © Dynamic Drive DHTML code library (www.dynamicdrive.com)
-* This notice MUST stay intact for legal use
-* Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
-***********************************************/
-</script>
-
-<script language="JavaScript">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Kipa -
+            {% block title %}{% endblock %}
+        </title>
+        <link rel="stylesheet" type="text/css" href="/kipamedia/kipa.css" />
+        <link rel="stylesheet" type="text/css" href="/kipamedia/tabcontent.css" />
+        <link rel="icon" type="image/x-icon" href="/kipamedia/favicon.ico" />
+        {% block header %}{% endblock %}
+        <script type="text/javascript"
+                language="javascript"
+                src="/kipamedia/tooltip.js"></script>
+        <script type="text/javascript" src="/kipamedia/tabcontent.js">
+            /***********************************************
+            * Tab Content script v2.2- © Dynamic Drive DHTML code library (www.dynamicdrive.com)
+            * This notice MUST stay intact for legal use
+            * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
+            ***********************************************/
+        </script>
+        <script language="JavaScript">
 function setVisibility(id, visibility) {
 document.getElementById(id).style.display = visibility;
 }
-</script>
-{% if talletettu %}
-<script type="text/javascript">
-   $.jGrowl.defaults.position = 'center';
-</script>
-    <script type="text/javascript">
+        </script>
+        {% if talletettu %}
+            <script type="text/javascript">$.jGrowl.defaults.position = 'center';</script>
+            <script type="text/javascript">
         $(document).ready(function() {
             $.jGrowl('{{talletettu}}', {
                 life: 3000
                 });
         });
-    </script>
-{% endif %}
-
-</head>
-
-<body>
-
-<div id="wrap">
-    <div id="header"><div id="pageTitle">Uusi kisa</div>
-        <div style="float:right; margin-top:-4px; margin-bottom:0; padding-bottom:0; height:18px;">
-            {% include "tupa/login.html" %}
-        </div>
-    </div><!-- /header -->
-    <div id="breadcrumbs"><a href="/kipa/">&lt;- Takaisin etusivulle</a> </div>
-    <div id="main" class="clearfix">
-
-        <div id="container">
-            <div id="right" class="column">
-
-                {% block content %}{% endblock %}
-
-                {% if tabs %}
-                        {% for tab in tabs %}
+            </script>
+        {% endif %}
+    </head>
+    <body>
+        <div id="wrap">
+            <div id="header">
+                <div id="pageTitle">Uusi kisa</div>
+                <div style="float:right;
+                            margin-top:-4px;
+                            margin-bottom:0;
+                            padding-bottom:0;
+                            height:18px">{% include "tupa/login.html" %}</div>
+            </div>
+            <div id="breadcrumbs">
+                <a href="/kipa/">&lt;- Takaisin etusivulle</a>
+            </div>
+            <div id="main" class="clearfix">
+                <div id="container">
+                    <div id="right" class="column">
+                        {% block content %}{% endblock %}
+                        {% if tabs %}
+                            {% for tab in tabs %}
                                 <script type="text/javascript">
                                         var sarjat=new ddtabcontent("{{tab}}")
                                         sarjat.setpersist(true)
                                         sarjat.setselectedClassTarget("link") //"link" or "linkparent"
                                         sarjat.init()
                                 </script>
-
-                        {% endfor %}
-                {% else %}
-                        <script type="text/javascript">
+                            {% endfor %}
+                        {% else %}
+                            <script type="text/javascript">
                                 var sarjat=new ddtabcontent("sarjatabs")
                                 sarjat.setpersist(true)
                                 sarjat.setselectedClassTarget("link") //"link" or "linkparent"
                                 sarjat.init()
-                        </script>
-                {% endif %}
-
-            </div><!-- /right -->
-        </div><!-- /container -->
-    </div><!-- /main -->
-</div><!-- /wrap -->
-
-</body>
+                            </script>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>

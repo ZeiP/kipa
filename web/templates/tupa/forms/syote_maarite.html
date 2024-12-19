@@ -1,8 +1,5 @@
-
 {% for field in form %}
-
-       <font color=red><b> {{field.errors}} </b></font>
-        {{field.label}} : {{field}} <br>
-
+    <font color=red><b> {{ field.errors }} </b></font>
+    {{ field.label }} : {{ field }}
+    <br>
 {% endfor %}
-

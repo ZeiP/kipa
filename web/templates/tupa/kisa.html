@@ -1,90 +1,143 @@
 {% extends "tupa/base.html" %}
-
-{% block title %}{{kisa.nimi}}{% endblock %}
-
+{% block title %}{{ kisa.nimi }}{% endblock %}
 {% block content %}
-
-
-
-<table width="960" border="0" align="center" cellpadding="5" cellspacing="20" id="etusivu">
-
-  <tr>
-
-    <td valign="top" width="360" class="etusivuloota">
-
-    <p class="etusivunOtsikko"><img src="/kipamedia/plus.png" width="64" height="64" />Suoritusten syöttö</p>
-
-    <p class="etusivunLinkit"><a href="./syota/"><span onmouseover="tooltip.show('Syötä vartioiden suorituksia');" onmouseout="tooltip.hide();">syötä suorituksia</span></a></p>
-
-    <p class="etusivunLinkit"><a href="./syota/tarkistus/"><span onmouseover="tooltip.show('Jos kisan suoritukset syötetään tarkistuksen vuoksi kahteen kertaan, syötä tarkistustulokset tästä');" onmouseout="tooltip.hide();">syötä suorituksia - tarkistus</span></a></p>
-
-    <p class="etusivunLinkit"><a href="maarita/tuomarineuvos/"><span onmouseover="tooltip.show('Korvaa laskettu tulos määrätyllä tuloksella');" onmouseout="tooltip.hide();">tuomarineuvoston työkalu</span></a></p></td>
-
-    <td valign="top" width="350" class="etusivuloota">
-
-    <p class="etusivunOtsikko"><img src="/kipamedia/wizard.png" width="64" height="64" />Tulokset</p>
-
-    <p class="etusivunLinkit"><a href="./tulosta/normaali/"><span onmouseover="tooltip.show('Tarkastele tuloksia sarjoittain');" onmouseout="tooltip.hide();">sarjan tulokset</span></a></p>
-
-    <p class="etusivunLinkit"><a href="./tulosta/tuloste/"><span onmouseover="tooltip.show('Tulosta tuloksia paperille');" onmouseout="tooltip.hide();">tulosta tuloksia</span></a></p>
-
-    <p class="etusivunLinkit"><a href="./tulosta/csv/"><span onmouseover="tooltip.show('Tallenna tulokset CSV-tiedostoon');" onmouseout="tooltip.hide();">tulokset CSV-tiedostoon</span></a></p>
-
-    <p class="etusivunLinkit"><a href="./tulosta/heijasta/"><span onmouseover="tooltip.show('Näytä tulokset videotykkimuodossa');" onmouseout="tooltip.hide();">heijasta tuloksia</span></a></p>
-
-    <p class="etusivunLinkit"><a href="./tulosta/tilanne/"><span onmouseover="tooltip.show('Näytä laskennan tila tällä hetkellä');" onmouseout="tooltip.hide();">laskennan tilanne</span></a></p><br></td>
-
-
-    <td align="center" width="250" valign="middle">
-
-    <img src="/kipamedia/logo-2.png" alt="KIPA" width="99" height="99" /></td>
-
-  </tr>
-
-  <tr>
-
-    <td valign="top" class="etusivuloota">
-
-    <p class="etusivunOtsikko"><img src="/kipamedia/services.png" alt="" width="64" height="64" />Kisan määritykset</p>
-
-    <p class="etusivunLinkit"><a href="./maarita/">määrittele kisan perustiedot</a></p>
-
-    <p class="etusivunLinkit"><a href="./maarita/vartiot/">määrittele vartiot</a></p>
-
-    <p class="etusivunLinkit"><a href="./maarita/tehtava/">määrittele tehtävät</a></p>
-
-    <p class="etusivunLinkit"><a href="./maarita/testitulos/">määrittele testituloksia</a></p><br /></td>
-
-    <td valign="top" class="etusivuloota">
-
-    <p class="etusivunOtsikko"><img src="/kipamedia/recycle.png" alt="" width="64" height="64" />Ylläpito</p>
-
-    <p class="etusivunLinkit"><a href='../'><span onmouseover="tooltip.show('Näytä kaikki Kipan kilpailut');" onmouseout="tooltip.hide();">listaa kaikki kisat</span></a></p>
-
-    <p class="etusivunLinkit"><a href="./tallenna/"><span onmouseover="tooltip.show('Tallenna tietokannan varmuuskopio');" onmouseout="tooltip.hide();">tallenna kisa</span></a></p>
-
-    <p class="etusivunLinkit"><a href="./korvaa/"><span onmouseover="tooltip.show('Palauta tietokannan varmuuskopio');" onmouseout="tooltip.hide();">palauta kisa</span></a></p>
-
-    <p class="etusivunLinkit"><a href="./poista/"><span onmouseover="tooltip.show('Poista tämä kisa');" onmouseout="tooltip.hide();">poista kisa</span></a></p>
-
-    </td>
-
-    <td valign="top" class="etusivuloota">
-
-    <p class="etusivunOtsikko"><img src="/kipamedia/question.png" alt="" width="64" height="64" />Apua</p>
-
-    <p class="etusivunLinkit"><a href="/kipamedia/Manuaali_v03.pdf" target="help"><span onmouseover="tooltip.show('Apua kisan pystytykseen');" onmouseout="tooltip.hide();">näin pääset alkuun (PDF)</span></a></p>
-
-    </td>
-
-  </tr>
-
-</table>
-
-
-<script type="text/javascript" language="javascript" src="/kipamedia/tooltip.js"></script>
-
-
-
+    <table width="960"
+           border="0"
+           align="center"
+           cellpadding="5"
+           cellspacing="20"
+           id="etusivu">
+        <tr>
+            <td valign="top" width="360" class="etusivuloota">
+                <p class="etusivunOtsikko">
+                    <img src="/kipamedia/plus.png" width="64" height="64" />
+                    Suoritusten syöttö
+                </p>
+                <p class="etusivunLinkit">
+                    <a href="./syota/">
+                        <span onmouseover="tooltip.show('Syötä vartioiden suorituksia');"
+                              onmouseout="tooltip.hide();">syötä suorituksia</span>
+                    </a>
+                </p>
+                <p class="etusivunLinkit">
+                    <a href="./syota/tarkistus/">
+                        <span onmouseover="tooltip.show('Jos kisan suoritukset syötetään tarkistuksen vuoksi kahteen kertaan, syötä tarkistustulokset tästä');"
+                              onmouseout="tooltip.hide();">syötä suorituksia - tarkistus</span>
+                    </a>
+                </p>
+                <p class="etusivunLinkit">
+                    <a href="maarita/tuomarineuvos/">
+                        <span onmouseover="tooltip.show('Korvaa laskettu tulos määrätyllä tuloksella');"
+                              onmouseout="tooltip.hide();">tuomarineuvoston työkalu</span>
+                    </a>
+                </p>
+            </td>
+            <td valign="top" width="350" class="etusivuloota">
+                <p class="etusivunOtsikko">
+                    <img src="/kipamedia/wizard.png" width="64" height="64" />
+                    Tulokset
+                </p>
+                <p class="etusivunLinkit">
+                    <a href="./tulosta/normaali/">
+                        <span onmouseover="tooltip.show('Tarkastele tuloksia sarjoittain');"
+                              onmouseout="tooltip.hide();">sarjan tulokset</span>
+                    </a>
+                </p>
+                <p class="etusivunLinkit">
+                    <a href="./tulosta/tuloste/">
+                        <span onmouseover="tooltip.show('Tulosta tuloksia paperille');"
+                              onmouseout="tooltip.hide();">tulosta tuloksia</span>
+                    </a>
+                </p>
+                <p class="etusivunLinkit">
+                    <a href="./tulosta/csv/">
+                        <span onmouseover="tooltip.show('Tallenna tulokset CSV-tiedostoon');"
+                              onmouseout="tooltip.hide();">tulokset CSV-tiedostoon</span>
+                    </a>
+                </p>
+                <p class="etusivunLinkit">
+                    <a href="./tulosta/heijasta/">
+                        <span onmouseover="tooltip.show('Näytä tulokset videotykkimuodossa');"
+                              onmouseout="tooltip.hide();">heijasta tuloksia</span>
+                    </a>
+                </p>
+                <p class="etusivunLinkit">
+                    <a href="./tulosta/tilanne/">
+                        <span onmouseover="tooltip.show('Näytä laskennan tila tällä hetkellä');"
+                              onmouseout="tooltip.hide();">laskennan tilanne</span>
+                    </a>
+                </p>
+                <br>
+            </td>
+            <td align="center" width="250" valign="middle">
+                <img src="/kipamedia/logo-2.png" alt="KIPA" width="99" height="99" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="etusivuloota">
+                <p class="etusivunOtsikko">
+                    <img src="/kipamedia/services.png" alt="" width="64" height="64" />
+                    Kisan määritykset
+                </p>
+                <p class="etusivunLinkit">
+                    <a href="./maarita/">määrittele kisan perustiedot</a>
+                </p>
+                <p class="etusivunLinkit">
+                    <a href="./maarita/vartiot/">määrittele vartiot</a>
+                </p>
+                <p class="etusivunLinkit">
+                    <a href="./maarita/tehtava/">määrittele tehtävät</a>
+                </p>
+                <p class="etusivunLinkit">
+                    <a href="./maarita/testitulos/">määrittele testituloksia</a>
+                </p>
+                <br />
+            </td>
+            <td valign="top" class="etusivuloota">
+                <p class="etusivunOtsikko">
+                    <img src="/kipamedia/recycle.png" alt="" width="64" height="64" />
+                    Ylläpito
+                </p>
+                <p class="etusivunLinkit">
+                    <a href='../'>
+                        <span onmouseover="tooltip.show('Näytä kaikki Kipan kilpailut');"
+                              onmouseout="tooltip.hide();">listaa kaikki kisat</span>
+                    </a>
+                </p>
+                <p class="etusivunLinkit">
+                    <a href="./tallenna/">
+                        <span onmouseover="tooltip.show('Tallenna tietokannan varmuuskopio');"
+                              onmouseout="tooltip.hide();">tallenna kisa</span>
+                    </a>
+                </p>
+                <p class="etusivunLinkit">
+                    <a href="./korvaa/">
+                        <span onmouseover="tooltip.show('Palauta tietokannan varmuuskopio');"
+                              onmouseout="tooltip.hide();">palauta kisa</span>
+                    </a>
+                </p>
+                <p class="etusivunLinkit">
+                    <a href="./poista/">
+                        <span onmouseover="tooltip.show('Poista tämä kisa');"
+                              onmouseout="tooltip.hide();">poista kisa</span>
+                    </a>
+                </p>
+            </td>
+            <td valign="top" class="etusivuloota">
+                <p class="etusivunOtsikko">
+                    <img src="/kipamedia/question.png" alt="" width="64" height="64" />
+                    Apua
+                </p>
+                <p class="etusivunLinkit">
+                    <a href="/kipamedia/Manuaali_v03.pdf" target="help">
+                        <span onmouseover="tooltip.show('Apua kisan pystytykseen');"
+                              onmouseout="tooltip.hide();">näin pääset alkuun (PDF)</span>
+                    </a>
+                </p>
+            </td>
+        </tr>
+    </table>
+    <script type="text/javascript"
+            language="javascript"
+            src="/kipamedia/tooltip.js"></script>
 {% endblock %}
-

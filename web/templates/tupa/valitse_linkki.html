@@ -1,8 +1,8 @@
 {% extends "tupa/valitse.html" %}
-
 {% block sarake %}
     {% for taulu in sarake %}
-        <li><a href="{{taulu.linkki}}"> {{taulu.nimi}}</a></li>
+        <li>
+            <a href="{{ taulu.linkki }}">{{ taulu.nimi }}</a>
+        </li>
     {% endfor %}
-{% endblock%}
-
+{% endblock %}
