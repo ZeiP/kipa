@@ -28,6 +28,7 @@ urlpatterns = [
         "<kisa_nimi>/maarita/tehtava/<int:tehtava_id>/talletettu/",
         partial(maaritaTehtava, talletettu="talletettu"),
     ),
+    path("<kisa_nimi>/maarita/vaiheet/<int:tehtava_id>/", tehtavanVaiheet),
     path(
         "<kisa_nimi>/maarita/vaiheet/<int:tehtava_id>/<int:vartio_id>/", tehtavanVaiheet
     ),
