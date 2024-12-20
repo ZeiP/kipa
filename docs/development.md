@@ -97,6 +97,10 @@ säännöistä on poistettu käytöstä:
 * D018: {% url ... %} templaateissa
 * T003: nimetyt endblock tagit templaateissa
 
+Python-tiedostojen tarkastamiseen käytetään lintteriä nimeltä Ruff.
+Repositorion juuressa on tiedosto ruff.toml, jossa määritellään tarvittavat
+poikkeukset Ruff:in oletussääntöihin.
+
 ## Selityksiä lähdekooditiedostoista
 
 * `web/tupa/`
