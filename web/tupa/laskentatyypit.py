@@ -140,10 +140,6 @@ class MathList(SequenceOperations, list):
             oper = MathList([function2(v, other, *args) for v in self])
         return oper
 
-    def suorita_lista(self, funktio):
-        for x in self:
-            ajettava
-
     def listaksi(self):
         return list(self)
 
