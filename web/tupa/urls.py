@@ -4,7 +4,34 @@ from django.conf import settings
 from django.urls import path
 from django.views.static import serve
 
-from .views import *
+from .views import (
+    apua,
+    etusivu,
+    heijasta,
+    kisa,
+    kopioiTehtavia,
+    korvaaKisa,
+    laskennanTilanne,
+    loginSivu,
+    logoutSivu,
+    luoTestiTulokset,
+    maaritaKisa,
+    maaritaTehtava,
+    maaritaValitseTehtava,
+    maaritaVartiot,
+    piirit,
+    poistaKisa,
+    sarjanTuloksetCSV,
+    syotaKisa,
+    syotaTehtava,
+    tallennaKisa,
+    tehtavanVaiheet,
+    testiTulos,
+    tulosta,
+    tulostaSarja,
+    tulostaSarjaHTML,
+    tuomarineuvos,
+)
 
 urlpatterns = [
     path("apua/", apua),
