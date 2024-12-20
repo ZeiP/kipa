@@ -7,6 +7,8 @@ from django.http import HttpResponse
 from django.utils.safestring import mark_safe
 from decimal import ROUND_UP, Decimal
 import django.template
+from django import template
+
 from django.template import RequestContext
 
 from django.contrib import messages
@@ -58,7 +60,6 @@ def kipaResponseRedirect(url):
 
 
 def loginSivu(request):
-    Posti = None
     if request.method == "POST":
         posti = request.POST
         user = authenticate(username=posti["uname"], password=posti["pword"])
@@ -76,8 +77,6 @@ def logoutSivu(request):
     return kipaResponseRedirect("/kipa/")
 
 
-from django import template
-
 register = template.Library()
 
 
@@ -93,7 +92,7 @@ def tarkistaVirhe(syote):
             try:
                 if not Decimal(syote.arvo) == Decimal(syote.tarkistus):
                     syottovirhe = "virhe"
-            except:
+            except Exception:
                 syottovirhe = "virhe"
     return syottovirhe
 
@@ -233,9 +232,7 @@ def maaritaKisa(request, kisa_nimi=None, talletettu=None):
         tal = ""
         if talletettu == "talletettu" and not posti:
             tal = "Talletettu!"
-        taakse = "/kipa/"
         if kisa_nimi:
-            taakse = "/kipa/" + kisa_nimi + "/"
             return render(
                 request,
                 "tupa/maarita.html",
@@ -306,7 +303,6 @@ def maaritaVartiot(request, kisa_nimi, talletettu=None):
     Määrittää kisan vartiot sarjoittain.
     """
     sarjat = Sarja.objects.filter(kisa__nimi=kisa_nimi)
-    sarjaVartiot = []
     posti = None
     post_ok = True
     taulukko = (
@@ -377,7 +373,7 @@ def maaritaTehtava(request, kisa_nimi, tehtava_id=None, sarja_id=None, talletett
     if tehtava_id:  # Muokataan vanhaa tehtävää
         tehtava = get_object_or_404(Tehtava, id=tehtava_id)
         sarja = tehtava.sarja
-        osatehtavat = tehtava.osatehtava_set.all()
+        tehtava.osatehtava_set.all()
         daatta = luoTehtavaData([tehtava])  # alkudata tehtävänmääritysformihässäkälle.
 
     else:  # Luodaan uutta tehtävää
@@ -411,7 +407,7 @@ def maaritaTehtava(request, kisa_nimi, tehtava_id=None, sarja_id=None, talletett
         otsikko = str(tehtava.nimi) + " (" + sarja.nimi + ")"
 
     # Talletetaanko ja siirrytäänkö talletettu sivuun?
-    if posti and not "lisaa_maaritteita" in posti.keys() and daatta["valid"]:
+    if posti and "lisaa_maaritteita" not in posti.keys() and daatta["valid"]:
         if (
             "nappi" in posti.keys() and posti["nappi"] == "ohjaus"
         ):  # Talleta ja luo uusi.
@@ -533,7 +529,7 @@ def syotaTehtava(request, kisa_nimi, tehtava_id, talletettu=None, tarkistus=None
                         instance=syote,
                         prefix=str(v.nro) + "_" + str(m.pk),
                     )
-                if not "class" in formi.fields["arvo"].widget.attrs.keys():
+                if "class" not in formi.fields["arvo"].widget.attrs.keys():
                     formi.fields["arvo"].widget.attrs["class"] = "col" + str(colnum)
                 else:
                     formi.fields["arvo"].widget.attrs["class"] += " col" + str(colnum)
@@ -773,7 +769,7 @@ def heijasta(request, kisa_nimi, sarja_id=None, tulostus=0):
     sarjat = kisa.sarja_set.all()
     sarjat = sorted(sarjat, key=lambda sarja: sarja.id)
 
-    if sarja_id == None:
+    if sarja_id is None:
         sarja_id = sarjat[0].id
 
     sarja_id = int(sarja_id)
@@ -782,7 +778,7 @@ def heijasta(request, kisa_nimi, sarja_id=None, tulostus=0):
         if sarjat[index].id == sarja_id:
             seuraava_id = sarjat[index + 1].id
 
-    if seuraava_id == None:
+    if seuraava_id is None:
         seuraava_id = sarjat[0].id
 
     return tulostaSarja(
@@ -839,7 +835,7 @@ def sarjanTuloksetCSV(request, kisa_nimi, sarja_id):
         try:
             if int(teht.maksimipisteet):
                 pisteet_yht += int(teht.maksimipisteet)
-        except:
+        except Exception:
             pass
         pisterivi.append(teht.maksimipisteet)
     pisterivi[4] = str(pisteet_yht)
@@ -963,9 +959,7 @@ def tallennaKisa(request, kisa_nimi):
 
 def poistaKisa(request, kisa_nimi):
     kisa = get_object_or_404(Kisa, nimi=kisa_nimi)
-    posti = None
     if request.method == "POST":
-        posti = request.POST
         kisa.delete()
         return kipaResponseRedirect("/kipa/")
     otsikko = "Poista kisa"
@@ -987,7 +981,7 @@ def saveNewId(object, changeDict, keyName):
 def korvaaKisa(request, kisa_nimi=None):
     try:
         kisa = Kisa.objects.get(nimi=kisa_nimi)
-    except:
+    except Exception:
         kisa = None
 
     otsikko = "Korvaa kisa tiedostosta"
@@ -1006,7 +1000,7 @@ def korvaaKisa(request, kisa_nimi=None):
                 kisa_nimi = form.cleaned_data["name"]
                 try:
                     kisa = Kisa.objects.get(nimi=kisa_nimi)
-                except:
+                except Exception:
                     kisa = None
 
             xml = request.FILES["file"].read().decode("utf-8")
@@ -1023,25 +1017,25 @@ def korvaaKisa(request, kisa_nimi=None):
             parametrit = []
 
             for obj in serializers.deserialize("xml", xml):
-                if type(obj.object) == Kisa:
+                if type(obj.object) is Kisa:
                     kisat.append(obj.object)
-                elif type(obj.object) == Sarja:
+                elif type(obj.object) is Sarja:
                     sarjat.append(obj.object)
-                elif type(obj.object) == Vartio:
+                elif type(obj.object) is Vartio:
                     vartiot.append(obj.object)
-                elif type(obj.object) == Tehtava:
+                elif type(obj.object) is Tehtava:
                     tehtavat.append(obj.object)
-                elif type(obj.object) == TestausTulos:
+                elif type(obj.object) is TestausTulos:
                     testaustulokset.append(obj.object)
-                elif type(obj.object) == TuomarineuvosTulos:
+                elif type(obj.object) is TuomarineuvosTulos:
                     tuomarit.append(obj.object)
-                elif type(obj.object) == OsaTehtava:
+                elif type(obj.object) is OsaTehtava:
                     osatehtavat.append(obj.object)
-                elif type(obj.object) == SyoteMaarite:
+                elif type(obj.object) is SyoteMaarite:
                     maaritteet.append(obj.object)
-                elif type(obj.object) == Syote:
+                elif type(obj.object) is Syote:
                     syotteet.append(obj.object)
-                elif type(obj.object) == Parametri:
+                elif type(obj.object) is Parametri:
                     parametrit.append(obj.object)
 
             translations = {
@@ -1238,7 +1232,7 @@ def apua(request):
 
 
 def tehtavanVaiheet(request, kisa_nimi, tehtava_id, vartio_id=None):
-    kisa = get_object_or_404(Kisa, nimi=kisa_nimi)
+    get_object_or_404(Kisa, nimi=kisa_nimi)
     tehtava = get_object_or_404(Tehtava, id=tehtava_id)
     vartiot = Vartio.objects.filter(sarja=tehtava.sarja)
     if not len(vartiot):
@@ -1252,10 +1246,9 @@ def tehtavanVaiheet(request, kisa_nimi, tehtava_id, vartio_id=None):
         responssi += "</body></html>"
         return HttpResponse(responssi)
 
-    vartio = vartiot[0]
     if vartio_id == "":
         vartio_id = str(tehtava.sarja.vartio_set.all()[0].id)
-        vartio = get_object_or_404(Vartio, id=vartio_id)
+        get_object_or_404(Vartio, id=vartio_id)
     tehtava = get_object_or_404(Tehtava, id=tehtava_id)
 
     responssi = (

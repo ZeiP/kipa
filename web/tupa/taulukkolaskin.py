@@ -31,7 +31,7 @@ def dictToMathDict(dictionary):
     """
     new = MathDict({})
     for k in dictionary.keys():
-        if type(dictionary[k]) == dict:
+        if type(dictionary[k]) is dict:
             new[k] = dictToMathDict(dictionary[k])
         else:
             new[k] = dictionary[k]
@@ -108,16 +108,17 @@ def laske(lauseke, m={}, funktiot={}):
             tulos = None
         except NameError:
             tulos = None
-        except:
+        except Exception:
+            # TODO: better handling
             tulos = None
     try:
         log.logString(
             "laskettu tulos= "
             + str(tulos.quantize(Decimal("0.1"), rounding=ROUND_HALF_UP))
         )
-    except:
+    except Exception:
         log.logString("laskettu tulos= " + str(tulos))
-    if type(tulos) == DictDecimal:
+    if type(tulos) is DictDecimal:
         tulos = Decimal(tulos)
     return tulos
 
@@ -133,7 +134,7 @@ def laskeTaulukko(taulukko, muuttujat):
         rivi = []
         for lause in x:
             tulos = laske(lause, m)
-            if type(tulos) == Decimal:
+            if type(tulos) is Decimal:
                 rivi.append(
                     Decimal(tulos).quantize(Decimal("0.1"), rounding=ROUND_HALF_UP)
                 )

@@ -69,16 +69,16 @@ class aritmeettinen_laskin_test(unittest.TestCase):
         assert laske("10*((1+2)+(5*10))") == Decimal("530")
 
     def testSulut_vaarinpain(self):
-        assert laske("10*)(1+2)+(5*10))") == None
+        assert laske("10*)(1+2)+(5*10))") is None
 
     def testSulut_vaaramaara(self):
-        assert laske("10*(1+2)+(5*10))") == None
+        assert laske("10*(1+2)+(5*10))") is None
 
     def testNollallajako(self):
-        assert laske("10/0") == None
+        assert laske("10/0") is None
 
     def testTyhjasyote(self):
-        assert laske("") == None
+        assert laske("") is None
 
     def testEiaritmtetiikkaa(self):
         assert laske("a+ b-c*d") == "S"
@@ -96,13 +96,13 @@ class aritmeettinen_laskin_test(unittest.TestCase):
         assert laske("5+2+-5") == Decimal("2")
 
     def testkertojako(self):
-        assert laske("5+2*/5") == None
+        assert laske("5+2*/5") is None
 
     def testLaskettuNegatiivinenOperandi(self):
         assert laske("3*(1-5)") == Decimal("-12")
 
     def testPitkadesimaali(self):
-        assert not laske("-0.008333333333333333333333333333*0.0") == None
+        assert laske("-0.008333333333333333333333333333*0.0") is not None
 
     def testPerusmuuttuja(self):
         assert laske("a", {"a": 1}) == Decimal("1")
@@ -148,7 +148,7 @@ def haeTulos(tuloksetSarjalle, vartio, tehtava):
 
 def ViewSanityCheck(fixture_name):
     """
-    Luo testcasen tarkistamaan sen, ett� kaikki n�kym�t toimivat kaatumatta.
+    Luo testcasen tarkistamaan sen, että kaikki näkymät toimivat kaatumatta.
     fixture name = tietokantafixtuurin nimi jolle testi luodaan.
     palauttaa TestCase:n
     """
@@ -158,17 +158,16 @@ def ViewSanityCheck(fixture_name):
 
         def testSanity(self):
             """
-            Ajaa jokaisen n�kym�n testidatalla
-            Testi antaa virheen jos jokin n�kuma kaatuu.
+            Ajaa jokaisen näkymän testidatalla
+            Testi antaa virheen jos jokin näkuma kaatuu.
             """
             kisat = Kisa.objects.all()
             sarjat = Sarja.objects.all()
             tehtavat = Tehtava.objects.all()
-            virheet = []
             request = HttpRequest()
             maaritaKisa(request)
             korvaaKisa(request)
-            for k in kisat:  # Kisakohtaiset n�kym�t
+            for k in kisat:  # Kisakohtaiset näkymät
                 kisa_nimi = k.nimi
                 kisa(request, kisa_nimi=kisa_nimi)
                 maaritaKisa(request, kisa_nimi=kisa_nimi)
@@ -180,7 +179,7 @@ def ViewSanityCheck(fixture_name):
                 tulosta(request, kisa_nimi=kisa_nimi)
                 tallennaKisa(request, kisa_nimi=kisa_nimi)
                 poistaKisa(request, kisa_nimi=kisa_nimi)
-            for s in sarjat:  # Sarjakohtaiset n�kym�t
+            for s in sarjat:  # Sarjakohtaiset näkymät
                 sarja_id = s.id
                 kisa_nimi = s.kisa.nimi
                 maaritaTehtava(request, kisa_nimi=kisa_nimi, sarja_id=sarja_id)
@@ -188,7 +187,7 @@ def ViewSanityCheck(fixture_name):
                 tulostaSarja(request, kisa_nimi=kisa_nimi, sarja_id=sarja_id)
                 sarjanTuloksetCSV(request, kisa_nimi=kisa_nimi, sarja_id=sarja_id)
                 tulostaSarjaHTML(request, kisa_nimi=kisa_nimi, sarja_id=sarja_id)
-            for t in tehtavat:  # teht�v�kohtaiset n�kym�t
+            for t in tehtavat:  # tehtäväkohtaiset näkymät
                 tehtava_id = t.id
                 kisa_nimi = t.sarja.kisa.nimi
                 maaritaTehtava(request, kisa_nimi=kisa_nimi, tehtava_id=tehtava_id)
@@ -201,7 +200,7 @@ def ViewSanityCheck(fixture_name):
 def TulosTestFactory(fixture_name):
     """
     Tekee tulostestin halutulle tietokanta fixtuurille.
-    fixture_name = fixtuurin nimi jolle testi tehd��n.
+    fixture_name = fixtuurin nimi jolle testi tehdään.
     palauttaa TestCase:n
     """
 
@@ -213,7 +212,7 @@ def TulosTestFactory(fixture_name):
             Iteroi jokaisen sarjan ja tehtavan.
             Laskee tulokset ja vertaa tuloksia maariteltyihin testituloksiin.
             Tunnistaa laskennan kaatavia virheita.
-            Tunnistaa v��rat tulokset.
+            Tunnistaa väärät tulokset.
             Vaarien tulosten kohdalla tulostaa yhteenvedon.
             """
             settings.DEBUG = False
@@ -235,13 +234,13 @@ def TulosTestFactory(fixture_name):
                 for t in self.testausTulokset:
                     tulos = haeTulos(tulokset, t.vartio, t.tehtava)
                     vaadittava = t.pisteet
-                    if not tulos == None and is_number(tulos):
+                    if tulos is not None and is_number(tulos):
                         tulos = Decimal(tulos)
-                    if not vaadittava == None and is_number(vaadittava):
+                    if vaadittava is not None and is_number(vaadittava):
                         vaadittava = Decimal(vaadittava)
-                    if vaadittava == None:
+                    if vaadittava is None:
                         vaadittava = "None"
-                    if tulos == None:
+                    if tulos is None:
                         tulos = "None"
                     if not tulos == vaadittava or tulos == "None":
                         ilmoitus = virheilmoitus
@@ -275,7 +274,7 @@ def TulosTestFactory(fixture_name):
                 for t in s.tehtava_set.all():
                     for v in s.vartio_set.all():
                         tulos = haeTulos(tulokset, v, t)
-                        if tulos == None or tulos == "None":
+                        if tulos is None or tulos == "None":
                             ilmoitus = virheilmoitus
                             ilmoitus = ilmoitus + "\nTehtava: " + t.nimi
                             ilmoitus = ilmoitus + "\nTulos: " + str(tulos)
@@ -289,10 +288,10 @@ def TulosTestFactory(fixture_name):
 
         def testTehtavanUudelleenTallennus(self):
             """
-            Tallettaa jokaisen teht�v�n uudestaan.
-            Tarkistaa ett� tulokset lasketaan t�m�nkin j�lkeen oikein.
+            Tallettaa jokaisen tehtävän uudestaan.
+            Tarkistaa että tulokset lasketaan tämänkin jälkeen oikein.
             """
-            # Kytket��n taustalaskenta pois p��lt� testin ajaki
+            # Kytketään taustalaskenta pois päältä testin ajaki
             settings.DEBUG = False
             self.TAUSTALASKENTA = settings.TAUSTALASKENTA
             settings.TAUSTALASKENTA = None
@@ -342,7 +341,7 @@ def TulosTestFactory(fixture_name):
 
 def PostTestFactory(fixture_name):
     """
-    Testi joka ajaa n�kymi� ennalta m��ritellyill� testdatoilla.
+    Testi joka ajaa näkymiä ennalta määritellyillä testdatoilla.
     """
     from xml.dom.minidom import parse
 
@@ -481,7 +480,7 @@ def run_one_fixture(test_labels, verbosity=1, interactive=True, extra_tests=[]):
                 test_fixtures.append("fixtures/tests/kisat/" + f)
                 sys.stdout.flush()
 
-    # Tasapisteiss� m��r��v�t teht�v�t testi
+    # Tasapisteissä määräävät tehtävät testi
     testit.append(TasapisteTesti)
 
     # luodaan Post testit tekstitiedostoista

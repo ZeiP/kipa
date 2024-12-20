@@ -216,7 +216,8 @@ def luoTehtavanKaava(t, v):
         while korvautuu:
             korvautuu = False
             vanha = ot_lause
-            ot_lasue = re.sub("vartio" + r"(?!\w+)", str(v.nro), ot_lause)
+            # TODO: Check out how this SHOULD work. It is just a typo
+            ot_lasue = re.sub("vartio" + r"(?!\w+)", str(v.nro), ot_lause)  # noqa: F841
             if not ot_lause == vanha:
                 korvautuu = True
 
@@ -232,15 +233,15 @@ def luoTehtavanKaava(t, v):
     tehtava_lause = ""
     # Suora summa osatehtavien välillä:
     if t.kaava.lower() == "ss" and len(ot_lauseet):
-        for l in ot_lauseet:
-            tehtava_lause = tehtava_lause + "max([0," + l[1] + "])+"
+        for x in ot_lauseet:
+            tehtava_lause = tehtava_lause + "max([0," + x[1] + "])+"
         tehtava_lause = tehtava_lause[:-1]
     else:
         tehtava_lause = t.kaava.lower()
-        for l in ot_lauseet:
-            lause = l[1]
+        for x in ot_lauseet:
+            lause = x[1]
             tehtava_lause = re.sub(
-                r"(?<!\w|[.])" + l[0] + r"(?<![.])(?!\w+)(?![.])",
+                r"(?<!\w|[.])" + x[0] + r"(?<![.])(?!\w+)(?![.])",
                 "max([0," + lause + "])",
                 tehtava_lause,
             )
@@ -272,8 +273,6 @@ def laskeSarja(sarja, syotteet, vartiot=None, tehtavat=None):
         vartiot = sarja.vartio_set.all()
     if not tehtavat:
         tehtavat = sarja.tehtava_set.all()
-    if vartiot and tehtavat:
-        jee = 1  # Pakotetaan tietokantahaku.
 
     # Lasketaan tulokset:
     muuttujat = luoMuuttujat(sarja.vartio_set.all(), tehtavat, syotteet)
@@ -307,9 +306,9 @@ def laskeSarja(sarja, syotteet, vartiot=None, tehtavat=None):
                 tulokset[i][t] = "S"
 
         # Merkataan siirrettäviksi ulkopuolella olevat:
-        if not vartiot[i].keskeyttanyt == None or not vartiot[i].ulkopuolella == None:
+        if vartiot[i].keskeyttanyt is not None or vartiot[i].ulkopuolella is not None:
             # Merkataan keskeyttaneille tuloksiin "K" keskeyttämisestä eteenpäin
-            if not vartiot[i].keskeyttanyt == None:
+            if vartiot[i].keskeyttanyt is not None:
                 kesk = vartiot[i].keskeyttanyt - 1
                 for t in range(kesk, len(tulokset[i])):
                     tulokset[i][t] = "K"
@@ -325,7 +324,8 @@ def laskeSarja(sarja, syotteet, vartiot=None, tehtavat=None):
                     )
                     try:
                         tulokset[i][t] = Decimal(tuom[0].pisteet)
-                    except:
+                    except Exception:
+                        # TODO: stricter type
                         tulokset[i][t] = tuom[0].pisteet
 
         # Lisää varoitus, jos vartion pisteet ylittävät tehtävän max. pisteet
@@ -334,7 +334,11 @@ def laskeSarja(sarja, syotteet, vartiot=None, tehtavat=None):
             # Tarkistetaan, että pisteet on laskettu (numeerinen arvo).
             # Vartion pisteet voivat olla myös esim. H, E tai K (katso
             # silmukka vähän ylempää), tällöin tarkistus on turha.
-            if pisteet and type(pisteet) != str and tehtavat[t].maksimipisteet != "":
+            if (
+                pisteet
+                and type(pisteet) is not str
+                and tehtavat[t].maksimipisteet != ""
+            ):
                 # Onko pisteet > max pisteet
                 if pisteet > float(tehtavat[t].maksimipisteet):
                     # Lisää huomautus tulosluetteloon
@@ -343,7 +347,7 @@ def laskeSarja(sarja, syotteet, vartiot=None, tehtavat=None):
         # Kokonaispisteet:
         summa = 0
         for s in tulokset[i]:
-            if s and type(s) != str:
+            if s and type(s) is not str:
                 summa += s
         tulokset[i].insert(0, summa)
         # Vartio objekti jokaisen rivin alkuun:
@@ -352,7 +356,7 @@ def laskeSarja(sarja, syotteet, vartiot=None, tehtavat=None):
     # Kirjataan välivaiheisiin lopputulos
     try:
         log.logString("\n<b>TULOS = " + str(tulokset[0][2]) + "</b>")
-    except:
+    except Exception:
         pass
     # Siirretään ulkopuoliset ja mukana olevat omiin taulukkoihinsa
     mukana = []
@@ -378,7 +382,7 @@ def laskeSarja(sarja, syotteet, vartiot=None, tehtavat=None):
         try:
             if int(t.maksimipisteet):
                 pisteet_yhteensa += int(t.maksimipisteet)
-        except:
+        except Exception:
             pass
         t_list.append(t)
     t_list[0].maksimipisteet = pisteet_yhteensa
@@ -400,7 +404,8 @@ def laskeSarja(sarja, syotteet, vartiot=None, tehtavat=None):
     try:
         tulokset.sort(key=operator.itemgetter(1, tasa1, tasa2, tasa3), reverse=True)
         ulkona.sort(key=operator.itemgetter(1, tasa1, tasa2, tasa3), reverse=True)
-    except:  # tehtäviä < 3
+    except Exception:  # tehtäviä < 3
+        # TODO: stricter type
         pass
 
     # Etsitään tasapistetulokset :

@@ -1,7 +1,7 @@
 laskentaloki = ""
 try:
     stack
-except:
+except NameError:
     stack = []
 
 
@@ -29,7 +29,7 @@ def __logFunction(function, params, result):
         try:
             for p in params:
                 laskentaloki += str(p) + ", "
-        except:
+        except Exception:
             pass
         laskentaloki = laskentaloki[:-2]
         laskentaloki += ")=<br><b> " + str(result)
@@ -80,12 +80,12 @@ def palautaLoki():
 
 try:
     logString
-except:
+except NameError:
     logString = None
 
 try:
     logFunction
-except:
+except NameError:
     logFunction = None
 
 if not logString or not logFunction:

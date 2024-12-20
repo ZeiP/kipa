@@ -34,9 +34,11 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install 'djlint==1.36.3'
+          pip install 'ruff==0.8.2'
       - name: Check formatting
         run: |
           djlint --profile=django --lint --ignore "H006,H013,H030,H031,D018,T003" .
+          ruff check
   unit-tests-sqlite:
     runs-on: ubuntu-latest
     timeout-minutes: 15

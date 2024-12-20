@@ -22,7 +22,7 @@ class PostDataRecorder:
     """
 
     def process_request(self, request):
-        if settings.RECORDING == True:
+        if settings.RECORDING:
             if request.method == "POST":
                 posti = request.POST
                 address = request.path

@@ -243,7 +243,7 @@ class AikaField(forms.CharField):
 def initPisteSyote(self, fieldName):
     kesk = self.vartio.keskeyttanyt
     nro = self.maarite.osa_tehtava.tehtava.jarjestysnro
-    if not kesk == None and not nro == None:
+    if kesk is not None and nro is not None:
         if kesk <= nro:  # Keskeyttänyt
             self.fields[fieldName].widget.attrs["class"] = "kesk"
             self.fields[fieldName].widget.attrs["readonly"] = "readonly"
@@ -254,7 +254,6 @@ def savePisteSyote(self, syote, field, fieldName, alternateName):
     syote.maarite = self.maarite
     syote.vartio = self.vartio
     if self.cleaned_data[fieldName] or self.cleaned_data[alternateName]:
-        field = self.cleaned_data[fieldName]
         syote.save()
     elif syote.id:
         syote.delete()
@@ -356,7 +355,7 @@ def tulostauluFormFactory(tauluTyyppi):
 
         def save(self):
             tulos = None
-            if self.pisteet == None or len(self.pisteet) == 0 and self.taulu:
+            if self.pisteet is None or len(self.pisteet) == 0 and self.taulu:
                 self.taulu.delete()
             if self.pisteet and len(self.pisteet):
                 tulos, created = tauluTyyppi.objects.get_or_create(

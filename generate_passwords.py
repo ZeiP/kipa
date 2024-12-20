@@ -1,5 +1,7 @@
 from shutil import copyfile
-import string, random, crypt
+import string
+import random
+import crypt
 import MySQLdb
 
 

@@ -66,12 +66,10 @@ class Sarja(models.Model):
             cache.set(cacheName, 0)  # Tunnistetaan laskennanaikainen tallennus
             cache.set(laskeeName, True, 30)  # Merkitään laskennan olevan käynnissä
             syotteet = Syote.objects.filter(maarite__osa_tehtava__tehtava__sarja=self)
-            if syotteet:
-                onjoo = 1  # Pakotetaan syotteiden haku tähän.
             tulokset = laskeSarja(self, syotteet)
             cache.delete(laskeeName)  # Merkitään laskennan olevan valmis
             ctulos = cache.get(cacheName)  # Muutoksia laskennan aikana
-            if ctulos == None:
+            if ctulos is None:
                 return tulokset  # Jätetään cacheamatta.
         # Asetetaan cache.
         cache.set(cacheName, tulokset, settings.CACHE_TULOKSET_TIME)
@@ -164,9 +162,9 @@ class Tehtava(models.Model):
         if vartiot:
             for v in vartiot:
                 laskennassa = True
-                if not v.ulkopuolella == None and self.jarjestysnro >= v.ulkopuolella:
+                if v.ulkopuolella is not None and self.jarjestysnro >= v.ulkopuolella:
                     laskennassa = False
-                elif not v.keskeyttanyt == None and self.jarjestysnro >= v.keskeyttanyt:
+                elif v.keskeyttanyt is not None and self.jarjestysnro >= v.keskeyttanyt:
                     laskennassa = False
                 elif self.vartioHylatty(v):
                     laskennassa = False
