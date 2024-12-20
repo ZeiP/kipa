@@ -334,18 +334,18 @@ def listaksi(a, *opt):
         return None
 
 
-def run_dict(list, funktio, *param):
+def run_dict(lista, funktio, *param):
     mdict = None
     params = []
     for p in param:
-        if type(p) == type([]):
+        if type(p) == list:
             params.append(MathList(p))
         else:
             params.append(p)
         if type(p) == MathDict and not mdict:
             mdict = p
     if not mdict:
-        if not list:
+        if not lista:
             return funktio(*params)
         else:
             return karsi(params, funktio)
@@ -360,7 +360,7 @@ def run_dict(list, funktio, *param):
             else:
                 parametrit.append(p)
 
-        if list:
+        if lista:
             rValue[k] = karsi(listaksi(*parametrit), funktio)
         else:
             try:
