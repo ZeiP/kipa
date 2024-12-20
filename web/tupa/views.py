@@ -1017,25 +1017,25 @@ def korvaaKisa(request, kisa_nimi=None):
             parametrit = []
 
             for obj in serializers.deserialize("xml", xml):
-                if type(obj.object) == Kisa:
+                if type(obj.object) is Kisa:
                     kisat.append(obj.object)
-                elif type(obj.object) == Sarja:
+                elif type(obj.object) is Sarja:
                     sarjat.append(obj.object)
-                elif type(obj.object) == Vartio:
+                elif type(obj.object) is Vartio:
                     vartiot.append(obj.object)
-                elif type(obj.object) == Tehtava:
+                elif type(obj.object) is Tehtava:
                     tehtavat.append(obj.object)
-                elif type(obj.object) == TestausTulos:
+                elif type(obj.object) is TestausTulos:
                     testaustulokset.append(obj.object)
-                elif type(obj.object) == TuomarineuvosTulos:
+                elif type(obj.object) is TuomarineuvosTulos:
                     tuomarit.append(obj.object)
-                elif type(obj.object) == OsaTehtava:
+                elif type(obj.object) is OsaTehtava:
                     osatehtavat.append(obj.object)
-                elif type(obj.object) == SyoteMaarite:
+                elif type(obj.object) is SyoteMaarite:
                     maaritteet.append(obj.object)
-                elif type(obj.object) == Syote:
+                elif type(obj.object) is Syote:
                     syotteet.append(obj.object)
-                elif type(obj.object) == Parametri:
+                elif type(obj.object) is Parametri:
                     parametrit.append(obj.object)
 
             translations = {

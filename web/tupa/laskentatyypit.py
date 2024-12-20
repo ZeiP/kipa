@@ -63,7 +63,7 @@ class MathDict(SequenceOperations, dict):
     """
 
     def operate_to_all(self, function2, other):
-        if type(other) == MathDict:
+        if type(other) is MathDict:
             oper = MathDict({})
             for k in self.keys():
                 try:
@@ -72,7 +72,7 @@ class MathDict(SequenceOperations, dict):
                     pass
                 except TypeError:
                     pass
-        elif type(other) == MathList:
+        elif type(other) is MathList:
             oper = MathListDict({})
             for k in self.keys():
                 try:
@@ -120,11 +120,11 @@ class MathList(SequenceOperations, list):
 
     def operate_to_all(self, function2, other, *args):
         oper = None
-        if type(other) == MathList:
+        if type(other) is MathList:
             oper = MathList(
                 [function2(self[i], other[i], *args) for i in range(len(self))]
             )
-        elif type(other) == MathDict:
+        elif type(other) is MathDict:
             oper = MathListDict({})
             for k, v in other.items():
                 oper[k] = []
@@ -161,7 +161,7 @@ class MathListDict(SequenceOperations, dict):
 
     def operate_to_all(self, function2, other, *args):
         oper = {}
-        if type(other) == MathListDict:
+        if type(other) is MathListDict:
             for k, v in self.items():
                 for i in range(len(v)):
                     oper[k] = []
@@ -173,7 +173,7 @@ class MathListDict(SequenceOperations, dict):
                         pass
                     except TypeError:
                         pass
-        elif type(other) == MathList:
+        elif type(other) is MathList:
             for k, v in self.items():
                 try:
                     oper[k] = MathList(
@@ -187,7 +187,7 @@ class MathListDict(SequenceOperations, dict):
                 except TypeError:
                     pass
 
-        elif type(other) == MathDict:
+        elif type(other) is MathDict:
             for k, v in other.items():
                 if k in self.keys():  # ainoastaan alkiot jotka löytyvät
                     oper[k] = []
@@ -228,7 +228,7 @@ class DictDecimal(SequenceOperations, Decimal):
 
     def operate_to_all(self, function2, other):
         oper = DictDecimal()
-        if type(other) == MathDict:
+        if type(other) is MathDict:
             oper = MathDict(other)
             for k in other.keys():
                 try:
@@ -237,7 +237,7 @@ class DictDecimal(SequenceOperations, Decimal):
                     pass
                 except TypeError:
                     pass
-        elif type(other) == MathList:
+        elif type(other) is MathList:
             oper = MathList([])
             for v in other:
                 try:
@@ -276,7 +276,7 @@ def karsi(lista, lfunktio):
                 pass  # Tähän täytyisi tehdä rekursiivinen sanakirjojen operointi
 
             elif hasattr(x, "__contains__"):  # on lista
-                if len(x) > index and not type(x) == str:
+                if len(x) > index and type(x) is not str:
                     tavaraa = 1
                     varvi.append(x[index])
             else:
@@ -296,7 +296,7 @@ def listaksi(a, *opt):
     """
     Muuttaa sanakirjan tai desimaalin listaksi jos syote on joukkio, muuten palauttaa muuttujan itsessaan.
     """
-    if type(a) == MathList:
+    if type(a) is MathList:
         a = list(a)
 
     if len(opt):
@@ -305,16 +305,16 @@ def listaksi(a, *opt):
     else:
         joukkio = a
 
-    if type(joukkio) == DictDecimal or type(joukkio) == bool:
+    if type(joukkio) is DictDecimal or type(joukkio) is bool:
         joukkio = [joukkio]
-    if type(joukkio) == Decimal:
+    if type(joukkio) is Decimal:
         joukkio = [DictDecimal(joukkio)]
-    elif type(joukkio) == str:
+    elif type(joukkio) is str:
         return joukkio
-    if type(joukkio) == list:
+    if type(joukkio) is list:
         lista = []
         for v in joukkio:
-            if type(v) == DictDecimal or type(v) == Decimal:
+            if type(v) is DictDecimal or type(v) is Decimal:
                 lista.append(DictDecimal(v))
             else:
                 lista.append(v)
@@ -322,7 +322,7 @@ def listaksi(a, *opt):
     try:
         lista = []
         for k in joukkio.keys():
-            if type(joukkio[k]) == DictDecimal or type(joukkio[k]) == Decimal:
+            if type(joukkio[k]) is DictDecimal or type(joukkio[k]) is Decimal:
                 lista.append(DictDecimal(joukkio[k]))
         return lista
     except Exception:
@@ -334,11 +334,11 @@ def run_dict(lista, funktio, *param):
     mdict = None
     params = []
     for p in param:
-        if type(p) == list:
+        if type(p) is list:
             params.append(MathList(p))
         else:
             params.append(p)
-        if type(p) == MathDict and not mdict:
+        if type(p) is MathDict and not mdict:
             mdict = p
     if not mdict:
         if not lista:
@@ -351,7 +351,7 @@ def run_dict(lista, funktio, *param):
         parametrit = []
 
         for p in params:
-            if type(p) == MathDict and k in p.keys():
+            if type(p) is MathDict and k in p.keys():
                 parametrit.append(p[k])
             else:
                 parametrit.append(p)
@@ -382,17 +382,17 @@ def suorita_lista(funktio, a, *param):
     tulos = None
     if len(param) == 0:
         if (
-            not type(a) == bool
-            and not type(a) == Decimal
-            and not type(a) == DictDecimal
+            type(a) is not bool
+            and type(a) is not Decimal
+            and type(a) is not DictDecimal
             and len(a) == 0
         ):
             raise KeyError
-        elif type(a) == str:
+        elif type(a) is str:
             tulos = None
-        elif type(a) == Decimal or type(a) == bool:
+        elif type(a) is Decimal or type(a) is bool:
             tulos = karsi(listaksi(a), funktio)
-        elif type(a) == list:
+        elif type(a) is list:
             tulos = karsi(a, funktio)
         else:
             tulos = karsi(listaksi(a.listaksi()), funktio)

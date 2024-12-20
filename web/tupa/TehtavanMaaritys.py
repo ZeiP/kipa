@@ -789,7 +789,7 @@ def vapaaKaavaForm(posti, data, prefix):
             maaritteet = list(data["maaritteet"].copy().items())
             for i in range(maara):
                 if maaritteet[i][1]["kali_vihje"] == "":
-                    if type(maaritteet[i][0]) == str and maaritteet[i][0][:1] == "#":
+                    if type(maaritteet[i][0]) is str and maaritteet[i][0][:1] == "#":
                         del data["maaritteet"][maaritteet[i][0]]
                     else:
                         data["maaritteet"][-maaritteet[i][0]] = maaritteet[i][1]
@@ -877,7 +877,7 @@ def puhdasKaavaForm(posti, data, prefix):
             maaritteet = list(data["maaritteet"].copy().items())
             for i in range(maara):
                 if maaritteet[i][1]["kali_vihje"] == "":
-                    if type(maaritteet[i][0]) == str and maaritteet[i][0][:1] == "#":
+                    if type(maaritteet[i][0]) is str and maaritteet[i][0][:1] == "#":
                         del data["maaritteet"][maaritteet[i][0]]
                     else:
                         data["maaritteet"][-maaritteet[i][0]] = maaritteet[i][1]
@@ -1199,7 +1199,7 @@ def tallennaTehtavaData(data):
             teht["sarja_id"] = teht["sarja"]
             del teht["sarja"]
             tehtava = Tehtava(**teht)
-            if not type(k) == str:
+            if type(k) is not str:
                 tehtava.id = k
             tehtava.save()
             tehtava_id = tehtava.id
@@ -1214,7 +1214,7 @@ def tallennaTehtavaData(data):
                 if "tehtava" in osateht.keys():
                     del osateht["tehtava"]
                 osa_tehtava = OsaTehtava(**osateht)
-                if not type(ot_k) == str:
+                if type(ot_k) is not str:
                     osa_tehtava.id = ot_k
                 osa_tehtava.tehtava = tehtava
 
@@ -1226,7 +1226,7 @@ def tallennaTehtavaData(data):
                             if "osa_tehtava" in p_v.keys():
                                 del p_v["osa_tehtava"]
                             parametri = Parametri(**p_v)
-                            if not type(p_k) == str:
+                            if type(p_k) is not str:
                                 parametri.id = p_k
                             parametri.osa_tehtava = osa_tehtava
                             if parametri.id is None or parametri.id > 0:
@@ -1242,7 +1242,7 @@ def tallennaTehtavaData(data):
                             if "osa_tehtava" in m_v.keys():
                                 del m_v["osa_tehtava"]
                             maarite = SyoteMaarite(**m_v)
-                            if not type(m_k) == str:
+                            if type(m_k) is not str:
                                 maarite.id = m_k
                             maarite.osa_tehtava = osa_tehtava
                             if maarite.id is None or maarite.id > 0:
