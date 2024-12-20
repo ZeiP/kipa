@@ -7,6 +7,8 @@ from django.http import HttpResponse
 from django.utils.safestring import mark_safe
 from decimal import ROUND_UP, Decimal
 import django.template
+from django import template
+
 from django.template import RequestContext
 
 from django.contrib import messages
@@ -74,8 +76,6 @@ def logoutSivu(request):
     logout(request)
     return kipaResponseRedirect("/kipa/")
 
-
-from django import template
 
 register = template.Library()
 
