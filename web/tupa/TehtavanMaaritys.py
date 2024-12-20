@@ -73,7 +73,7 @@ def is_kaava(s):
         for h in haku:
             muuttujat[h.group(1)] = Decimal(numero)
         tulos = laskeTaulukko([[kaava]], muuttujat)
-        if tulos[0][0] == None or tulos[0][0] == "S":
+        if tulos[0][0] is None or tulos[0][0] == "S":
             return False
         else:
             return True

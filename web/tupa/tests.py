@@ -69,16 +69,16 @@ class aritmeettinen_laskin_test(unittest.TestCase):
         assert laske("10*((1+2)+(5*10))") == Decimal("530")
 
     def testSulut_vaarinpain(self):
-        assert laske("10*)(1+2)+(5*10))") == None
+        assert laske("10*)(1+2)+(5*10))") is None
 
     def testSulut_vaaramaara(self):
-        assert laske("10*(1+2)+(5*10))") == None
+        assert laske("10*(1+2)+(5*10))") is None
 
     def testNollallajako(self):
-        assert laske("10/0") == None
+        assert laske("10/0") is None
 
     def testTyhjasyote(self):
-        assert laske("") == None
+        assert laske("") is None
 
     def testEiaritmtetiikkaa(self):
         assert laske("a+ b-c*d") == "S"
@@ -96,13 +96,13 @@ class aritmeettinen_laskin_test(unittest.TestCase):
         assert laske("5+2+-5") == Decimal("2")
 
     def testkertojako(self):
-        assert laske("5+2*/5") == None
+        assert laske("5+2*/5") is None
 
     def testLaskettuNegatiivinenOperandi(self):
         assert laske("3*(1-5)") == Decimal("-12")
 
     def testPitkadesimaali(self):
-        assert not laske("-0.008333333333333333333333333333*0.0") == None
+        assert not laske("-0.008333333333333333333333333333*0.0") is None
 
     def testPerusmuuttuja(self):
         assert laske("a", {"a": 1}) == Decimal("1")
@@ -235,13 +235,13 @@ def TulosTestFactory(fixture_name):
                 for t in self.testausTulokset:
                     tulos = haeTulos(tulokset, t.vartio, t.tehtava)
                     vaadittava = t.pisteet
-                    if not tulos == None and is_number(tulos):
+                    if not tulos is None and is_number(tulos):
                         tulos = Decimal(tulos)
-                    if not vaadittava == None and is_number(vaadittava):
+                    if not vaadittava is None and is_number(vaadittava):
                         vaadittava = Decimal(vaadittava)
-                    if vaadittava == None:
+                    if vaadittava is None:
                         vaadittava = "None"
-                    if tulos == None:
+                    if tulos is None:
                         tulos = "None"
                     if not tulos == vaadittava or tulos == "None":
                         ilmoitus = virheilmoitus
@@ -275,7 +275,7 @@ def TulosTestFactory(fixture_name):
                 for t in s.tehtava_set.all():
                     for v in s.vartio_set.all():
                         tulos = haeTulos(tulokset, v, t)
-                        if tulos == None or tulos == "None":
+                        if tulos is None or tulos == "None":
                             ilmoitus = virheilmoitus
                             ilmoitus = ilmoitus + "\nTehtava: " + t.nimi
                             ilmoitus = ilmoitus + "\nTulos: " + str(tulos)

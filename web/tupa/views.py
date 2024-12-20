@@ -773,7 +773,7 @@ def heijasta(request, kisa_nimi, sarja_id=None, tulostus=0):
     sarjat = kisa.sarja_set.all()
     sarjat = sorted(sarjat, key=lambda sarja: sarja.id)
 
-    if sarja_id == None:
+    if sarja_id is None:
         sarja_id = sarjat[0].id
 
     sarja_id = int(sarja_id)
@@ -782,7 +782,7 @@ def heijasta(request, kisa_nimi, sarja_id=None, tulostus=0):
         if sarjat[index].id == sarja_id:
             seuraava_id = sarjat[index + 1].id
 
-    if seuraava_id == None:
+    if seuraava_id is None:
         seuraava_id = sarjat[0].id
 
     return tulostaSarja(
