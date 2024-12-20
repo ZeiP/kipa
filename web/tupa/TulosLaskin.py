@@ -233,15 +233,15 @@ def luoTehtavanKaava(t, v):
     tehtava_lause = ""
     # Suora summa osatehtavien välillä:
     if t.kaava.lower() == "ss" and len(ot_lauseet):
-        for l in ot_lauseet:
-            tehtava_lause = tehtava_lause + "max([0," + l[1] + "])+"
+        for x in ot_lauseet:
+            tehtava_lause = tehtava_lause + "max([0," + x[1] + "])+"
         tehtava_lause = tehtava_lause[:-1]
     else:
         tehtava_lause = t.kaava.lower()
-        for l in ot_lauseet:
-            lause = l[1]
+        for x in ot_lauseet:
+            lause = x[1]
             tehtava_lause = re.sub(
-                r"(?<!\w|[.])" + l[0] + r"(?<![.])(?!\w+)(?![.])",
+                r"(?<!\w|[.])" + x[0] + r"(?<![.])(?!\w+)(?![.])",
                 "max([0," + lause + "])",
                 tehtava_lause,
             )

@@ -76,7 +76,7 @@ class MathDict(SequenceOperations, dict):
             oper = MathListDict({})
             for k in self.keys():
                 try:
-                    oper[k] = [(function2(self[k], l, *args) for l in other)]
+                    oper[k] = [(function2(self[k], x, *args) for x in other)]
                 except KeyError:
                     pass
                 except TypeError:
@@ -128,9 +128,9 @@ class MathList(SequenceOperations, list):
             oper = MathListDict({})
             for k, v in other.items():
                 oper[k] = []
-                for l in self:
+                for x in self:
                     try:
-                        oper[k].append(function2(l, v, *args))
+                        oper[k].append(function2(x, v, *args))
 
                     except KeyError:
                         pass
@@ -141,7 +141,7 @@ class MathList(SequenceOperations, list):
         return oper
 
     def suorita_lista(self, funktio):
-        for l in self:
+        for x in self:
             ajettava
 
     def listaksi(self):
@@ -149,9 +149,9 @@ class MathList(SequenceOperations, list):
 
     def __str__(self):
         stringi = "["
-        for l in self:
-            if l:
-                stringi += str(l) + ", "
+        for x in self:
+            if x:
+                stringi += str(x) + ", "
         stringi = stringi[:-2]
         stringi += "]"
         return stringi
@@ -195,9 +195,9 @@ class MathListDict(SequenceOperations, dict):
             for k, v in other.items():
                 if k in self.keys():  # ainoastaan alkiot jotka löytyvät
                     oper[k] = []
-                    for l in self[k]:
+                    for x in self[k]:
                         try:
-                            oper[k].append(function2(l, v, *args))
+                            oper[k].append(function2(x, v, *args))
                         except KeyError:
                             pass
                         except TypeError:
@@ -206,9 +206,9 @@ class MathListDict(SequenceOperations, dict):
         else:  # muu (oletetaan skalaariksi)
             for k, v in self.items():
                 oper[k] = []
-                for l in v:
+                for x in v:
                     try:
-                        oper[k].append(function2(l, other, *args))
+                        oper[k].append(function2(x, other, *args))
                     except KeyError:
                         pass
                     except TypeError:
@@ -275,16 +275,16 @@ def karsi(lista, lfunktio):
     while tavaraa:
         varvi = []
         tavaraa = 0
-        for l in lista:
-            if hasattr(l, "keys"):  # on sanakirja
+        for x in lista:
+            if hasattr(x, "keys"):  # on sanakirja
                 pass  # Tähän täytyisi tehdä rekursiivinen sanakirjojen operointi
 
-            elif hasattr(l, "__contains__"):  # on lista
-                if len(l) > index and not type(l) == str:
+            elif hasattr(x, "__contains__"):  # on lista
+                if len(x) > index and not type(x) == str:
                     tavaraa = 1
-                    varvi.append(l[index])
+                    varvi.append(x[index])
             else:
-                varvi.append(l)
+                varvi.append(x)
         if tavaraa == 0 and index > 0:
             break
         index += 1
