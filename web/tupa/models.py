@@ -66,8 +66,6 @@ class Sarja(models.Model):
             cache.set(cacheName, 0)  # Tunnistetaan laskennanaikainen tallennus
             cache.set(laskeeName, True, 30)  # Merkitään laskennan olevan käynnissä
             syotteet = Syote.objects.filter(maarite__osa_tehtava__tehtava__sarja=self)
-            if syotteet:
-                onjoo = 1  # Pakotetaan syotteiden haku tähän.
             tulokset = laskeSarja(self, syotteet)
             cache.delete(laskeeName)  # Merkitään laskennan olevan valmis
             ctulos = cache.get(cacheName)  # Muutoksia laskennan aikana

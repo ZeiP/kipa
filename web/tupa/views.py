@@ -58,7 +58,6 @@ def kipaResponseRedirect(url):
 
 
 def loginSivu(request):
-    Posti = None
     if request.method == "POST":
         posti = request.POST
         user = authenticate(username=posti["uname"], password=posti["pword"])
@@ -233,9 +232,7 @@ def maaritaKisa(request, kisa_nimi=None, talletettu=None):
         tal = ""
         if talletettu == "talletettu" and not posti:
             tal = "Talletettu!"
-        taakse = "/kipa/"
         if kisa_nimi:
-            taakse = "/kipa/" + kisa_nimi + "/"
             return render(
                 request,
                 "tupa/maarita.html",
@@ -306,7 +303,6 @@ def maaritaVartiot(request, kisa_nimi, talletettu=None):
     Määrittää kisan vartiot sarjoittain.
     """
     sarjat = Sarja.objects.filter(kisa__nimi=kisa_nimi)
-    sarjaVartiot = []
     posti = None
     post_ok = True
     taulukko = (
@@ -377,7 +373,7 @@ def maaritaTehtava(request, kisa_nimi, tehtava_id=None, sarja_id=None, talletett
     if tehtava_id:  # Muokataan vanhaa tehtävää
         tehtava = get_object_or_404(Tehtava, id=tehtava_id)
         sarja = tehtava.sarja
-        osatehtavat = tehtava.osatehtava_set.all()
+        tehtava.osatehtava_set.all()
         daatta = luoTehtavaData([tehtava])  # alkudata tehtävänmääritysformihässäkälle.
 
     else:  # Luodaan uutta tehtävää
@@ -963,9 +959,7 @@ def tallennaKisa(request, kisa_nimi):
 
 def poistaKisa(request, kisa_nimi):
     kisa = get_object_or_404(Kisa, nimi=kisa_nimi)
-    posti = None
     if request.method == "POST":
-        posti = request.POST
         kisa.delete()
         return kipaResponseRedirect("/kipa/")
     otsikko = "Poista kisa"
@@ -1238,7 +1232,7 @@ def apua(request):
 
 
 def tehtavanVaiheet(request, kisa_nimi, tehtava_id, vartio_id=None):
-    kisa = get_object_or_404(Kisa, nimi=kisa_nimi)
+    get_object_or_404(Kisa, nimi=kisa_nimi)
     tehtava = get_object_or_404(Tehtava, id=tehtava_id)
     vartiot = Vartio.objects.filter(sarja=tehtava.sarja)
     if not len(vartiot):
@@ -1252,10 +1246,9 @@ def tehtavanVaiheet(request, kisa_nimi, tehtava_id, vartio_id=None):
         responssi += "</body></html>"
         return HttpResponse(responssi)
 
-    vartio = vartiot[0]
     if vartio_id == "":
         vartio_id = str(tehtava.sarja.vartio_set.all()[0].id)
-        vartio = get_object_or_404(Vartio, id=vartio_id)
+        get_object_or_404(Vartio, id=vartio_id)
     tehtava = get_object_or_404(Tehtava, id=tehtava_id)
 
     responssi = (

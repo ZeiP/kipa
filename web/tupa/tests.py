@@ -164,7 +164,6 @@ def ViewSanityCheck(fixture_name):
             kisat = Kisa.objects.all()
             sarjat = Sarja.objects.all()
             tehtavat = Tehtava.objects.all()
-            virheet = []
             request = HttpRequest()
             maaritaKisa(request)
             korvaaKisa(request)

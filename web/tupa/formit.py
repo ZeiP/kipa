@@ -254,7 +254,6 @@ def savePisteSyote(self, syote, field, fieldName, alternateName):
     syote.maarite = self.maarite
     syote.vartio = self.vartio
     if self.cleaned_data[fieldName] or self.cleaned_data[alternateName]:
-        field = self.cleaned_data[fieldName]
         syote.save()
     elif syote.id:
         syote.delete()

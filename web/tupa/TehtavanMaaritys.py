@@ -137,10 +137,6 @@ def syotteen_tyyppi_field(posti, data, prefix, syote_id, tyyppi):
     field_name = "tyyppi_" + nimi
     value = "piste"
 
-    validi = True
-    if "valid" in data.keys() and data["valid"] == False:
-        validi = False
-
     # formin taytto
     if data["tyyppi"] == tyyppi or (not posti and (tyyppi == "vk" or tyyppi == "pk")):
         maarite_index = 0
@@ -1193,7 +1189,6 @@ def luoTehtavaData(tehtavat):
 
 
 def tallennaTehtavaData(data):
-    ser = []
     tehtava_id = None
     if "valid" in data.keys() and data["valid"] == True:
         del data["valid"]

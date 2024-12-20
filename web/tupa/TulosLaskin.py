@@ -216,7 +216,8 @@ def luoTehtavanKaava(t, v):
         while korvautuu:
             korvautuu = False
             vanha = ot_lause
-            ot_lasue = re.sub("vartio" + r"(?!\w+)", str(v.nro), ot_lause)
+            # TODO: Check out how this SHOULD work. It is just a typo
+            ot_lasue = re.sub("vartio" + r"(?!\w+)", str(v.nro), ot_lause)  # noqa: F841
             if not ot_lause == vanha:
                 korvautuu = True
 
@@ -272,8 +273,6 @@ def laskeSarja(sarja, syotteet, vartiot=None, tehtavat=None):
         vartiot = sarja.vartio_set.all()
     if not tehtavat:
         tehtavat = sarja.tehtava_set.all()
-    if vartiot and tehtavat:
-        jee = 1  # Pakotetaan tietokantahaku.
 
     # Lasketaan tulokset:
     muuttujat = luoMuuttujat(sarja.vartio_set.all(), tehtavat, syotteet)
