@@ -92,7 +92,7 @@ def tarkistaVirhe(syote):
             try:
                 if not Decimal(syote.arvo) == Decimal(syote.tarkistus):
                     syottovirhe = "virhe"
-            except:
+            except Exception:
                 syottovirhe = "virhe"
     return syottovirhe
 
@@ -835,7 +835,7 @@ def sarjanTuloksetCSV(request, kisa_nimi, sarja_id):
         try:
             if int(teht.maksimipisteet):
                 pisteet_yht += int(teht.maksimipisteet)
-        except:
+        except Exception:
             pass
         pisterivi.append(teht.maksimipisteet)
     pisterivi[4] = str(pisteet_yht)
@@ -981,7 +981,7 @@ def saveNewId(object, changeDict, keyName):
 def korvaaKisa(request, kisa_nimi=None):
     try:
         kisa = Kisa.objects.get(nimi=kisa_nimi)
-    except:
+    except Exception:
         kisa = None
 
     otsikko = "Korvaa kisa tiedostosta"
@@ -1000,7 +1000,7 @@ def korvaaKisa(request, kisa_nimi=None):
                 kisa_nimi = form.cleaned_data["name"]
                 try:
                     kisa = Kisa.objects.get(nimi=kisa_nimi)
-                except:
+                except Exception:
                     kisa = None
 
             xml = request.FILES["file"].read().decode("utf-8")

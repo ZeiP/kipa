@@ -324,7 +324,8 @@ def laskeSarja(sarja, syotteet, vartiot=None, tehtavat=None):
                     )
                     try:
                         tulokset[i][t] = Decimal(tuom[0].pisteet)
-                    except:
+                    except Exception:
+                        # TODO: stricter type
                         tulokset[i][t] = tuom[0].pisteet
 
         # Lisää varoitus, jos vartion pisteet ylittävät tehtävän max. pisteet
@@ -351,7 +352,7 @@ def laskeSarja(sarja, syotteet, vartiot=None, tehtavat=None):
     # Kirjataan välivaiheisiin lopputulos
     try:
         log.logString("\n<b>TULOS = " + str(tulokset[0][2]) + "</b>")
-    except:
+    except Exception:
         pass
     # Siirretään ulkopuoliset ja mukana olevat omiin taulukkoihinsa
     mukana = []
@@ -377,7 +378,7 @@ def laskeSarja(sarja, syotteet, vartiot=None, tehtavat=None):
         try:
             if int(t.maksimipisteet):
                 pisteet_yhteensa += int(t.maksimipisteet)
-        except:
+        except Exception:
             pass
         t_list.append(t)
     t_list[0].maksimipisteet = pisteet_yhteensa
@@ -399,7 +400,8 @@ def laskeSarja(sarja, syotteet, vartiot=None, tehtavat=None):
     try:
         tulokset.sort(key=operator.itemgetter(1, tasa1, tasa2, tasa3), reverse=True)
         ulkona.sort(key=operator.itemgetter(1, tasa1, tasa2, tasa3), reverse=True)
-    except:  # tehtäviä < 3
+    except Exception:  # tehtäviä < 3
+        # TODO: stricter type
         pass
 
     # Etsitään tasapistetulokset :

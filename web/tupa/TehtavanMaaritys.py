@@ -414,7 +414,7 @@ def lataa_parametrit(state, data, prefix, ot_tyyppi, muunnos=None):
                 if muunnos:
                     value = muunnos(state[prefix + ot_tyyppi + "_kiintea"])
                     state[prefix + ot_tyyppi + "_kiintea"] = value
-        except:
+        except Exception:
             pass
         try:
             if not state[prefix + ot_tyyppi + "_nollan_kerroin"] == "1":
@@ -423,7 +423,7 @@ def lataa_parametrit(state, data, prefix, ot_tyyppi, muunnos=None):
                 if muunnos:
                     value = muunnos(state[prefix + ot_tyyppi + "_nollan_kaava"])
                     state[prefix + ot_tyyppi + "_nollan_kaava"] = value
-        except:
+        except Exception:
             pass
         try:
             kerroin = state[prefix + ot_tyyppi + "_nollan_kerroin"]
@@ -431,7 +431,7 @@ def lataa_parametrit(state, data, prefix, ot_tyyppi, muunnos=None):
                 state[prefix + ot_tyyppi + "_muu_kerroin"] = state[
                     prefix + ot_tyyppi + "_nollan_kerroin"
                 ]
-        except:
+        except Exception:
             pass
         try:
             if state[prefix + ot_tyyppi + "_arvio"] == "":
@@ -441,7 +441,7 @@ def lataa_parametrit(state, data, prefix, ot_tyyppi, muunnos=None):
                     value = muunnos(state[prefix + ot_tyyppi + "_oikea"])
                     state[prefix + ot_tyyppi + "_oikea"] = value
 
-        except:
+        except Exception:
             pass
 
 
@@ -495,7 +495,7 @@ def maksimisuoritus(
     try:
         if not state[prefix + ot_tyyppi + "_parhaan_haku"] == "":
             save_data(data, ["parametrit"], "parhaan_kaava", "arvo", "suor*muk")
-    except:
+    except Exception:
         pass
     formi.update(field(state, "kiintea", prefix + ot_tyyppi, errors))
     # Jaettavat pisteet:

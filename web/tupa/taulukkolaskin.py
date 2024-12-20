@@ -108,14 +108,15 @@ def laske(lauseke, m={}, funktiot={}):
             tulos = None
         except NameError:
             tulos = None
-        except:
+        except Exception:
+            # TODO: better handling
             tulos = None
     try:
         log.logString(
             "laskettu tulos= "
             + str(tulos.quantize(Decimal("0.1"), rounding=ROUND_HALF_UP))
         )
-    except:
+    except Exception:
         log.logString("laskettu tulos= " + str(tulos))
     if type(tulos) == DictDecimal:
         tulos = Decimal(tulos)

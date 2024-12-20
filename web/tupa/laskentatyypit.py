@@ -329,7 +329,8 @@ def listaksi(a, *opt):
             if type(joukkio[k]) == DictDecimal or type(joukkio[k]) == Decimal:
                 lista.append(DictDecimal(joukkio[k]))
         return lista
-    except:
+    except Exception:
+        # TODO: stricter type
         return None
 
 
@@ -364,7 +365,7 @@ def run_dict(list, funktio, *param):
         else:
             try:
                 rValue[k] = funktio(*parametrit)
-            except:
+            except Exception:
                 pass  # Pass all elemets that could not be calculated.
     return rValue
 
@@ -374,7 +375,7 @@ def suorita(funktio, *param):
     log.muteLogging()
     try:
         tulos = run_dict(0, funktio, *param)
-    except:
+    except Exception:
         tulos = Decimal(0)
     log.unmuteLogging()
     log.logFunction(funktio, param, tulos)
