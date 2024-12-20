@@ -306,9 +306,9 @@ def laskeSarja(sarja, syotteet, vartiot=None, tehtavat=None):
                 tulokset[i][t] = "S"
 
         # Merkataan siirrettäviksi ulkopuolella olevat:
-        if not vartiot[i].keskeyttanyt is None or not vartiot[i].ulkopuolella is None:
+        if vartiot[i].keskeyttanyt is not None or vartiot[i].ulkopuolella is not None:
             # Merkataan keskeyttaneille tuloksiin "K" keskeyttämisestä eteenpäin
-            if not vartiot[i].keskeyttanyt is None:
+            if vartiot[i].keskeyttanyt is not None:
                 kesk = vartiot[i].keskeyttanyt - 1
                 for t in range(kesk, len(tulokset[i])):
                     tulokset[i][t] = "K"

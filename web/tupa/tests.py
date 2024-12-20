@@ -102,7 +102,7 @@ class aritmeettinen_laskin_test(unittest.TestCase):
         assert laske("3*(1-5)") == Decimal("-12")
 
     def testPitkadesimaali(self):
-        assert not laske("-0.008333333333333333333333333333*0.0") is None
+        assert laske("-0.008333333333333333333333333333*0.0") is not None
 
     def testPerusmuuttuja(self):
         assert laske("a", {"a": 1}) == Decimal("1")
@@ -234,9 +234,9 @@ def TulosTestFactory(fixture_name):
                 for t in self.testausTulokset:
                     tulos = haeTulos(tulokset, t.vartio, t.tehtava)
                     vaadittava = t.pisteet
-                    if not tulos is None and is_number(tulos):
+                    if tulos is not None and is_number(tulos):
                         tulos = Decimal(tulos)
-                    if not vaadittava is None and is_number(vaadittava):
+                    if vaadittava is not None and is_number(vaadittava):
                         vaadittava = Decimal(vaadittava)
                     if vaadittava is None:
                         vaadittava = "None"

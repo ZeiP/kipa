@@ -162,9 +162,9 @@ class Tehtava(models.Model):
         if vartiot:
             for v in vartiot:
                 laskennassa = True
-                if not v.ulkopuolella is None and self.jarjestysnro >= v.ulkopuolella:
+                if v.ulkopuolella is not None and self.jarjestysnro >= v.ulkopuolella:
                     laskennassa = False
-                elif not v.keskeyttanyt is None and self.jarjestysnro >= v.keskeyttanyt:
+                elif v.keskeyttanyt is not None and self.jarjestysnro >= v.keskeyttanyt:
                     laskennassa = False
                 elif self.vartioHylatty(v):
                     laskennassa = False

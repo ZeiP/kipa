@@ -243,7 +243,7 @@ class AikaField(forms.CharField):
 def initPisteSyote(self, fieldName):
     kesk = self.vartio.keskeyttanyt
     nro = self.maarite.osa_tehtava.tehtava.jarjestysnro
-    if not kesk is None and not nro is None:
+    if kesk is not None and nro is not None:
         if kesk <= nro:  # Keskeyttänyt
             self.fields[fieldName].widget.attrs["class"] = "kesk"
             self.fields[fieldName].widget.attrs["readonly"] = "readonly"
