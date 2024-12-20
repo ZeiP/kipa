@@ -3,7 +3,7 @@
 {% block content %}
     {% load kipatags %}
     <h1>{{ heading|alaviiva_pois }}</h1>
-    <form method="POST" action="">
+    <form method="post" action="">
         <p>{% include "tupa/tallenna.html" %}</p>
         {% if forms %}
             {% for form in forms %}

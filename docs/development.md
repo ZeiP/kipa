@@ -82,6 +82,21 @@ tiedostojen ehjänä pysymistä, joten muutosten tarkastaminen manuaalisesti
 formatoinnin jälkeen voi olla tarpeen. Formatoinnit tarkastetaan osana
 CI-putkea.
 
+## Lintterit
+
+Lintterit ajetaan osana CI-putkea, ja niiden löytämät ongelmat tulee
+korjata ennen PR:ien mergeämistä tai avaamista katselmoitavaksi.
+
+Django-templaattien tarkistamiseen käytetään lintteriä nimeltä djLint. Osa
+säännöistä on poistettu käytöstä:
+
+* H006: img-elementtien width- ja height-attribuutit
+* H013: img-elementtien alt-attribuutti
+* H030: sivujen metatiedot
+* H031: sivujen avainsanat
+* D018: {% url ... %} templaateissa
+* T003: nimetyt endblock tagit templaateissa
+
 ## Selityksiä lähdekooditiedostoista
 
 * `web/tupa/`

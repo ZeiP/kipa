@@ -43,37 +43,37 @@ $(document).ready(function(){
         <p>{% include "tupa/tallenna.html" %}</p>
         <table width="600" border="0" cellpadding="2" cellspacing="0">
             <tr>
-                <td width="100" class="tauluOtsikko">Tehtävä:</td>
+                <td width="100" class="taulu-otsikko">Tehtävä:</td>
                 <td colspan="2" bgcolor="#E8EDFF">{{ tehtava.jarjestysnro }} &nbsp; &nbsp; {{ tehtava.nimi|alaviiva_pois }}</td>
             </tr>
             <tr>
-                <td class="tauluOtsikko">Sarja:</td>
+                <td class="taulu-otsikko">Sarja:</td>
                 <td colspan="2" bgcolor="#E8EDFF">{{ tehtava.sarja.nimi }}</td>
             </tr>
             <tr valign="middle">
-                <td valign="middle" class="tauluOtsikko">Tehtävän tila:</td>
+                <td valign="middle" class="taulu-otsikko">Tehtävän tila:</td>
                 {% if tilanne.0 == "a" %}
-                    <td width="150" valign="middle" class='aloittamatta'>
+                    <td width="150" valign="middle" class="aloittamatta">
                         <label>aloittamatta</label>
                     </td>
                 {% endif %}
                 {% if tilanne.0 == "o" %}
-                    <td width="150" valign="middle" class='osittain'>
+                    <td width="150" valign="middle" class="osittain">
                         <label>syötetty osittain</label>
                     </td>
                 {% endif %}
                 {% if tilanne.0 == "s" %}
-                    <td width="150" valign="middle" class='syotetty'>
+                    <td width="150" valign="middle" class="syotetty">
                         <label>syötetty</label>
                     </td>
                 {% endif %}
                 {% if tilanne.0 == "t" %}
-                    <td width="150" valign="middle" class='tarkistettu'>
+                    <td width="150" valign="middle" class="tarkistettu">
                         <label>tarkistettu</label>
                     </td>
                 {% endif %}
                 {% if tilanne.0 == "v" %}
-                    <td width="150" valign="middle" class='virhe'>
+                    <td width="150" valign="middle" class="virhe">
                         <label>syöttövirhe</label>
                     </td>
                 {% endif %}
@@ -141,7 +141,7 @@ $(document).ready(function(){
                         <td width="200">{{ vartio.0.nimi }}</td>
                         {% for osatehtava in vartio.1 %}
                             {% for kentta in osatehtava %}
-                                <td {% if  kentta.syottovirhe %}bgcolor="#FF4F00"{% endif %}>
+                                <td {% if kentta.syottovirhe %}bgcolor="#FF4F00"{% endif %}>
                                     {{ kentta.errors }}
                                     {{ kentta.arvo }}
                                     {{ kentta.tarkistus }}

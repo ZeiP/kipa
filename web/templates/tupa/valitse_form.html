@@ -2,7 +2,7 @@
 {% block alku %}{{ form }}{% endblock %}
 {% block sarake %}{{ sarake }}{% endblock %}
 {% block content %}
-    <form method="POST" action="">
+    <form method="post" action="">
         {{ block.super }}
         {% if napin_tyyppi == "kopioi" %}
             {% include "tupa/kopioi.html" %}

@@ -1,19 +1,20 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="fi">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Sarjakohtaiset tulokset</title>
         <link href="/kipamedia/favicon.ico" rel="icon" type="image/x-icon" />
-        <style type="text/css"></style>
+        <link rel="stylesheet" type="text/css" href="/kipamedia/tulostaulukko.css" />
     </head>
     <body id="sarjakohtaiset_tulokset">
         {% load kipatags %}
         <table width="100%" border="0" id="tulostaulukko_otsikko">
             <tr valign="top">
                 <td width="33%">
-                    <h1 class="uppercase" style="margin:0; padding:0; line-height:normal;">{{ kisa_nimi|alaviiva_pois }}</h1>
+                    <h1 class="tulostaulukko-otsikko uppercase">{{ kisa_nimi|alaviiva_pois }}</h1>
                 </td>
                 <td width="33%" align="center">
-                    <h1 style="line-height:normal;">{{ heading }}</h1>
+                    <h1 class="tulostaulukko-otsikko">{{ heading }}</h1>
                 </td>
                 <td width="33%" align="right">&nbsp;</td>
             </tr>
@@ -32,11 +33,7 @@
         {% if tulos_taulukko %}
             <table id="tulostaulukko_screen" border=0>
                 {% for rivi in tulos_taulukko %}
-                    {% if forloop.counter|add:"3"|divisibleby:"5" %}
-                        <tr height="10">
-                            <td></td>
-                        </tr>
-                    {% endif %}
+                    {% if forloop.counter|add:"3"|divisibleby:"5" %}<tr height="10"></tr>{% endif %}
                     {% if forloop.first %}
                         <tr>
                             {% for sarake in rivi %}
@@ -44,15 +41,13 @@
                                 {% if forloop.first %}
                                     {% comment %} ylarivin eka {% endcomment %}
                                     <td width="30" align="right"></td>
-                                    <td width="30" align="right" style="padding-right:10px;">
-                                        <b></b>
-                                    </td>
-                                    <td style="min-width:100px;"></td>
-                                    <td align="right" width=30 style="padding-right:10px;"></td>
+                                    <td width="30" align="right" class="tulostaulukko-solu"></td>
+                                    <td class="vartiosarake-solu"></td>
+                                    <td align="right" width=30 class="tulostaulukko-solu"></td>
                                 {% else %}
                                     {% comment %} ylarivi {% endcomment %}
                                     {% if sarake.jarjestysnro %}
-                                        <td align="right" width=30 style="padding-right:10px;">
+                                        <td align="right" width=30 class="tulostaulukko-solu">
                                             <b>{{ sarake.jarjestysnro }}.</b>
                                         </td>
                                     {% endif %}
@@ -71,16 +66,16 @@
                                     {% comment %} ylarivi {% endcomment %}
                                     {% if sarake.lyhenne %}
                                         {% if sarake.rastikasky %}
-                                            <td align="right" style="padding-right:10px;">
+                                            <td align="right" class="tulostaulukko-solu">
                                                 <b><a href=" {{ sarake.rastikasky }} " target="_blank">{{ sarake.lyhenne }}</a></b>
                                             </td>
                                         {% else %}
-                                            <td align="right" style="padding-right:10px;">
+                                            <td align="right" class="tulostaulukko-solu">
                                                 <b>{{ sarake.lyhenne }}</b>
                                             </td>
                                         {% endif %}
                                     {% else %}
-                                        <td align="right" width="60" style="padding-right:10px;">
+                                        <td align="right" width="60" class="tulostaulukko-solu">
                                             <b>
                                                 {{ sarake.nimi|slice:":6" }}
                                                 <br />
@@ -102,14 +97,14 @@
                             </td>
                             {% for sarake in rivi %}
                                 {% if forloop.first %}
-                                    <td align="right" style="padding-right:10px;">
+                                    <td align="right" class="tulostaulukko-solu">
                                         <em>{{ sarake.maksimipisteet }}</em>
                                     </td>
                                 {% else %}
                                     {% if forloop.counter != 0 %}
                                         {% if forloop.counter != 1 %}
                                             {% if forloop.counter != 2 %}
-                                                <td align="right" style="padding-right:10px;">
+                                                <td align="right" class="tulostaulukko-solu">
                                                     <em>{{ sarake.maksimipisteet }}</em>
                                                 </td>
                                             {% endif %}
@@ -122,23 +117,21 @@
                             <td width="30" align="right">
                                 <b>SIJ.</b>
                             </td>
-                            <td width="30" align="right" style="padding-right:10px;">
-                                <b></b>
-                            </td>
-                            <td style="min-width:100px;">
+                            <td width="30" align="right" class="tulostaulukko-solu"></td>
+                            <td class="vartiosarake-solu">
                                 <b>VARTIO</b>
                             </td>
-                            <td align="right" width=30 style="padding-right:10px;">
+                            <td align="right" width=30 class="tulostaulukko-solu">
                                 <b>YHT</b>
                             </td>
                         </tr>
-                        <tr valign='top'>
+                        <tr valign="top">
                         {% else %}
                             {% for sarake in rivi %}
                                 {% comment %} ylarivi {% endcomment %}
                                 {% if forloop.counter == 2 %}
                                     {% comment %} ekasarake {% endcomment %}
-                                    <td align="right" style="padding-right:10px;">{{ sarake.nro }}</td>
+                                    <td align="right" class="tulostaulukko-solu">{{ sarake.nro }}</td>
                                     <td>
                                         {{ sarake.nimi }}
                                         {% if sarake.lippukunta %}<br>{% endif %}
@@ -148,10 +141,10 @@
                                     </td>
                                 {% else %}
                                     {% if forloop.counter == 3 %}
-                                        <td align="right" style="padding-right:10px;">{{ sarake }}</td>
+                                        <td align="right" class="tulostaulukko-solu">{{ sarake }}</td>
                                         {% comment %} muut sarakkeet {% endcomment %}
                                     {% else %}
-                                        <td align="right" style="padding-right:10px;">
+                                        <td align="right" class="tulostaulukko-solu">
                                             {% if forloop.first %}<b>{% endif %}
                                                 {{ sarake }}
                                                 {% if forloop.first %}</b>{% endif %}
@@ -174,11 +167,11 @@
                             </td>
                         </tr>
                         {% for rivi in ulkona_taulukko %}
-                            <tr valign='top'>
+                            <tr valign="top">
                                 {% for sarake in rivi %}
                                     {% if forloop.counter == 2 %}
                                         {% comment %} ekasarake {% endcomment %}
-                                        <td align="right" style="padding-right:10px;">{{ sarake.nro }}</td>
+                                        <td align="right" class="tulostaulukko-solu">{{ sarake.nro }}</td>
                                         <td>
                                             {{ sarake.nimi }}
                                             {% if sarake.lippukunta %}<br>{% endif %}
@@ -188,7 +181,7 @@
                                         </td>
                                     {% else %}
                                         {% comment %} muut sarakkeet {% endcomment %}
-                                        <td align="right" style="padding-right:10px;">
+                                        <td align="right" class="tulostaulukko-solu">
                                             {% if forloop.first %}<b>{% endif %}
                                                 {{ sarake }}
                                                 {% if forloop.first %}</b>{% endif %}

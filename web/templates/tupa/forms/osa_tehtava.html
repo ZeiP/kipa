@@ -22,11 +22,11 @@
                    name="{{ osatehtava.id }}"
                    value="{{ sarake.tyyppi }}"
                    onclick=" {% for sa in taulukko %} {% if sa.tyyppi == sarake.tyyppi %} setVisibility('{{ sa.id }}','inline'); {% else %} setVisibility('{{ sa.id }}','none'); {% endif %} {% endfor %} "
-                   {% if sarake.tyyppi == tyyppi %}checked='checked'{% endif %} />
+                   {% if sarake.tyyppi == tyyppi %}checked="checked"{% endif %} />
             {{ sarake.otsikko }} &nbsp; &nbsp;
         {% endfor %}
         {% for sarake in taulukko %}
-            <div id="{{ sarake.id }}" class='hidden'>
+            <div id="{{ sarake.id }}" class="hidden">
                 <table border="0">
                     <td>{{ sarake.form }}</td>
                 </table>

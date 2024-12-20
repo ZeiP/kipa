@@ -4,7 +4,7 @@
     <h1>Tulokset sarjoittain</h1>
     <blockquote>
         {% for sarja in sarja_list %}
-            <a href='./sarja/{{ sarja.id }}/'>{{ sarja.nimi }}</a>
+            <a href="./sarja/{{ sarja.id }}/">{{ sarja.nimi }}</a>
             <br>
         {% endfor %}
     </blockquote>

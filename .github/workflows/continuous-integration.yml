@@ -22,6 +22,21 @@ jobs:
           black -t py312 --check .
           black -t py312 --check web/**/*.py.example
           djlint --check .
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.12.1
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install 'djlint==1.36.3'
+      - name: Check formatting
+        run: |
+          djlint --profile=django --lint --ignore "H006,H013,H030,H031,D018,T003" .
   unit-tests-sqlite:
     runs-on: ubuntu-latest
     timeout-minutes: 15

@@ -2,7 +2,7 @@
 {% block title %}{{ heading }}{% endblock %}
 {% block content %}
     <h1>{{ heading }}</h1>
-    <form method="POST" action="">
+    <form method="post" action="">
         <p>{% include "tupa/tallenna.html" %}</p>
         {% if forms %}
             {% for form in forms %}
