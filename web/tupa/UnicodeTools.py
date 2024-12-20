@@ -1,4 +1,6 @@
-import csv, codecs, io
+import csv
+import codecs
+import io
 
 
 class UnicodeWriter:
