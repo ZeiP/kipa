@@ -86,7 +86,7 @@ def validate(posti, field_name, testFunctions, prefix=""):
         value = posti[id]
     valid = True
     for f in testFunctions:
-        if f(value) == False:
+        if not f(value):
             valid = False
             break
     return valid
@@ -770,11 +770,11 @@ def vapaaKaavaForm(posti, data, prefix):
     formit = []
     for i in range(maara):
         validi = True
-        if "valid" in data.keys() and data["valid"] == False:
+        if "valid" in data.keys() and not data["valid"]:
             validi = False
         formia = list(syotteen_kuvaus_field(posti, data, prefix, i, "vk").items())[0]
         formib = list(syotteen_tyyppi_field(posti, data, prefix, i, "vk").items())[0]
-        if validi and "valid" in data.keys() and data["valid"] == False:
+        if validi and "valid" in data.keys() and not data["valid"]:
             del data["valid"]
         formit.append(
             {
@@ -858,11 +858,11 @@ def puhdasKaavaForm(posti, data, prefix):
     formit = []
     for i in range(maara):
         validi = True
-        if "valid" in data.keys() and data["valid"] == False:
+        if "valid" in data.keys() and not data["valid"]:
             validi = False
         formia = list(syotteen_kuvaus_field(posti, data, prefix, i, "pk").items())[0]
         formib = list(syotteen_tyyppi_field(posti, data, prefix, i, "pk").items())[0]
-        if validi and "valid" in data.keys() and data["valid"] == False:
+        if validi and "valid" in data.keys() and not data["valid"]:
             del data["valid"]
         formit.append(
             {
@@ -1053,7 +1053,7 @@ def tehtavanMaaritysForm(
                     ot_formit.append(
                         osaTehtavaForm(posti, tv, prefix + str(k) + "_" + str(tk))
                     )
-                    if "valid" in tv.keys() and tv["valid"] == False:
+                    if "valid" in tv.keys() and not tv["valid"]:
                         del tv["valid"]
                         data["valid"] = False
                     osatehtava_id = osatehtava_id + 1
@@ -1190,7 +1190,7 @@ def luoTehtavaData(tehtavat):
 
 def tallennaTehtavaData(data):
     tehtava_id = None
-    if "valid" in data.keys() and data["valid"] == True:
+    if "valid" in data.keys() and data["valid"]:
         del data["valid"]
         for k, v in data.items():
             # jokainen tehtava:
