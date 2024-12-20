@@ -1,13 +1,17 @@
 {% extends "tupa/valitse.html" %}
 {{ block.super }}
 {% block sarake %}
+    {{ sarake }}
+    <h3>
+        <a href="uusi/sarja/{{ sarake.id }}/">Lisää uusi tehtävä</a>
+    </h3>
+    <h3>
+        <a href="kopioi/sarjaan/{{ sarake.id }}/">Kopioi tehtäviä tähän sarjaan</a>
+    </h3>
+    {% include "tupa/poista.html" %}
+{% endblock %}
+{% block content %}
     <form method="post" action="">
-        {{ sarake }}
-        <h3>
-            <a href="uusi/sarja/{{ sarake.id }}/">Lisää uusi tehtävä</a>
-        </h3>
-        <h3>
-            <a href="kopioi/sarjaan/{{ sarake.id }}/">Kopioi tehtäviä tähän sarjaan</a>
-        </h3>
-        {% include "tupa/poista.html" %}
-    {% endblock %}
+        {{ block.super }}
+    </form>
+{% endblock %}
