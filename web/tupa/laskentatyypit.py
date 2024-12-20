@@ -76,7 +76,7 @@ class MathDict(SequenceOperations, dict):
             oper = MathListDict({})
             for k in self.keys():
                 try:
-                    oper[k] = [(function2(self[k], x, *args) for x in other)]
+                    oper[k] = [(function2(self[k], x) for x in other)]
                 except KeyError:
                     pass
                 except TypeError:
