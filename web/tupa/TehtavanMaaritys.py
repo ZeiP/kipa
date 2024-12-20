@@ -171,7 +171,7 @@ def field(posti, field_name, prefix, errors=""):
 def save_data(data, data_path, data_nimi, data_field, value):
     pos = data
     for p in data_path:
-        if not p in pos.keys():
+        if p not in pos.keys():
             pos[p] = {}
         pos = pos[p]
         uusi = True
@@ -206,7 +206,7 @@ def loadField(
         id = field_name
     pos = data
     for p in data_path:
-        if not p in pos.keys():
+        if p not in pos.keys():
             break
         pos = pos[p]
         for k, v in pos.items():
@@ -237,7 +237,7 @@ def syotteen_kuvaus_field(posti, data, prefix, syote_id, tyyppi):
         and (data["tyyppi"] == tyyppi or tyyppi == "pk" or tyyppi == "vk")
     ):
         # Formin data:
-        if not "maaritteet" in data.keys():
+        if "maaritteet" not in data.keys():
             data["maaritteet"] = {}
         maarite_index = 0
 
@@ -257,7 +257,7 @@ def syotteen_kuvaus_field(posti, data, prefix, syote_id, tyyppi):
                 formi = {
                     field_name: {"id": id, "name": id, "value": value, "errors": errors}
                 }
-                if not k in data["maaritteet"].keys():
+                if k not in data["maaritteet"].keys():
                     data["maaritteet"][k] = {}
                 data["maaritteet"][k]["nimi"] = nimi
                 data["maaritteet"][k]["kali_vihje"] = value

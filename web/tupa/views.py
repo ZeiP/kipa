@@ -407,7 +407,7 @@ def maaritaTehtava(request, kisa_nimi, tehtava_id=None, sarja_id=None, talletett
         otsikko = str(tehtava.nimi) + " (" + sarja.nimi + ")"
 
     # Talletetaanko ja siirrytäänkö talletettu sivuun?
-    if posti and not "lisaa_maaritteita" in posti.keys() and daatta["valid"]:
+    if posti and "lisaa_maaritteita" not in posti.keys() and daatta["valid"]:
         if (
             "nappi" in posti.keys() and posti["nappi"] == "ohjaus"
         ):  # Talleta ja luo uusi.
@@ -529,7 +529,7 @@ def syotaTehtava(request, kisa_nimi, tehtava_id, talletettu=None, tarkistus=None
                         instance=syote,
                         prefix=str(v.nro) + "_" + str(m.pk),
                     )
-                if not "class" in formi.fields["arvo"].widget.attrs.keys():
+                if "class" not in formi.fields["arvo"].widget.attrs.keys():
                     formi.fields["arvo"].widget.attrs["class"] = "col" + str(colnum)
                 else:
                     formi.fields["arvo"].widget.attrs["class"] += " col" + str(colnum)
