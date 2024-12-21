@@ -1,13 +1,13 @@
 .tulostaulukko-solu {
-    padding-right:10px;
+  padding-right: 10px;
 }
 
 .vartiosarake-solu {
-    min-width:100px;
+  min-width: 100px;
 }
 
 .tulostaulukko-otsikko {
-    margin:0;
-    padding:0;
-    line-height:normal;
+  margin: 0;
+  padding: 0;
+  line-height: normal;
 }
