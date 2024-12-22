@@ -1,19 +1,6 @@
 function checkForEnter(event) {
-  switch (event.keyCode) {
-    // up arrow
-    case 40:
-      $(this)
-        .parent()
-        .parent()
-        .next()
-        .children("td")
-        .children("input[class=" + $(this).attr("class") + "]")
-        .focus()
-        .select();
-      break;
-
-    // down arrow
-    case 38:
+  switch (event.originalEvent.key) {
+    case "ArrowUp":
       $(this)
         .parent()
         .parent()
@@ -24,8 +11,18 @@ function checkForEnter(event) {
         .select();
       break;
 
-    // Enter key
-    case 13:
+    case "ArrowDown":
+      $(this)
+        .parent()
+        .parent()
+        .next()
+        .children("td")
+        .children("input[class=" + $(this).attr("class") + "]")
+        .focus()
+        .select();
+      break;
+
+    case "Enter":
       $(this)
         .parent()
         .parent()
@@ -35,7 +32,5 @@ function checkForEnter(event) {
         .focus()
         .select();
       event.preventDefault();
-      return false;
-      break;
   }
 }

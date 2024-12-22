@@ -23,11 +23,7 @@
 $(document).ready(function(){
     $("#taulukko").stickyTableHeaders();
 
-    if ($.browser.mozilla) {
-        $("input").keypress(checkForEnter);
-    } else {
-        $("input").keydown(checkForEnter);
-    }
+    $("input").keydown(checkForEnter);
 
     jQuery(function($){
        $.mask.definitions['~']='[he0123456789]'; /* hylätty, ei syötetty, numeroarvot*/

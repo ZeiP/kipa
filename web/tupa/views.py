@@ -534,6 +534,15 @@ def syotaTehtava(request, kisa_nimi, tehtava_id, talletettu=None, tarkistus=None
                 else:
                     formi.fields["arvo"].widget.attrs["class"] += " col" + str(colnum)
 
+                if "class" not in formi.fields["tarkistus"].widget.attrs.keys():
+                    formi.fields["tarkistus"].widget.attrs["class"] = "col" + str(
+                        colnum
+                    )
+                else:
+                    formi.fields["tarkistus"].widget.attrs["class"] += " col" + str(
+                        colnum
+                    )
+
                 if formi.is_valid():  # Talletetaan syöte
                     formi.save()
                 else:
